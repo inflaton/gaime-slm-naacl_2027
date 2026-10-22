@@ -1,0 +1,38 @@
+Extract entities from the following bank transaction string and return a JSON object.
+
+### Entity Classification Rules
+
+1. General Approach:
+   - Extract entities without assumptions or constraints.
+   - Identify all possible segments and interpret them contextually.
+   - Consider multiple interpretations for ambiguous segments.
+
+2. Entity Classification Rules:
+    - INTERMEDIARY: Payment facilitators or intermediaries that process payments on behalf of merchants (e.g., the fictional facilitator DEMOPAY). Often appears before MERCHANT_NAME.
+        - Fictional example: "DEMO* SYNTHETIC NORTH SHOP #0001" → {"INTERMEDIARY": "DEMO*", "MERCHANT_NAME": "SYNTHETIC NORTH SHOP #0001"}
+    - MERCHANT_NAME: Represents the primary business where the transaction occurred.
+        - Merchants with large numbers of retail locations may include store numbers. Fictional examples: "SYNTHETIC NORTH SHOP #0001", "SYNTHETIC RIVER CAFE 0002".
+        - If a brand name is immediately followed by product or service text, include the entire portion (fictional example: "SYNTHETIC CLOUD * STORAGE" → {"MERCHANT_NAME": "SYNTHETIC CLOUD * STORAGE"}).
+    - DYNAMIC_DESCRIPTOR: Refers to transaction-specific identifiers — like order numbers, reference codes, or invoice details—that often appear in eCommerce (online) transactions and provide clarity on individual purchases.
+        - Fictional examples: "*DEMO-INVOICE-0001", "*DEMO-ORDER-0002".
+    - STREET: Street address.
+        - Typically starts with a number or building identifier, followed by street name and known street suffixes (e.g., ST, AVE, BLVD).
+        - Fictional example: "1 EXAMPLE STREET".
+    - ZIP: 5- or 9-digit postal codes.
+    - CITY: Recognizable US city or town names.
+    - STATE: Commonly a two-letter US state abbreviation (e.g., "VA" for Virginia).
+    - COUNTRY: Two- or three-letter country codes (e.g., "USA", "US").
+    - PHONE: Phone numbers in any format (fictional example: "+1-202-555-0100").
+    - WEBSITE: Website/URL associated with the merchant (fictional example: "shop.example").
+
+3. Handling Special Cases:
+    - If a token might fit multiple categories, consider its position or formatting to determine the correct entity type.
+    - If you are unsure about how to label a token, use your best guess.
+    - If duplicate or partially duplicate information (e.g., website, street, city, state, or country) appears at the end of MERCHANT_NAME, remove it from MERCHANT_NAME and assign it to the appropriate entity key.
+    - Omit complete and partial duplicate strings
+
+### Output Format
+
+Return a JSON object with exactly these keys. Leave any key as an empty string if no value is found. Return only the JSON object with no additional text.
+
+TRANSACTION:

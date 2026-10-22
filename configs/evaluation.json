@@ -1,0 +1,49 @@
+{
+  "fields": [
+    "INTERMEDIARY",
+    "MERCHANT_NAME",
+    "DYNAMIC_DESCRIPTOR",
+    "STREET",
+    "ZIP",
+    "CITY",
+    "STATE",
+    "COUNTRY",
+    "PHONE",
+    "WEBSITE"
+  ],
+  "normalization": {
+    "uppercase": true,
+    "remove_characters": [
+      "*",
+      " ",
+      ",",
+      "-"
+    ]
+  },
+  "bootstrap": {
+    "unit": "record",
+    "resamples": 50000,
+    "seed": 42,
+    "generator": "PCG64 XSL-RR",
+    "percentile_method": "linear",
+    "two_sided_ci": [
+      0.025,
+      0.975
+    ],
+    "family_wise_alpha": 0.05,
+    "family_divisor": 9,
+    "margin_f1_pp": 1
+  },
+  "selection": {
+    "primary": "maximum generated validation F1",
+    "sensitivity": "minimum validation loss",
+    "oracle": "maximum observed test F1; descriptive only",
+    "retrospective": true
+  },
+  "sample_counts": {
+    "train": 6125,
+    "validation": 668,
+    "test": 1213
+  },
+  "scope": "Separate JO and FT primary families retain divisor 9; six completed cells in each. The adjustment does not correct retrospective selection of the analysis method."
+}

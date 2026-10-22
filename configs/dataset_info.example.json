@@ -1,0 +1,12 @@
+{
+  "extraction_train": {
+    "file_name": "train.jsonl",
+    "formatting": "alpaca",
+    "columns": {"prompt": "instruction", "query": "input", "response": "output"}
+  },
+  "extraction_validation": {
+    "file_name": "val.jsonl",
+    "formatting": "alpaca",
+    "columns": {"prompt": "instruction", "query": "input", "response": "output"}
+  }
+}

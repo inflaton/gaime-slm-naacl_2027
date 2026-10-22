@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "model": "gpt-6-astra",
+  "scope": "Descriptive hosted comparisons; supplementary adjusted lower bounds are outside the primary families.",
+  "settings": [
+    {
+      "prompt": "JO",
+      "demonstrations": 0,
+      "reasoning_effort": "low",
+      "test_records": 1213,
+      "f1_pct": 95.68,
+      "raw_exact_pct": 84.34,
+      "canonical_exact_pct": 89.86,
+      "delta_f1_pp": -1.2728524522342752,
+      "ci95_f1_pp": [
+        -2.1312342992902193,
+        -0.4183487314855276
+      ],
+      "adjusted_lower_bound_pp": -2.3887697016763756,
+      "per_field_delta_pp": {
+        "INTERMEDIARY": -9.2,
+        "MERCHANT_NAME": -3.1,
+        "DYNAMIC_DESCRIPTOR": -6.1,
+        "STREET": 2.2,
+        "ZIP": 1.1,
+        "CITY": 1.5,
+        "STATE": -0.1,
+        "COUNTRY": 0.8,
+        "PHONE": -0.6,
+        "WEBSITE": -8.3
+      }
+    },
+    {
+      "prompt": "FT",
+      "demonstrations": 0,
+      "reasoning_effort": "low",
+      "test_records": 1213,
+      "f1_pct": 95.96,
+      "raw_exact_pct": 84.67,
+      "canonical_exact_pct": 90.27,
+      "delta_f1_pp": -0.9845598636262309,
+      "ci95_f1_pp": [
+        -1.8378466987983326,
+        -0.1302237369372192
+      ],
+      "adjusted_lower_bound_pp": -2.0894703836456707,
+      "per_field_delta_pp": {
+        "INTERMEDIARY": -7.8,
+        "MERCHANT_NAME": -2.8,
+        "DYNAMIC_DESCRIPTOR": -4.5,
+        "STREET": 2.6,
+        "ZIP": 0.9,
+        "CITY": 1.6,
+        "STATE": 0.1,
+        "COUNTRY": 0.8,
+        "PHONE": -0.6,
+        "WEBSITE": -9.1
+      }
+    },
+    {
+      "prompt": "JO",
+      "demonstrations": 10,
+      "reasoning_effort": "low",
+      "test_records": 1213,
+      "f1_pct": 96.91,
+      "raw_exact_pct": 87.88,
+      "canonical_exact_pct": 92.17,
+      "delta_f1_pp": -0.042993703719190535,
+      "ci95_f1_pp": [
+        -0.839463771546994,
+        0.7713719430451389
+      ],
+      "adjusted_lower_bound_pp": -1.0757683002356118,
+      "per_field_delta_pp": {
+        "INTERMEDIARY": -4.6,
+        "MERCHANT_NAME": -1.2,
+        "DYNAMIC_DESCRIPTOR": -1.9,
+        "STREET": 3.4,
+        "ZIP": 1.1,
+        "CITY": 1.8,
+        "STATE": 0.2,
+        "COUNTRY": 0.8,
+        "PHONE": -0.6,
+        "WEBSITE": -7.8
+      }
+    },
+    {
+      "prompt": "FT",
+      "demonstrations": 10,
+      "reasoning_effort": "low",
+      "test_records": 1213,
+      "f1_pct": 96.65,
+      "raw_exact_pct": 87.63,
+      "canonical_exact_pct": 91.84,
+      "delta_f1_pp": -0.2941256106665122,
+      "ci95_f1_pp": [
+        -1.0928457311278659,
+        0.5089873534506563
+      ],
+      "adjusted_lower_bound_pp": -1.3192007646251238,
+      "per_field_delta_pp": {
+        "INTERMEDIARY": -6.2,
+        "MERCHANT_NAME": -1.7,
+        "DYNAMIC_DESCRIPTOR": -1.6,
+        "STREET": 3.2,
+        "ZIP": 1.2,
+        "CITY": 1.8,
+        "STATE": 0.2,
+        "COUNTRY": 6.7,
+        "PHONE": -0.6,
+        "WEBSITE": -10
+      }
+    }
+  ]
+}

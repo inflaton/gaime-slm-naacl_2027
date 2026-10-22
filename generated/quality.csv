@@ -1,0 +1,42 @@
+"model","selection","prompt","precision","F1_percent","raw_exact_percent","delta_F1_pp","CI95_low_pp","CI95_high_pp","adjusted_lower_bound_pp","meets_adjusted_margin"
+"Gemma 4 12B JO","validation_f1","JO","bf16","97","92.75","0.05","-0.6","0.71","-0.7845765084834012","true"
+"Gemma 4 12B JO","validation_f1","JO","fp8","96.86","92.5","-0.09","-0.73","0.57","-0.9225980952081397","true"
+"Gemma 4 12B JO","validation_f1","JO","W4A16","96.88","91.92","-0.07","-0.72","0.58","-0.9168592878646371","true"
+"Gemma 4 12B JO","validation_loss","JO","bf16","96.22","91.59","-0.73","-1.39","-0.07","-1.5857616561655299","false"
+"Gemma 4 12B JO","validation_loss","JO","fp8","96.32","91.67","-0.63","-1.31","0.05","-1.5205140814233846","false"
+"Gemma 4 12B JO","validation_loss","JO","W4A16","96.1","90.93","-0.85","-1.55","-0.16","-1.7608485166202212","false"
+"Gemma 4 12B FT","validation_f1","FT","bf16","96.85","92.09","-0.1","-0.74","0.54","-0.9342207135405469","true"
+"Gemma 4 12B FT","validation_f1","FT","fp8","96.72","91.67","-0.22","-0.88","0.42","-1.0708359512072374","false"
+"Gemma 4 12B FT","validation_f1","FT","W4A16","96.66","91.84","-0.29","-0.94","0.35","-1.1194765686799981","false"
+"Gemma 4 12B FT","validation_loss","FT","bf16","96.34","91.26","-0.61","-1.28","0.05","-1.4837469107141388","false"
+"Gemma 4 12B FT","validation_loss","FT","fp8","96.21","90.85","-0.74","-1.41","-0.07","-1.6086770517696138","false"
+"Gemma 4 12B FT","validation_loss","FT","W4A16","96.41","91.18","-0.54","-1.17","0.09","-1.3549491824664472","false"
+"Gemma 4 E4B JO","validation_f1","JO","bf16","95.91","90.19","-1.04","-1.76","-0.32","-1.9829098531558345","false"
+"Gemma 4 E4B JO","validation_f1","JO","fp8","95.48","89.12","-1.47","-2.22","-0.72","-2.4489120883325404","false"
+"Gemma 4 E4B JO","validation_f1","JO","W4A16","95.15","88.71","-1.8","-2.55","-1.07","-2.7822329107420716","false"
+"Gemma 4 E4B JO","validation_loss","JO","bf16","93.99","86.31","-2.96","-3.86","-2.07","-4.114890007411619","false"
+"Gemma 4 E4B JO","validation_loss","JO","fp8","93.89","85.74","-3.06","-3.93","-2.2","-4.193311659306744","false"
+"Gemma 4 E4B JO","validation_loss","JO","W4A16","93.18","84.83","-3.77","-4.72","-2.84","-4.994409930817208","false"
+"Gemma 4 E4B FT","validation_f1","FT","bf16","95.82","89.69","-1.13","-1.9","-0.37","-2.1272279777121836","false"
+"Gemma 4 E4B FT","validation_f1","FT","fp8","95.7","89.45","-1.25","-2.02","-0.49","-2.258647740229045","false"
+"Gemma 4 E4B FT","validation_f1","FT","W4A16","94.8","87.96","-2.15","-2.99","-1.34","-3.234857082839464","false"
+"Gemma 4 E4B FT","validation_loss","FT","bf16","95.21","89.61","-1.74","-2.57","-0.93","-2.821020118537863","false"
+"Gemma 4 E4B FT","validation_loss","FT","fp8","95.28","89.69","-1.67","-2.47","-0.88","-2.701768643719491","false"
+"Gemma 4 E4B FT","validation_loss","FT","W4A16","95.17","88.95","-1.78","-2.59","-0.99","-2.827469289192934","false"
+"Qwen 3.5 4B JO, think template","retained_test_selected","JO","bf16","96.62","91.84","-0.33","-0.94","0.28",,
+"Qwen 3.5 4B JO, think template","retained_test_selected","JO","fp8","96.35","91.01","-0.6","-1.22","0.01",,
+"Qwen 3.5 4B JO, think template","retained_test_selected","JO","W4A16","96.17","90.85","-0.78","-1.42","-0.14",,
+"Qwen 3.5 4B JO","retained_test_selected","JO","bf16","96.33","91.01","-0.62","-1.29","0.03",,
+"Qwen 3.5 4B JO","retained_test_selected","JO","fp8","96.39","90.85","-0.56","-1.2","0.07",,
+"Qwen 3.5 4B JO","retained_test_selected","JO","W4A16","96.16","90.6","-0.78","-1.45","-0.13",,
+"Qwen 3.5 4B FT, think template","retained_test_selected","FT","bf16","96.16","90.44","-0.78","-1.45","-0.13",,
+"Qwen 3.5 4B FT, think template","retained_test_selected","FT","fp8","96.19","90.44","-0.76","-1.42","-0.12",,
+"Qwen 3.5 4B FT, think template","retained_test_selected","FT","W4A16","96","89.69","-0.95","-1.62","-0.3",,
+"Qwen 3.5 4B FT","retained_test_selected","FT","bf16","96.42","90.6","-0.53","-1.2","0.14",,
+"Qwen 3.5 4B FT","retained_test_selected","FT","fp8","95.72","89.53","-1.23","-1.94","-0.54",,
+"Qwen 3.5 4B FT","retained_test_selected","FT","W4A16","96.09","89.94","-0.86","-1.58","-0.15",,
+"Gemma 3 4B FT","retained_test_selected","FT","bf16","96.11","90.02","-0.84","-1.5","-0.17",,
+"Gemma 3 4B FT","retained_test_selected","FT","fp8","95.71","89.2","-1.24","-1.94","-0.54",,
+"Gemma 3 4B FT","retained_test_selected","FT","W4A16","95.07","87.47","-1.88","-2.65","-1.13",,
+"Llama 3.1 8B proxy JO","proxy","JO","bf16","96.63","91.84","-0.32","-0.88","0.25",,
+"Llama 3.1 8B proxy FT","proxy","FT","bf16","96.7","91.51","-0.25","-0.83","0.34",,

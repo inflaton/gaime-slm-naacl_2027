@@ -1,0 +1,6 @@
+{"id":"synthetic-1","target":{"INTERMEDIARY":"","MERCHANT_NAME":"SYNTHETIC NORTH SHOP","DYNAMIC_DESCRIPTOR":"","STREET":"","ZIP":"","CITY":"","STATE":"","COUNTRY":"","PHONE":"","WEBSITE":""}}
+{"id":"synthetic-2","target":{"INTERMEDIARY":"","MERCHANT_NAME":"SYNTHETIC RIVER CAFE","DYNAMIC_DESCRIPTOR":"","STREET":"","ZIP":"","CITY":"EXAMPLETOWN","STATE":"","COUNTRY":"","PHONE":"","WEBSITE":""}}
+{"id":"synthetic-3","target":{"INTERMEDIARY":"DEMO*","MERCHANT_NAME":"SYNTHETIC STAR STORE","DYNAMIC_DESCRIPTOR":"","STREET":"","ZIP":"","CITY":"","STATE":"","COUNTRY":"","PHONE":"","WEBSITE":""}}
+{"id":"synthetic-4","target":{"INTERMEDIARY":"","MERCHANT_NAME":"SYNTHETIC PINE BOOKS","DYNAMIC_DESCRIPTOR":"","STREET":"","ZIP":"","CITY":"","STATE":"","COUNTRY":"","PHONE":"","WEBSITE":"books.example"}}
+{"id":"synthetic-5","target":{"INTERMEDIARY":"","MERCHANT_NAME":"SYNTHETIC ORCHARD","DYNAMIC_DESCRIPTOR":"DEMO-42","STREET":"","ZIP":"","CITY":"","STATE":"","COUNTRY":"","PHONE":"","WEBSITE":""}}
+{"id":"synthetic-6","target":{"INTERMEDIARY":"","MERCHANT_NAME":"SYNTHETIC GROVE","DYNAMIC_DESCRIPTOR":"","STREET":"","ZIP":"","CITY":"","STATE":"","COUNTRY":"","PHONE":"","WEBSITE":""}}

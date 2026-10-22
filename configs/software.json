@@ -1,0 +1,11 @@
+{
+  "reporting_runtime": "Node.js >= 20; built-in modules only",
+  "observed_training_packages": {
+    "accelerate": "1.11.0",
+    "numpy": "2.4.6",
+    "torch": "2.14.0+cu130",
+    "transformers": "5.10.4"
+  },
+  "llama_factory_upstream": "https://github.com/hiyouga/LLaMA-Factory",
+  "note": "Reference environment versions, not an installation lockfile. GPU execution requires separately installed, hardware-compatible dependencies."
+}

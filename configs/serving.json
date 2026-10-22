@@ -1,0 +1,53 @@
+{
+  "hardware": {
+    "device": "NVIDIA DGX Spark",
+    "chip": "GB10",
+    "unified_memory_gb": 128
+  },
+  "engine": "vLLM",
+  "image": "vllm/vllm-openai:nightly-e962733e08d10f7ca65dac4df99e116460b8b174",
+  "max_model_len": 8192,
+  "max_num_seqs_quality": 16,
+  "max_num_seqs_benchmark": 64,
+  "gpu_memory_utilization": 0.85,
+  "prefix_caching": true,
+  "decoding": {
+    "temperature": 0,
+    "seed": 42,
+    "max_tokens": 1024,
+    "enable_thinking": false
+  },
+  "precisions": {
+    "bf16": "merged adapter",
+    "fp8": "online quantization of merged bf16 weights",
+    "W4A16": "GPTQ; language Linear layers, excluding output head and multimodal towers"
+  },
+  "quantization": {
+    "group_size": 128,
+    "calibration_training_rows": 64,
+    "block_size": 128,
+    "dampening_frac": 0.01,
+    "actorder": "static"
+  },
+  "benchmark": {
+    "concurrency": [
+      1,
+      8,
+      16,
+      32,
+      64
+    ],
+    "requests": [
+      16,
+      24,
+      48,
+      96,
+      192
+    ],
+    "repetitions": 3,
+    "warmup_requests": 2,
+    "restart_between_cells": true,
+    "rotate_cell_order_between_repetitions": true,
+    "throughput_window": "For concurrency > 1, completions before the final request starts; at concurrency 1, all completed requests over wall-clock time."
+  }
+}
