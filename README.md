@@ -1,6 +1,6 @@
-# Local fine-tuning and evaluation artifact
+# NAACL 2027: Local fine-tuning and evaluation artifact
 
-This artifact accompanies a study of ten-field transaction entity extraction. It contains the retained aggregate results, portable evaluation code, documented experiment settings, and clearly synthetic examples. The aggregate reports and figures can be regenerated offline with Node.js; no GPU, model download, account, or private repository is required.
+This standalone artifact accompanies **“Selecting and Serving Gemma 4 Merchant Extractors: Quality and Resource Trade-offs against an 8B Reference.”** It contains the retained aggregate results, portable evaluation code, documented experiment settings, and clearly synthetic examples for ten-field transaction entity extraction. The aggregate reports and figures can be regenerated offline with Node.js; no GPU, model download, account, or private repository is required.
 
 The private transaction dataset, record-level labels and predictions, production model, and trained adapters are not distributed. Aggregate scores alone are insufficient to reconstruct paired bootstrap intervals or rerun the original training and inference. The synthetic fixture demonstrates the evaluation contract; it does not reproduce the study's measured performance.
 
@@ -10,12 +10,13 @@ Requires Node.js 20 or later. Run these commands from this directory:
 
 ```sh
 node scripts/validate.mjs
+node --test
 node scripts/regenerate.mjs
 node scripts/evaluate.mjs score --gold fixtures/gold.jsonl --pred fixtures/model-a.jsonl
 node scripts/evaluate.mjs compare --gold fixtures/gold.jsonl --a fixtures/model-a.jsonl --b fixtures/model-b.jsonl --resamples 50000 --family-size 9
 ```
 
-The first command validates aggregate consistency and exercises the scorer and bootstrap with synthetic records. The second regenerates all six CSV files, `generated/tables.md`, and three standalone SVG figures. The remaining commands print synthetic scores and a paired comparison; they perform no inference. Add `--out result.json` to save a demonstration result. Outputs are deterministic and contain no timestamps or local source paths.
+The validation command checks aggregate consistency and exercises the scorer and bootstrap with synthetic records. The test suite checks command-line validation and parser behavior, including malformed outputs that must not earn matches. Regeneration rebuilds all six CSV files, `generated/tables.md`, and three standalone SVG figures. The scoring and comparison commands print synthetic results; they perform no inference. Add `--out result.json` to save a demonstration result. Outputs are deterministic and contain no timestamps or local source paths.
 
 ## Contents
 
@@ -29,6 +30,7 @@ The first command validates aggregate consistency and exercises the scorer and b
 | `prompts/` | Full JO/FT instruction structures with concrete examples replaced by explicitly fictional ones. These are illustrative, example-sanitized templates, **not byte-identical study prompts**. |
 | `fixtures/` | Six wholly synthetic gold records, two sets of synthetic output strings, and one synthetic training-format example. The `.example` domain and synthetic names are fictional. Only these synthetic record-level inputs are included. |
 | `lib/evaluation.mjs` | Dependency-free Node scorer and paired canonical-F1 bootstrap for the ten-string-field contract. |
+| `tests/` | Offline command-line and parser regression tests using synthetic inputs. |
 | `reference-python/` | Portable reference implementations of the original scorer and NumPy paired bootstrap, plus an optional CLI. |
 | `generated/` | Rebuilt CSVs, readable result tables, interval plot, checkpoint plot and concurrency plot. |
 
@@ -54,7 +56,7 @@ The Node implementation supports string/null field values and safe string/null P
 
 The Node bootstrap is fixed to seed 42 using PCG64 XSL-RR and paired record resampling, with linear percentile interpolation. The same sampled records are used for both models, and F1 is recomputed from summed field counts in every resample. It supports up to 2,097,151 records. Passing `--family-size` enables the one-sided Bonferroni cutoff; omitting it produces only a descriptive interval. Statistical interpretation and any family definition remain the analyst's responsibility.
 
-The optional Python path requires an environment in which Python execution is allowed and NumPy is installed:
+For the optional Python reference scorer, install NumPy:
 
 ```sh
 python -m pip install -r reference-python/requirements.txt
@@ -89,4 +91,6 @@ Requests must use the same user prompt, temperature 0, seed 42, max_tokens 1024,
 
 Supply your own appropriately authorized data and model weights. Resolve model-native chat templates, prepare assistant-only training targets, and use the settings in `configs/` with your chosen installation of LLaMA-Factory and vLLM. The sample prompts retain the JO/FT distinction but changing their examples can change model outputs. A production environment must support the selected model, precision and prompt. Moving a trained checkpoint avoids repeating fine-tuning; model conversion, validation and serving can still require compute.
 
-This folder has no version-control history, private file paths, record identifiers from the study, source-file digests, trained weights, logs, organization identifiers or author metadata. Public model/package names and upstream software references are retained because they describe the method. No license is assigned in this draft; release terms remain to be selected by the repository owner. Publishing a repository is a separate action.
+The released files exclude private paths, study record identifiers, source-file digests, trained weights, logs, organization identifiers and author metadata. Public model/package names and upstream software references identify the method. Keep your own data and model outputs under the ignored `private/` directory. The four synthetic JSONL fixtures are tracked and are required by the quick start.
+
+This is a version-controlled standalone package. Git history and hosting-account metadata are separate from the released file contents. For double-blind review, provide an anonymized artifact link or an archive without Git metadata; the existing public ICDM repository and its attribution can remain intact. No license file is included in this standalone package; release terms remain to be selected by the repository owner.
