@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "scope": "Four independent prompt/model training runs; sweep scores are distinct from primary rerun scores.",
+  "schema_version": 2,
+  "scope": "Four independent prompt/model training runs; original checkpoint-sweep scores and selected-model serving-evaluation scores are distinct observations.",
   "runs": [
     {
       "model": "gemma4-12b-jo",
@@ -9,7 +9,6 @@
       "selected_by_validation_f1": 1400,
       "test_oracle_step": 1400,
       "validation_f1_test_gain_pp": 0.82,
-      "primary_rerun_f1_pct": 97,
       "sweep_selected_f1_pct": 97.04,
       "changed_output_records": 1,
       "training_runtime_seconds": 112366.7,
@@ -86,7 +85,8 @@
           "test_f1_pct": 96.61,
           "validation_f1_pct": 97.17
         }
-      ]
+      ],
+      "serving_evaluation_f1_pct": 97
     },
     {
       "model": "gemma4-12b-ft",
@@ -95,7 +95,6 @@
       "selected_by_validation_f1": 2298,
       "test_oracle_step": 2200,
       "validation_f1_test_gain_pp": 0.42,
-      "primary_rerun_f1_pct": 96.85,
       "sweep_selected_f1_pct": 96.76,
       "changed_output_records": 6,
       "training_runtime_seconds": 146738.3,
@@ -172,7 +171,8 @@
           "test_f1_pct": 96.76,
           "validation_f1_pct": 97.32
         }
-      ]
+      ],
+      "serving_evaluation_f1_pct": 96.85
     },
     {
       "model": "gemma4-e4b-jo",
@@ -181,7 +181,6 @@
       "selected_by_validation_f1": 2298,
       "test_oracle_step": 1400,
       "validation_f1_test_gain_pp": 1.88,
-      "primary_rerun_f1_pct": 95.91,
       "sweep_selected_f1_pct": 95.87,
       "changed_output_records": 4,
       "training_runtime_seconds": 59290.7,
@@ -258,7 +257,8 @@
           "test_f1_pct": 95.87,
           "validation_f1_pct": 96.68
         }
-      ]
+      ],
+      "serving_evaluation_f1_pct": 95.91
     },
     {
       "model": "gemma4-e4b-ft",
@@ -267,7 +267,6 @@
       "selected_by_validation_f1": 1400,
       "test_oracle_step": 1800,
       "validation_f1_test_gain_pp": 0.69,
-      "primary_rerun_f1_pct": 95.82,
       "sweep_selected_f1_pct": 95.9,
       "changed_output_records": 4,
       "training_runtime_seconds": 74800.5,
@@ -344,7 +343,8 @@
           "test_f1_pct": 95.77,
           "validation_f1_pct": 96.75
         }
-      ]
+      ],
+      "serving_evaluation_f1_pct": 95.82
     }
   ]
 }

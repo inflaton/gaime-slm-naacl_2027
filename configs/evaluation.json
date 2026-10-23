@@ -32,18 +32,40 @@
     ],
     "family_wise_alpha": 0.05,
     "family_divisor": 9,
-    "margin_f1_pp": 1
+    "margin_f1_pp": 1,
+    "scope": "Primary Gemma 4 comparisons against retained production outputs. Astra supplementary lower bounds use the same per-comparison cutoff outside the primary families."
   },
   "selection": {
     "primary": "maximum generated validation F1",
     "sensitivity": "minimum validation loss",
     "oracle": "maximum observed test F1; descriptive only",
-    "retrospective": true
+    "retrospective": true,
+    "prior_adapters_and_proxies": "retained maximum-test-F1 checkpoints; descriptive references only"
   },
   "sample_counts": {
     "train": 6125,
     "validation": 668,
     "test": 1213
   },
-  "scope": "Separate JO and FT primary families retain divisor 9; six completed cells in each. The adjustment does not correct retrospective selection of the analysis method."
+  "scope": "Separate JO and FT primary families retain divisor 9; six completed cells in each. Astra supplementary bounds and same-precision proxy comparisons are outside these families. No adjustment corrects retrospective analysis choices or test-based reference checkpoint selection.",
+  "same_precision_proxy_comparisons": {
+    "candidate_cells": 12,
+    "reference": "Same-prompt local Llama 3.1 8B proxy at the matching serving precision",
+    "candidate_selection": "maximum generated validation F1",
+    "reference_selection": "retained test-selected checkpoint",
+    "unit": "record",
+    "records": 1213,
+    "resamples": 50000,
+    "seed": 42,
+    "generator": "PCG64 XSL-RR",
+    "percentile_method": "linear",
+    "two_sided_ci": [
+      0.025,
+      0.975
+    ],
+    "multiplicity_adjustment": "none",
+    "adjusted_lower_bounds": false,
+    "noninferiority_decisions": false,
+    "scope": "Exploratory paired comparisons outside the primary families. Intervals do not correct for test-based proxy checkpoint selection. Retain paired contrasts rather than subtracting rounded quality rates."
+  }
 }

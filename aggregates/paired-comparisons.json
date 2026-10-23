@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "scope": "Primary Gemma 4 checkpoints versus separately trained, retained test-selected Llama JO/FT proxies at the same precision. F1 differences and 95% intervals are retained paired-record bootstrap results, exploratory and unadjusted, outside the primary production-reference families. Serving ratios compare medians from separate benchmark blocks; repeated bf16 proxies provide a block-consistency check, not a matched within-block measurement.",
+  "bootstrap": {
+    "unit": "record",
+    "resamples": 50000,
+    "seed": 42,
+    "percentile_method": "linear",
+    "interval": "two-sided 95%, unadjusted"
+  },
+  "comparisons": [
+    {
+      "model": "gemma4-12b-jo",
+      "label": "Gemma 4 12B JO",
+      "selection": "validation_f1",
+      "prompt": "JO",
+      "precision": "bf16",
+      "reference_model": "llama31-8b-proxy-jo",
+      "reference_label": "Llama 3.1 8B proxy JO",
+      "test_records": 1213,
+      "delta_f1_pp": 0.37,
+      "ci95_f1_pp": [
+        -0.29,
+        1.04
+      ],
+      "model_benchmark_block": "gemma4-12b-jo",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.5219999999999998,
+      "latency_speedup_reference_over_model": 0.5376701318186691,
+      "throughput_model_over_reference": 0.5351602369403733
+    },
+    {
+      "model": "gemma4-12b-jo",
+      "label": "Gemma 4 12B JO",
+      "selection": "validation_f1",
+      "prompt": "JO",
+      "precision": "fp8",
+      "reference_model": "llama31-8b-proxy-jo",
+      "reference_label": "Llama 3.1 8B proxy JO",
+      "test_records": 1213,
+      "delta_f1_pp": 0.27,
+      "ci95_f1_pp": [
+        -0.37,
+        0.92
+      ],
+      "model_benchmark_block": "gemma4-12b-jo",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.5093676814988293,
+      "latency_speedup_reference_over_model": 0.6050756901157613,
+      "throughput_model_over_reference": 0.5168329689156258
+    },
+    {
+      "model": "gemma4-12b-jo",
+      "label": "Gemma 4 12B JO",
+      "selection": "validation_f1",
+      "prompt": "JO",
+      "precision": "W4A16",
+      "reference_model": "llama31-8b-proxy-jo",
+      "reference_label": "Llama 3.1 8B proxy JO",
+      "test_records": 1213,
+      "delta_f1_pp": 1.03,
+      "ci95_f1_pp": [
+        0.34,
+        1.73
+      ],
+      "model_benchmark_block": "gemma4-12b-jo",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.4570895522388059,
+      "latency_speedup_reference_over_model": 0.5648580668343515,
+      "throughput_model_over_reference": 0.45334518341357055
+    },
+    {
+      "model": "gemma4-12b-ft",
+      "label": "Gemma 4 12B FT",
+      "selection": "validation_f1",
+      "prompt": "FT",
+      "precision": "bf16",
+      "reference_model": "llama31-8b-proxy-ft",
+      "reference_label": "Llama 3.1 8B proxy FT",
+      "test_records": 1213,
+      "delta_f1_pp": 0.15,
+      "ci95_f1_pp": [
+        -0.51,
+        0.81
+      ],
+      "model_benchmark_block": "gemma4-12b-ft",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.5219999999999998,
+      "latency_speedup_reference_over_model": 0.5372844827586207,
+      "throughput_model_over_reference": 0.5338083152541618
+    },
+    {
+      "model": "gemma4-12b-ft",
+      "label": "Gemma 4 12B FT",
+      "selection": "validation_f1",
+      "prompt": "FT",
+      "precision": "fp8",
+      "reference_model": "llama31-8b-proxy-ft",
+      "reference_label": "Llama 3.1 8B proxy FT",
+      "test_records": 1213,
+      "delta_f1_pp": 0.41,
+      "ci95_f1_pp": [
+        -0.28,
+        1.11
+      ],
+      "model_benchmark_block": "gemma4-12b-ft",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.5093676814988293,
+      "latency_speedup_reference_over_model": 0.6058054509195657,
+      "throughput_model_over_reference": 0.5042067258603367
+    },
+    {
+      "model": "gemma4-12b-ft",
+      "label": "Gemma 4 12B FT",
+      "selection": "validation_f1",
+      "prompt": "FT",
+      "precision": "W4A16",
+      "reference_model": "llama31-8b-proxy-ft",
+      "reference_label": "Llama 3.1 8B proxy FT",
+      "test_records": 1213,
+      "delta_f1_pp": 0.57,
+      "ci95_f1_pp": [
+        -0.05,
+        1.2
+      ],
+      "model_benchmark_block": "gemma4-12b-ft",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.4570895522388059,
+      "latency_speedup_reference_over_model": 0.5754475703324807,
+      "throughput_model_over_reference": 0.4528212886537815
+    },
+    {
+      "model": "gemma4-e4b-jo",
+      "label": "Gemma 4 E4B JO",
+      "selection": "validation_f1",
+      "prompt": "JO",
+      "precision": "bf16",
+      "reference_model": "llama31-8b-proxy-jo",
+      "reference_label": "Llama 3.1 8B proxy JO",
+      "test_records": 1213,
+      "delta_f1_pp": -0.72,
+      "ci95_f1_pp": [
+        -1.47,
+        0.03
+      ],
+      "model_benchmark_block": "gemma4-e4b-jo",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.0126666666666666,
+      "latency_speedup_reference_over_model": 1.3343085106382981,
+      "throughput_model_over_reference": 1.4058606048084958
+    },
+    {
+      "model": "gemma4-e4b-jo",
+      "label": "Gemma 4 E4B JO",
+      "selection": "validation_f1",
+      "prompt": "JO",
+      "precision": "fp8",
+      "reference_model": "llama31-8b-proxy-jo",
+      "reference_label": "Llama 3.1 8B proxy JO",
+      "test_records": 1213,
+      "delta_f1_pp": -1.11,
+      "ci95_f1_pp": [
+        -1.9,
+        -0.32
+      ],
+      "model_benchmark_block": "gemma4-e4b-jo",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.2985948477751759,
+      "latency_speedup_reference_over_model": 1.3768996960486322,
+      "throughput_model_over_reference": 1.3286154604375358
+    },
+    {
+      "model": "gemma4-e4b-jo",
+      "label": "Gemma 4 E4B JO",
+      "selection": "validation_f1",
+      "prompt": "JO",
+      "precision": "W4A16",
+      "reference_model": "llama31-8b-proxy-jo",
+      "reference_label": "Llama 3.1 8B proxy JO",
+      "test_records": 1213,
+      "delta_f1_pp": -0.7,
+      "ci95_f1_pp": [
+        -1.51,
+        0.1
+      ],
+      "model_benchmark_block": "gemma4-e4b-jo",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.8003731343283582,
+      "latency_speedup_reference_over_model": 1.1653076352853966,
+      "throughput_model_over_reference": 1.2046657253760154
+    },
+    {
+      "model": "gemma4-e4b-ft",
+      "label": "Gemma 4 E4B FT",
+      "selection": "validation_f1",
+      "prompt": "FT",
+      "precision": "bf16",
+      "reference_model": "llama31-8b-proxy-ft",
+      "reference_label": "Llama 3.1 8B proxy FT",
+      "test_records": 1213,
+      "delta_f1_pp": -0.88,
+      "ci95_f1_pp": [
+        -1.61,
+        -0.16
+      ],
+      "model_benchmark_block": "gemma4-e4b-ft",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.0126666666666666,
+      "latency_speedup_reference_over_model": 1.3303094983991461,
+      "throughput_model_over_reference": 1.4555474733100606
+    },
+    {
+      "model": "gemma4-e4b-ft",
+      "label": "Gemma 4 E4B FT",
+      "selection": "validation_f1",
+      "prompt": "FT",
+      "precision": "fp8",
+      "reference_model": "llama31-8b-proxy-ft",
+      "reference_label": "Llama 3.1 8B proxy FT",
+      "test_records": 1213,
+      "delta_f1_pp": -0.61,
+      "ci95_f1_pp": [
+        -1.37,
+        0.14
+      ],
+      "model_benchmark_block": "gemma4-e4b-ft",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.2985948477751759,
+      "latency_speedup_reference_over_model": 1.3906408952187181,
+      "throughput_model_over_reference": 1.3850461106164693
+    },
+    {
+      "model": "gemma4-e4b-ft",
+      "label": "Gemma 4 E4B FT",
+      "selection": "validation_f1",
+      "prompt": "FT",
+      "precision": "W4A16",
+      "reference_model": "llama31-8b-proxy-ft",
+      "reference_label": "Llama 3.1 8B proxy FT",
+      "test_records": 1213,
+      "delta_f1_pp": -1.29,
+      "ci95_f1_pp": [
+        -2.06,
+        -0.52
+      ],
+      "model_benchmark_block": "gemma4-e4b-ft",
+      "reference_benchmark_block": "llama-quant",
+      "weights_model_over_reference": 1.8003731343283582,
+      "latency_speedup_reference_over_model": 1.161504424778761,
+      "throughput_model_over_reference": 1.2585986867834429
+    }
+  ],
+  "block_consistency": [
+    {
+      "model_benchmark_block": "gemma4-12b-jo",
+      "reference_benchmark_block": "llama-quant",
+      "precision": "bf16",
+      "weights_reference_block_over_model_block": 1,
+      "latency_reference_block_over_model_block": 1.0054108216432867,
+      "throughput_reference_block_over_model_block": 0.991552112124844
+    },
+    {
+      "model_benchmark_block": "gemma4-12b-ft",
+      "reference_benchmark_block": "llama-quant",
+      "precision": "bf16",
+      "weights_reference_block_over_model_block": 1,
+      "latency_reference_block_over_model_block": 1.003825246627743,
+      "throughput_reference_block_over_model_block": 1.0017787819003374
+    },
+    {
+      "model_benchmark_block": "gemma4-e4b-jo",
+      "reference_benchmark_block": "llama-quant",
+      "precision": "bf16",
+      "weights_reference_block_over_model_block": 1,
+      "latency_reference_block_over_model_block": 0.9561654278635412,
+      "throughput_reference_block_over_model_block": 1.019984462819275
+    },
+    {
+      "model_benchmark_block": "gemma4-e4b-ft",
+      "reference_benchmark_block": "llama-quant",
+      "precision": "bf16",
+      "weights_reference_block_over_model_block": 1,
+      "latency_reference_block_over_model_block": 0.9983980776932319,
+      "throughput_reference_block_over_model_block": 0.9955600952492387
+    }
+  ]
+}

@@ -48,6 +48,43 @@
     "warmup_requests": 2,
     "restart_between_cells": true,
     "rotate_cell_order_between_repetitions": true,
-    "throughput_window": "For concurrency > 1, completions before the final request starts; at concurrency 1, all completed requests over wall-clock time."
+    "throughput_window": "For concurrency > 1, completions before the final request starts; at concurrency 1, all completed requests over wall-clock time.",
+    "ratio_reference": "Same-prompt bf16 Llama proxy measured in the same benchmark block. Displayed bf16 Llama rows come from the 12B blocks; displayed fp8/W4A16 proxy rows use their separate block.",
+    "quantized_proxy_control": {
+      "architecture": "Llama 3.1 8B",
+      "prompts": [
+        "JO",
+        "FT"
+      ],
+      "precisions": [
+        "bf16",
+        "fp8",
+        "W4A16"
+      ],
+      "block": "Separate benchmark block using the same serving and quantization settings",
+      "checkpoint_selection": "Retained test-selected local adapters; not the production weights",
+      "bf16_consistency": {
+        "comparisons": 4,
+        "reference": "Corresponding same-prompt proxies in the four primary Gemma 4 blocks",
+        "max_absolute_latency_p50_c1_change_pct": 4.4,
+        "max_absolute_throughput_c64_change_pct": 2,
+        "scope": "Observed agreement across benchmark blocks, not a statistical equivalence guarantee"
+      }
+    }
+  },
+  "reporting_scope": {
+    "candidate_rows": 30,
+    "proxy_measurement_rows": 12,
+    "concurrency_points": 210,
+    "main_table_candidate_rows": 24,
+    "main_table_proxy_rows": 6,
+    "main_prior_adapters": [
+      "Gemma 3 4B JO",
+      "Gemma 3 4B FT",
+      "Qwen 3.5 4B JO Think",
+      "Qwen 3.5 4B FT Think"
+    ],
+    "supplementary": "Qwen Nothink candidates and additional block-specific bf16 proxy measurements",
+    "bolding": "Best displayed non-proxy candidate values, including ties at displayed precision; lower memory and latency, higher F1, speed-up and throughput"
   }
 }

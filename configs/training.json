@@ -21,7 +21,7 @@
   "seed": 42,
   "data_seed": 42,
   "template": "empty",
-  "template_preparation": "Pre-render the model-native chat template; supervise assistant response only.",
+  "template_preparation": "Pre-render the model-native chat template with thinking disabled; supervise assistant response only, then pass through the empty template.",
   "cutoff_len": 2048,
   "train_on_prompt": false,
   "per_device_train_batch_size": 4,
@@ -40,5 +40,28 @@
   "retained_checkpoints": 12,
   "final_step": 2298,
   "report_to": "none",
-  "notes": "Descriptive sanitized settings, not a launch-ready training job. Add your own licensed models, labeled data and output directories; follow upstream installation requirements."
+  "notes": "Descriptive sanitized Gemma 4 settings, not a launch-ready training job. Add your own licensed models, labeled data and output directories; follow upstream installation requirements. The prior Gemma 3 context is descriptive and does not change the supplied Gemma 4 YAML.",
+  "scope": "New Gemma 4 E4B/12B JO/FT runs; the accompanying YAML is a Gemma 4 starting point.",
+  "prior_gemma3_context": {
+    "template": "gemma3",
+    "lora_target_setting": "all",
+    "resolved_projection_types": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "shared_main_hyperparameters": [
+      "lora_rank",
+      "lora_alpha",
+      "learning_rate",
+      "effective_batch_size",
+      "num_train_epochs"
+    ],
+    "effective_batch_size": 16,
+    "implementation_comparison": "The same seven projection types are selected automatically for Gemma 3 and explicitly for Gemma 4. Chat-template handling and training software differ; this is not an identical-implementation comparison."
+  }
 }

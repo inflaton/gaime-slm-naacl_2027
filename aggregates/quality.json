@@ -1067,7 +1067,7 @@
     },
     {
       "model": "qwen35-4b-jo-think",
-      "label": "Qwen 3.5 4B JO, think template",
+      "label": "Qwen 3.5 4B JO Think",
       "selection": "retained_test_selected",
       "prompt": "JO",
       "precision": "bf16",
@@ -1110,7 +1110,7 @@
     },
     {
       "model": "qwen35-4b-jo-think",
-      "label": "Qwen 3.5 4B JO, think template",
+      "label": "Qwen 3.5 4B JO Think",
       "selection": "retained_test_selected",
       "prompt": "JO",
       "precision": "fp8",
@@ -1153,7 +1153,7 @@
     },
     {
       "model": "qwen35-4b-jo-think",
-      "label": "Qwen 3.5 4B JO, think template",
+      "label": "Qwen 3.5 4B JO Think",
       "selection": "retained_test_selected",
       "prompt": "JO",
       "precision": "W4A16",
@@ -1196,7 +1196,7 @@
     },
     {
       "model": "qwen35-4b-jo",
-      "label": "Qwen 3.5 4B JO",
+      "label": "Qwen 3.5 4B JO Nothink",
       "selection": "retained_test_selected",
       "prompt": "JO",
       "precision": "bf16",
@@ -1239,7 +1239,7 @@
     },
     {
       "model": "qwen35-4b-jo",
-      "label": "Qwen 3.5 4B JO",
+      "label": "Qwen 3.5 4B JO Nothink",
       "selection": "retained_test_selected",
       "prompt": "JO",
       "precision": "fp8",
@@ -1282,7 +1282,7 @@
     },
     {
       "model": "qwen35-4b-jo",
-      "label": "Qwen 3.5 4B JO",
+      "label": "Qwen 3.5 4B JO Nothink",
       "selection": "retained_test_selected",
       "prompt": "JO",
       "precision": "W4A16",
@@ -1325,7 +1325,7 @@
     },
     {
       "model": "qwen35-4b-ft-think",
-      "label": "Qwen 3.5 4B FT, think template",
+      "label": "Qwen 3.5 4B FT Think",
       "selection": "retained_test_selected",
       "prompt": "FT",
       "precision": "bf16",
@@ -1368,7 +1368,7 @@
     },
     {
       "model": "qwen35-4b-ft-think",
-      "label": "Qwen 3.5 4B FT, think template",
+      "label": "Qwen 3.5 4B FT Think",
       "selection": "retained_test_selected",
       "prompt": "FT",
       "precision": "fp8",
@@ -1411,7 +1411,7 @@
     },
     {
       "model": "qwen35-4b-ft-think",
-      "label": "Qwen 3.5 4B FT, think template",
+      "label": "Qwen 3.5 4B FT Think",
       "selection": "retained_test_selected",
       "prompt": "FT",
       "precision": "W4A16",
@@ -1454,7 +1454,7 @@
     },
     {
       "model": "qwen35-4b-ft",
-      "label": "Qwen 3.5 4B FT",
+      "label": "Qwen 3.5 4B FT Nothink",
       "selection": "retained_test_selected",
       "prompt": "FT",
       "precision": "bf16",
@@ -1497,7 +1497,7 @@
     },
     {
       "model": "qwen35-4b-ft",
-      "label": "Qwen 3.5 4B FT",
+      "label": "Qwen 3.5 4B FT Nothink",
       "selection": "retained_test_selected",
       "prompt": "FT",
       "precision": "fp8",
@@ -1540,7 +1540,7 @@
     },
     {
       "model": "qwen35-4b-ft",
-      "label": "Qwen 3.5 4B FT",
+      "label": "Qwen 3.5 4B FT Nothink",
       "selection": "retained_test_selected",
       "prompt": "FT",
       "precision": "W4A16",
@@ -1579,6 +1579,135 @@
         "COUNTRY": 0,
         "PHONE": -0.6,
         "WEBSITE": -3.2
+      }
+    },
+    {
+      "model": "gemma3-4b-jo",
+      "label": "Gemma 3 4B JO",
+      "selection": "retained_test_selected",
+      "prompt": "JO",
+      "precision": "bf16",
+      "test_records": 1213,
+      "f1_pct": 95.29,
+      "raw_exact_pct": 88.05,
+      "precision_pct": 95.3,
+      "recall_pct": 95.28,
+      "delta_f1_pp": -1.66,
+      "ci95_f1_pp": [
+        -2.38,
+        -0.95
+      ],
+      "adjusted_lower_bound_pp": null,
+      "meets_adjusted_margin": null,
+      "per_field_f1_pct": {
+        "INTERMEDIARY": 95.15,
+        "MERCHANT_NAME": 92.58,
+        "DYNAMIC_DESCRIPTOR": 92.17,
+        "STREET": 91.18,
+        "ZIP": 98.7,
+        "CITY": 96.62,
+        "STATE": 99.26,
+        "COUNTRY": 100,
+        "PHONE": 96.69,
+        "WEBSITE": 95.56
+      },
+      "per_field_delta_pp": {
+        "INTERMEDIARY": 0.8,
+        "MERCHANT_NAME": -2.8,
+        "DYNAMIC_DESCRIPTOR": -2.6,
+        "STREET": -3,
+        "ZIP": -0.1,
+        "CITY": -1.3,
+        "STATE": -0.4,
+        "COUNTRY": 6.7,
+        "PHONE": -1.3,
+        "WEBSITE": -3.3
+      }
+    },
+    {
+      "model": "gemma3-4b-jo",
+      "label": "Gemma 3 4B JO",
+      "selection": "retained_test_selected",
+      "prompt": "JO",
+      "precision": "fp8",
+      "test_records": 1213,
+      "f1_pct": 95.26,
+      "raw_exact_pct": 88.13,
+      "precision_pct": 95.27,
+      "recall_pct": 95.25,
+      "delta_f1_pp": -1.69,
+      "ci95_f1_pp": [
+        -2.4,
+        -0.97
+      ],
+      "adjusted_lower_bound_pp": null,
+      "meets_adjusted_margin": null,
+      "per_field_f1_pct": {
+        "INTERMEDIARY": 95.11,
+        "MERCHANT_NAME": 92.25,
+        "DYNAMIC_DESCRIPTOR": 92.01,
+        "STREET": 91.05,
+        "ZIP": 99.21,
+        "CITY": 96.94,
+        "STATE": 99.32,
+        "COUNTRY": 100,
+        "PHONE": 97.99,
+        "WEBSITE": 93.92
+      },
+      "per_field_delta_pp": {
+        "INTERMEDIARY": 0.8,
+        "MERCHANT_NAME": -3.1,
+        "DYNAMIC_DESCRIPTOR": -2.8,
+        "STREET": -3.2,
+        "ZIP": 0.4,
+        "CITY": -0.9,
+        "STATE": -0.3,
+        "COUNTRY": 6.7,
+        "PHONE": 0,
+        "WEBSITE": -5
+      }
+    },
+    {
+      "model": "gemma3-4b-jo",
+      "label": "Gemma 3 4B JO",
+      "selection": "retained_test_selected",
+      "prompt": "JO",
+      "precision": "W4A16",
+      "test_records": 1213,
+      "f1_pct": 94.66,
+      "raw_exact_pct": 86.97,
+      "precision_pct": 94.78,
+      "recall_pct": 94.54,
+      "delta_f1_pp": -2.29,
+      "ci95_f1_pp": [
+        -3.09,
+        -1.5
+      ],
+      "adjusted_lower_bound_pp": null,
+      "meets_adjusted_margin": null,
+      "per_field_f1_pct": {
+        "INTERMEDIARY": 95.11,
+        "MERCHANT_NAME": 92.09,
+        "DYNAMIC_DESCRIPTOR": 90.39,
+        "STREET": 89.07,
+        "ZIP": 98.56,
+        "CITY": 95.5,
+        "STATE": 99.51,
+        "COUNTRY": 100,
+        "PHONE": 94.67,
+        "WEBSITE": 96.13
+      },
+      "per_field_delta_pp": {
+        "INTERMEDIARY": 0.8,
+        "MERCHANT_NAME": -3.3,
+        "DYNAMIC_DESCRIPTOR": -4.4,
+        "STREET": -5.1,
+        "ZIP": -0.2,
+        "CITY": -2.4,
+        "STATE": -0.1,
+        "COUNTRY": 6.7,
+        "PHONE": -3.3,
+        "WEBSITE": -2.8
       }
     },
     {
@@ -1754,6 +1883,92 @@
       }
     },
     {
+      "model": "llama31-8b-proxy-jo",
+      "label": "Llama 3.1 8B proxy JO",
+      "selection": "proxy",
+      "prompt": "JO",
+      "precision": "fp8",
+      "test_records": 1213,
+      "f1_pct": 96.59,
+      "raw_exact_pct": 91.84,
+      "precision_pct": 96.69,
+      "recall_pct": 96.49,
+      "delta_f1_pp": -0.36,
+      "ci95_f1_pp": [
+        -0.92,
+        0.2
+      ],
+      "adjusted_lower_bound_pp": null,
+      "meets_adjusted_margin": null,
+      "per_field_f1_pct": {
+        "INTERMEDIARY": 93.39,
+        "MERCHANT_NAME": 94.23,
+        "DYNAMIC_DESCRIPTOR": 93.86,
+        "STREET": 94.29,
+        "ZIP": 99.74,
+        "CITY": 98.13,
+        "STATE": 99.32,
+        "COUNTRY": 93.33,
+        "PHONE": 98.65,
+        "WEBSITE": 98.36
+      },
+      "per_field_delta_pp": {
+        "INTERMEDIARY": -0.9,
+        "MERCHANT_NAME": -1.1,
+        "DYNAMIC_DESCRIPTOR": -1,
+        "STREET": 0.1,
+        "ZIP": 0.9,
+        "CITY": 0.2,
+        "STATE": -0.3,
+        "COUNTRY": 0,
+        "PHONE": 0.7,
+        "WEBSITE": -0.5
+      }
+    },
+    {
+      "model": "llama31-8b-proxy-jo",
+      "label": "Llama 3.1 8B proxy JO",
+      "selection": "proxy",
+      "prompt": "JO",
+      "precision": "W4A16",
+      "test_records": 1213,
+      "f1_pct": 95.84,
+      "raw_exact_pct": 89.86,
+      "precision_pct": 95.95,
+      "recall_pct": 95.73,
+      "delta_f1_pp": -1.11,
+      "ci95_f1_pp": [
+        -1.74,
+        -0.48
+      ],
+      "adjusted_lower_bound_pp": null,
+      "meets_adjusted_margin": null,
+      "per_field_f1_pct": {
+        "INTERMEDIARY": 91.77,
+        "MERCHANT_NAME": 93.4,
+        "DYNAMIC_DESCRIPTOR": 93.39,
+        "STREET": 92.1,
+        "ZIP": 99.74,
+        "CITY": 97.36,
+        "STATE": 99.32,
+        "COUNTRY": 87.5,
+        "PHONE": 97.99,
+        "WEBSITE": 95.56
+      },
+      "per_field_delta_pp": {
+        "INTERMEDIARY": -2.6,
+        "MERCHANT_NAME": -2,
+        "DYNAMIC_DESCRIPTOR": -1.4,
+        "STREET": -2.1,
+        "ZIP": 0.9,
+        "CITY": -0.5,
+        "STATE": -0.3,
+        "COUNTRY": -5.8,
+        "PHONE": 0,
+        "WEBSITE": -3.3
+      }
+    },
+    {
       "model": "llama31-8b-proxy-ft",
       "label": "Llama 3.1 8B proxy FT",
       "selection": "proxy",
@@ -1794,6 +2009,92 @@
         "COUNTRY": 0,
         "PHONE": -0.6,
         "WEBSITE": -2.1
+      }
+    },
+    {
+      "model": "llama31-8b-proxy-ft",
+      "label": "Llama 3.1 8B proxy FT",
+      "selection": "proxy",
+      "prompt": "FT",
+      "precision": "fp8",
+      "test_records": 1213,
+      "f1_pct": 96.31,
+      "raw_exact_pct": 90.68,
+      "precision_pct": 96.15,
+      "recall_pct": 96.47,
+      "delta_f1_pp": -0.64,
+      "ci95_f1_pp": [
+        -1.26,
+        -0.02
+      ],
+      "adjusted_lower_bound_pp": null,
+      "meets_adjusted_margin": null,
+      "per_field_f1_pct": {
+        "INTERMEDIARY": 93.45,
+        "MERCHANT_NAME": 94.06,
+        "DYNAMIC_DESCRIPTOR": 93.51,
+        "STREET": 94.2,
+        "ZIP": 99.61,
+        "CITY": 97.67,
+        "STATE": 99.45,
+        "COUNTRY": 93.33,
+        "PHONE": 96,
+        "WEBSITE": 94.62
+      },
+      "per_field_delta_pp": {
+        "INTERMEDIARY": -0.9,
+        "MERCHANT_NAME": -1.3,
+        "DYNAMIC_DESCRIPTOR": -1.3,
+        "STREET": 0,
+        "ZIP": 0.8,
+        "CITY": -0.2,
+        "STATE": -0.2,
+        "COUNTRY": 0,
+        "PHONE": -2,
+        "WEBSITE": -4.3
+      }
+    },
+    {
+      "model": "llama31-8b-proxy-ft",
+      "label": "Llama 3.1 8B proxy FT",
+      "selection": "proxy",
+      "prompt": "FT",
+      "precision": "W4A16",
+      "test_records": 1213,
+      "f1_pct": 96.09,
+      "raw_exact_pct": 90.11,
+      "precision_pct": 96.14,
+      "recall_pct": 96.04,
+      "delta_f1_pp": -0.86,
+      "ci95_f1_pp": [
+        -1.47,
+        -0.26
+      ],
+      "adjusted_lower_bound_pp": null,
+      "meets_adjusted_margin": null,
+      "per_field_f1_pct": {
+        "INTERMEDIARY": 93.91,
+        "MERCHANT_NAME": 93.98,
+        "DYNAMIC_DESCRIPTOR": 93.63,
+        "STREET": 93.55,
+        "ZIP": 98.96,
+        "CITY": 96.94,
+        "STATE": 99.32,
+        "COUNTRY": 93.33,
+        "PHONE": 96.05,
+        "WEBSITE": 96.74
+      },
+      "per_field_delta_pp": {
+        "INTERMEDIARY": -0.4,
+        "MERCHANT_NAME": -1.4,
+        "DYNAMIC_DESCRIPTOR": -1.2,
+        "STREET": -0.7,
+        "ZIP": 0.2,
+        "CITY": -0.9,
+        "STATE": -0.3,
+        "COUNTRY": 0,
+        "PHONE": -1.9,
+        "WEBSITE": -2.2
       }
     }
   ]

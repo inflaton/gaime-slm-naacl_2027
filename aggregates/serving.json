@@ -2309,7 +2309,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-jo-think",
-      "label": "Qwen 3.5 4B JO, think template",
+      "label": "Qwen 3.5 4B JO Think",
       "prompt": "JO",
       "role": "candidate",
       "precision": "bf16",
@@ -2597,7 +2597,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-jo-think",
-      "label": "Qwen 3.5 4B JO, think template",
+      "label": "Qwen 3.5 4B JO Think",
       "prompt": "JO",
       "role": "candidate",
       "precision": "fp8",
@@ -2741,7 +2741,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-jo-think",
-      "label": "Qwen 3.5 4B JO, think template",
+      "label": "Qwen 3.5 4B JO Think",
       "prompt": "JO",
       "role": "candidate",
       "precision": "W4A16",
@@ -2885,7 +2885,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-jo",
-      "label": "Qwen 3.5 4B JO",
+      "label": "Qwen 3.5 4B JO Nothink",
       "prompt": "JO",
       "role": "candidate",
       "precision": "bf16",
@@ -3029,7 +3029,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-jo",
-      "label": "Qwen 3.5 4B JO",
+      "label": "Qwen 3.5 4B JO Nothink",
       "prompt": "JO",
       "role": "candidate",
       "precision": "fp8",
@@ -3173,7 +3173,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-jo",
-      "label": "Qwen 3.5 4B JO",
+      "label": "Qwen 3.5 4B JO Nothink",
       "prompt": "JO",
       "role": "candidate",
       "precision": "W4A16",
@@ -3317,7 +3317,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-ft-think",
-      "label": "Qwen 3.5 4B FT, think template",
+      "label": "Qwen 3.5 4B FT Think",
       "prompt": "FT",
       "role": "candidate",
       "precision": "bf16",
@@ -3605,7 +3605,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-ft-think",
-      "label": "Qwen 3.5 4B FT, think template",
+      "label": "Qwen 3.5 4B FT Think",
       "prompt": "FT",
       "role": "candidate",
       "precision": "fp8",
@@ -3749,7 +3749,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-ft-think",
-      "label": "Qwen 3.5 4B FT, think template",
+      "label": "Qwen 3.5 4B FT Think",
       "prompt": "FT",
       "role": "candidate",
       "precision": "W4A16",
@@ -3893,7 +3893,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-ft",
-      "label": "Qwen 3.5 4B FT",
+      "label": "Qwen 3.5 4B FT Nothink",
       "prompt": "FT",
       "role": "candidate",
       "precision": "bf16",
@@ -4037,7 +4037,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-ft",
-      "label": "Qwen 3.5 4B FT",
+      "label": "Qwen 3.5 4B FT Nothink",
       "prompt": "FT",
       "role": "candidate",
       "precision": "fp8",
@@ -4181,7 +4181,7 @@
     {
       "block": "prior-4b",
       "model": "qwen35-4b-ft",
-      "label": "Qwen 3.5 4B FT",
+      "label": "Qwen 3.5 4B FT Nothink",
       "prompt": "FT",
       "role": "candidate",
       "precision": "W4A16",
@@ -4749,6 +4749,1302 @@
             "median": 77588.8,
             "min": 76443.3,
             "max": 77732.8,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "prior-4b",
+      "model": "gemma3-4b-jo",
+      "label": "Gemma 3 4B JO",
+      "prompt": "JO",
+      "role": "candidate",
+      "precision": "bf16",
+      "selection": "retained_test_selected",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 8.61,
+        "min": 8.61,
+        "max": 8.61,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 3.024,
+            "min": 3.022,
+            "max": 3.024,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.614,
+            "min": 3.612,
+            "max": 3.616,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 1145.4,
+            "min": 1145.1,
+            "max": 1145.6,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.636,
+            "min": 2.63,
+            "max": 2.647,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.146,
+            "min": 3.144,
+            "max": 3.169,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 9253,
+            "min": 9195.4,
+            "max": 9312.9,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.879,
+            "min": 2.878,
+            "max": 2.886,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.61,
+            "min": 3.608,
+            "max": 3.613,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 16535.1,
+            "min": 16497.2,
+            "max": 16577.9,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 3.088,
+            "min": 3.085,
+            "max": 3.089,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 4.004,
+            "min": 3.971,
+            "max": 4.007,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 31038.7,
+            "min": 31009.4,
+            "max": 31063.8,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 3.614,
+            "min": 3.609,
+            "max": 3.623,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 4.914,
+            "min": 4.908,
+            "max": 4.922,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 50990.4,
+            "min": 50967.8,
+            "max": 51417.1,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "prior-4b",
+      "model": "gemma3-4b-jo",
+      "label": "Gemma 3 4B JO",
+      "prompt": "JO",
+      "role": "candidate",
+      "precision": "fp8",
+      "selection": "retained_test_selected",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 5.54,
+        "min": 5.54,
+        "max": 5.54,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.645,
+            "min": 1.645,
+            "max": 1.647,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.944,
+            "min": 1.944,
+            "max": 1.946,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 2117,
+            "min": 2115,
+            "max": 2119.4,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.64,
+            "min": 1.627,
+            "max": 1.641,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.942,
+            "min": 1.941,
+            "max": 1.943,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 15189.9,
+            "min": 15070.6,
+            "max": 15302.9,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.832,
+            "min": 1.829,
+            "max": 1.835,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 2.296,
+            "min": 2.285,
+            "max": 2.298,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 25829.6,
+            "min": 25812.2,
+            "max": 25934.3,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.06,
+            "min": 2.06,
+            "max": 2.061,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 2.647,
+            "min": 2.629,
+            "max": 2.675,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 46620.8,
+            "min": 46442.2,
+            "max": 46743.8,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.505,
+            "min": 2.501,
+            "max": 2.524,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.391,
+            "min": 3.385,
+            "max": 3.391,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 73905.4,
+            "min": 73610.2,
+            "max": 74238.8,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "prior-4b",
+      "model": "gemma3-4b-jo",
+      "label": "Gemma 3 4B JO",
+      "prompt": "JO",
+      "role": "candidate",
+      "precision": "W4A16",
+      "selection": "retained_test_selected",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 4.18,
+        "min": 4.18,
+        "max": 4.18,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.149,
+            "min": 1.133,
+            "max": 1.175,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.354,
+            "min": 1.343,
+            "max": 1.356,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 3036.5,
+            "min": 3021.2,
+            "max": 3056.5,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.125,
+            "min": 1.11,
+            "max": 1.14,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.351,
+            "min": 1.348,
+            "max": 1.354,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 21581.1,
+            "min": 21500.6,
+            "max": 21613.5,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.357,
+            "min": 1.351,
+            "max": 1.363,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.692,
+            "min": 1.689,
+            "max": 1.7,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 34940.9,
+            "min": 34542.7,
+            "max": 35111.2,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.653,
+            "min": 1.651,
+            "max": 1.659,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 2.129,
+            "min": 2.124,
+            "max": 2.136,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 57356.2,
+            "min": 57057.9,
+            "max": 57370.5,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.276,
+            "min": 2.273,
+            "max": 2.343,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.07,
+            "min": 3.07,
+            "max": 3.139,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 81312.9,
+            "min": 77198.9,
+            "max": 81384.7,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "llama-quant",
+      "model": "llama31-8b-proxy-jo",
+      "label": "Llama 3.1 8B proxy JO",
+      "prompt": "JO",
+      "role": "proxy",
+      "precision": "bf16",
+      "selection": "proxy",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 15,
+        "min": 15,
+        "max": 15,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 5.017,
+            "min": 5.014,
+            "max": 5.07,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 5.627,
+            "min": 5.61,
+            "max": 5.752,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 707.9,
+            "min": 699.4,
+            "max": 711.9,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 4.738,
+            "min": 4.726,
+            "max": 4.738,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 5.457,
+            "min": 5.456,
+            "max": 5.472,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 5419.6,
+            "min": 5403.4,
+            "max": 5476.8,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 4.91,
+            "min": 4.905,
+            "max": 4.918,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 5.915,
+            "min": 5.906,
+            "max": 5.927,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 9993.9,
+            "min": 9990.5,
+            "max": 10013.9,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 5.063,
+            "min": 5.047,
+            "max": 5.086,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 6.302,
+            "min": 6.284,
+            "max": 6.31,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 19270.7,
+            "min": 19249.7,
+            "max": 19324,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 5.844,
+            "min": 5.787,
+            "max": 5.868,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 7.186,
+            "min": 7.147,
+            "max": 7.223,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 32430.1,
+            "min": 32298.3,
+            "max": 32599.9,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "llama-quant",
+      "model": "llama31-8b-proxy-jo",
+      "label": "Llama 3.1 8B proxy JO",
+      "prompt": "JO",
+      "role": "proxy",
+      "precision": "fp8",
+      "selection": "proxy",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 8.54,
+        "min": 8.54,
+        "max": 8.54,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.718,
+            "min": 2.716,
+            "max": 2.72,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.072,
+            "min": 3.072,
+            "max": 3.073,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 1304.4,
+            "min": 1304.3,
+            "max": 1304.7,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.691,
+            "min": 2.687,
+            "max": 2.692,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.103,
+            "min": 3.1,
+            "max": 3.107,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 9531.7,
+            "min": 9531.7,
+            "max": 9603.2,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.839,
+            "min": 2.833,
+            "max": 2.848,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.418,
+            "min": 3.418,
+            "max": 3.422,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 17344.2,
+            "min": 17276.5,
+            "max": 17380.8,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.988,
+            "min": 2.985,
+            "max": 3.006,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.716,
+            "min": 3.707,
+            "max": 3.718,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 32450.7,
+            "min": 32391.4,
+            "max": 32510.2,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 3.689,
+            "min": 3.648,
+            "max": 3.696,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 4.632,
+            "min": 4.575,
+            "max": 4.67,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 51131.8,
+            "min": 50939.6,
+            "max": 51886,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "llama-quant",
+      "model": "llama31-8b-proxy-jo",
+      "label": "Llama 3.1 8B proxy JO",
+      "prompt": "JO",
+      "role": "proxy",
+      "precision": "W4A16",
+      "selection": "proxy",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 5.36,
+        "min": 5.36,
+        "max": 5.36,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.572,
+            "min": 1.57,
+            "max": 1.575,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.778,
+            "min": 1.773,
+            "max": 1.78,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 2251.8,
+            "min": 2250.4,
+            "max": 2260.3,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.56,
+            "min": 1.55,
+            "max": 1.562,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.823,
+            "min": 1.817,
+            "max": 1.832,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 16107.4,
+            "min": 16075.9,
+            "max": 16220.8,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.726,
+            "min": 1.719,
+            "max": 1.73,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 2.089,
+            "min": 2.085,
+            "max": 2.097,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 27880,
+            "min": 27792.5,
+            "max": 27893.5,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.131,
+            "min": 2.127,
+            "max": 2.137,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 2.727,
+            "min": 2.716,
+            "max": 2.754,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 45283,
+            "min": 44894.8,
+            "max": 45425.9,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 3.005,
+            "min": 2.976,
+            "max": 3.019,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.89,
+            "min": 3.859,
+            "max": 3.911,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 61546.7,
+            "min": 61033.1,
+            "max": 61678.5,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "llama-quant",
+      "model": "llama31-8b-proxy-ft",
+      "label": "Llama 3.1 8B proxy FT",
+      "prompt": "FT",
+      "role": "proxy",
+      "precision": "bf16",
+      "selection": "proxy",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 15,
+        "min": 15,
+        "max": 15,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 4.986,
+            "min": 4.982,
+            "max": 4.99,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 5.633,
+            "min": 5.633,
+            "max": 5.641,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 712.9,
+            "min": 712.3,
+            "max": 713.3,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 4.756,
+            "min": 4.738,
+            "max": 4.765,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 5.476,
+            "min": 5.462,
+            "max": 5.496,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 5407.9,
+            "min": 5406.9,
+            "max": 5438.6,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 4.954,
+            "min": 4.95,
+            "max": 4.987,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 5.978,
+            "min": 5.957,
+            "max": 5.978,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 9933.6,
+            "min": 9891,
+            "max": 9953.3,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 5.186,
+            "min": 5.136,
+            "max": 5.186,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 6.405,
+            "min": 6.396,
+            "max": 6.409,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 18948.9,
+            "min": 18939.6,
+            "max": 18950.5,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 6.005,
+            "min": 5.989,
+            "max": 6.018,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 7.461,
+            "min": 7.381,
+            "max": 7.485,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 31481.9,
+            "min": 31372.5,
+            "max": 31609.3,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "llama-quant",
+      "model": "llama31-8b-proxy-ft",
+      "label": "Llama 3.1 8B proxy FT",
+      "prompt": "FT",
+      "role": "proxy",
+      "precision": "fp8",
+      "selection": "proxy",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 8.54,
+        "min": 8.54,
+        "max": 8.54,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.734,
+            "min": 2.724,
+            "max": 2.774,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.085,
+            "min": 3.083,
+            "max": 3.096,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 1301.7,
+            "min": 1297.7,
+            "max": 1303.7,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.713,
+            "min": 2.712,
+            "max": 2.713,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.121,
+            "min": 3.119,
+            "max": 3.134,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 9461.2,
+            "min": 9458.1,
+            "max": 9506.5,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.877,
+            "min": 2.873,
+            "max": 2.878,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.474,
+            "min": 3.455,
+            "max": 3.486,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 17061.6,
+            "min": 17023.8,
+            "max": 17127.6,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 3.061,
+            "min": 3.061,
+            "max": 3.077,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 3.817,
+            "min": 3.808,
+            "max": 3.824,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 31718.1,
+            "min": 31609.3,
+            "max": 31893.7,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 3.835,
+            "min": 3.835,
+            "max": 3.859,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 4.85,
+            "min": 4.843,
+            "max": 4.864,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 48969.2,
+            "min": 48736.1,
+            "max": 49000.4,
+            "n": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "llama-quant",
+      "model": "llama31-8b-proxy-ft",
+      "label": "Llama 3.1 8B proxy FT",
+      "prompt": "FT",
+      "role": "proxy",
+      "precision": "W4A16",
+      "selection": "proxy",
+      "repetitions": 3,
+      "complete": true,
+      "loaded_weights_gib": {
+        "median": 5.36,
+        "min": 5.36,
+        "max": 5.36,
+        "n": 3
+      },
+      "points": [
+        {
+          "concurrency": 1,
+          "requests": 16,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.575,
+            "min": 1.574,
+            "max": 1.575,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.796,
+            "min": 1.789,
+            "max": 1.798,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 2244.2,
+            "min": 2242.9,
+            "max": 2247.5,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 8,
+          "requests": 24,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.591,
+            "min": 1.583,
+            "max": 1.591,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 1.851,
+            "min": 1.84,
+            "max": 1.856,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 15845.9,
+            "min": 15819.8,
+            "max": 15872.1,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 16,
+          "requests": 48,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 1.78,
+            "min": 1.775,
+            "max": 1.795,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 2.142,
+            "min": 2.137,
+            "max": 2.157,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 27144.2,
+            "min": 26991.6,
+            "max": 27266.3,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 32,
+          "requests": 96,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 2.181,
+            "min": 2.178,
+            "max": 2.185,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 2.819,
+            "min": 2.807,
+            "max": 2.846,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 43919.2,
+            "min": 43669.4,
+            "max": 43994.7,
+            "n": 3
+          }
+        },
+        {
+          "concurrency": 64,
+          "requests": 192,
+          "complete": true,
+          "valid_repetitions": 3,
+          "errors": 0,
+          "latency_p50_seconds": {
+            "median": 3.141,
+            "min": 3.131,
+            "max": 3.162,
+            "n": 3
+          },
+          "latency_p95_seconds": {
+            "median": 4.108,
+            "min": 4.08,
+            "max": 4.118,
+            "n": 3
+          },
+          "rows_per_hour": {
+            "median": 58299.6,
+            "min": 58057.2,
+            "max": 58730.6,
             "n": 3
           }
         }
