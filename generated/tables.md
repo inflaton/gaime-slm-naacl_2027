@@ -4,7 +4,7 @@ All numbers below are retained study aggregates. Synthetic demonstration outputs
 
 ## Main serving comparison
 
-This is the manuscript table subset. Values are medians from three runs with server restarts, warm-up and matched requests; model order was rotated. Ratios use the same-prompt **bf16** proxy measured in the same block. Displayed bf16 Llama rows come from the 12B blocks; fp8/W4A16 Llama ratios use bf16 baselines from the separate `llama-quant` block. Bold marks best displayed candidate values, including ties at the displayed precision. Proxy rows are excluded from ranking. Prior 4B adapters and Llama proxies are test-selected; the displayed Qwen adapters use the Think training template. Loaded weights exclude server and KV-cache memory.
+This is the manuscript table subset. Values are medians from three runs with server restarts, warm-up and matched requests; model order was rotated. Ratios use the same-prompt **bf16** proxy measured in the same block. Displayed bf16 Llama rows come from the 12B blocks; fp8/W4A16 Llama ratios use bf16 baselines from the separate `llama-quant` block. Bold marks best displayed candidate values, including ties at the displayed precision. Proxy rows are excluded from ranking. Prior 4B adapters and Llama proxies are test-selected; the displayed Qwen adapters use the Think training template. Loaded weights exclude server and KV-cache memory. Throughput values, ratios and rankings in this table use concurrency 64; latency and speed-up use concurrency 1. E4B GPTQ uses basic full-model calibration with its per_layer_model_projection retained in bf16, whereas 12B and Llama use sequential calibration; quantization-loss comparisons reflect both model and pipeline.
 
 ### Gemma 4: validation-F1 checkpoints
 
@@ -93,9 +93,9 @@ Each Gemma 4 checkpoint is compared with the same-prompt Llama proxy at the same
 
 ### Resource ratios across benchmark blocks
 
-These resource ratios compare medians from the Gemma 4 benchmark block with the same-prompt, same-precision Llama setting in the separate `llama-quant` block. They are descriptive comparisons across blocks, not paired within-block serving measurements. Repeated bf16 proxies provide a consistency check; the paired quality intervals above do not quantify uncertainty in these resource ratios.
+These resource ratios compare medians from the Gemma 4 benchmark block with the same-prompt, same-precision Llama setting in the separate `llama-quant` block. They are descriptive comparisons across blocks, not paired within-block serving measurements. Repeated bf16 proxies provide a consistency check; the paired quality intervals above do not quantify uncertainty in these resource ratios. Latency speed-up uses concurrency 1; throughput ratios use concurrency 64.
 
-| Model | Reference | Precision | Weights model/reference ↓ | Latency speed-up reference/model ↑ | Throughput model/reference ↑ |
+| Model | Reference | Precision | Weights model/reference ↓ | Latency speed-up c=1 reference/model ↑ | Throughput c=64 model/reference ↑ |
 |:--|:--|:--|--:|--:|--:|
 | Gemma 4 12B JO | Llama 3.1 8B proxy JO | bf16 | 1.52× | 0.54× | 0.54× |
 | Gemma 4 12B JO | Llama 3.1 8B proxy JO | fp8 | 1.51× | 0.61× | 0.52× |
@@ -119,7 +119,7 @@ These resource ratios compare medians from the Gemma 4 benchmark block with the 
 | Gemma 4 E4B JO | 800 | 2298 | 1.88 | 95.91 |
 | Gemma 4 E4B FT | 1000 | 1400 | 0.69 | 95.82 |
 
-The test oracle is descriptive. Validation-F1 selection was adopted after inspection of test sweeps. Sweep and serving-evaluation scores are distinct observations; headline results consistently use the complete serving evaluation.
+Validation-F1 selection maximizes the fractional score rounded to four decimal places (0.01 F1 percentage point), then validation strict record exact-match count, then prefers the earlier step. All 48 tie-break counts are retained in checkpoints.csv. Validation-loss ties prefer the earlier step. The test oracle is descriptive. Validation-F1 selection was adopted after inspection of test sweeps. Sweep and serving-evaluation scores are distinct observations; headline results consistently use the complete serving evaluation.
 
 ## Hosted reference
 

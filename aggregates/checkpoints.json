@@ -17,73 +17,85 @@
           "step": 200,
           "validation_loss": 0.012585637159645557,
           "test_f1_pct": 91.4,
-          "validation_f1_pct": 91.8
+          "validation_f1_pct": 91.8,
+          "validation_strict_record_exact_count": 509
         },
         {
           "step": 400,
           "validation_loss": 0.011356434784829617,
           "test_f1_pct": 94.89,
-          "validation_f1_pct": 94.12
+          "validation_f1_pct": 94.12,
+          "validation_strict_record_exact_count": 562
         },
         {
           "step": 600,
           "validation_loss": 0.008965096436440945,
           "test_f1_pct": 96.41,
-          "validation_f1_pct": 96.82
+          "validation_f1_pct": 96.82,
+          "validation_strict_record_exact_count": 588
         },
         {
           "step": 800,
           "validation_loss": 0.008414231240749359,
           "test_f1_pct": 95.79,
-          "validation_f1_pct": 96.57
+          "validation_f1_pct": 96.57,
+          "validation_strict_record_exact_count": 593
         },
         {
           "step": 1000,
           "validation_loss": 0.008635647594928741,
           "test_f1_pct": 96.37,
-          "validation_f1_pct": 96.55
+          "validation_f1_pct": 96.55,
+          "validation_strict_record_exact_count": 591
         },
         {
           "step": 1200,
           "validation_loss": 0.007586177904158831,
           "test_f1_pct": 96.22,
-          "validation_f1_pct": 97.21
+          "validation_f1_pct": 97.21,
+          "validation_strict_record_exact_count": 607
         },
         {
           "step": 1400,
           "validation_loss": 0.008656793273985386,
           "test_f1_pct": 97.04,
-          "validation_f1_pct": 97.4
+          "validation_f1_pct": 97.4,
+          "validation_strict_record_exact_count": 604
         },
         {
           "step": 1600,
           "validation_loss": 0.00923783890902996,
           "test_f1_pct": 96.74,
-          "validation_f1_pct": 97.22
+          "validation_f1_pct": 97.22,
+          "validation_strict_record_exact_count": 610
         },
         {
           "step": 1800,
           "validation_loss": 0.00943171326071024,
           "test_f1_pct": 96.76,
-          "validation_f1_pct": 97.38
+          "validation_f1_pct": 97.38,
+          "validation_strict_record_exact_count": 605
         },
         {
           "step": 2000,
           "validation_loss": 0.009848764166235924,
           "test_f1_pct": 96.59,
-          "validation_f1_pct": 97.13
+          "validation_f1_pct": 97.13,
+          "validation_strict_record_exact_count": 600
         },
         {
           "step": 2200,
           "validation_loss": 0.009904034435749054,
           "test_f1_pct": 96.63,
-          "validation_f1_pct": 97.18
+          "validation_f1_pct": 97.18,
+          "validation_strict_record_exact_count": 603
         },
         {
           "step": 2298,
           "validation_loss": 0.009968466125428677,
           "test_f1_pct": 96.61,
-          "validation_f1_pct": 97.17
+          "validation_f1_pct": 97.17,
+          "validation_strict_record_exact_count": 603
         }
       ],
       "serving_evaluation_f1_pct": 97
@@ -103,73 +115,85 @@
           "step": 200,
           "validation_loss": 0.012667031027376652,
           "test_f1_pct": 91.78,
-          "validation_f1_pct": 92.57
+          "validation_f1_pct": 92.57,
+          "validation_strict_record_exact_count": 521
         },
         {
           "step": 400,
           "validation_loss": 0.009906616993248463,
           "test_f1_pct": 95.67,
-          "validation_f1_pct": 95.03
+          "validation_f1_pct": 95.03,
+          "validation_strict_record_exact_count": 570
         },
         {
           "step": 600,
           "validation_loss": 0.009754217229783535,
           "test_f1_pct": 95.8,
-          "validation_f1_pct": 96.5
+          "validation_f1_pct": 96.5,
+          "validation_strict_record_exact_count": 568
         },
         {
           "step": 800,
           "validation_loss": 0.009546501561999321,
           "test_f1_pct": 95.86,
-          "validation_f1_pct": 96.29
+          "validation_f1_pct": 96.29,
+          "validation_strict_record_exact_count": 591
         },
         {
           "step": 1000,
           "validation_loss": 0.008364589884877205,
           "test_f1_pct": 96.49,
-          "validation_f1_pct": 96.67
+          "validation_f1_pct": 96.67,
+          "validation_strict_record_exact_count": 586
         },
         {
           "step": 1200,
           "validation_loss": 0.007349757477641106,
           "test_f1_pct": 96.34,
-          "validation_f1_pct": 97.3
+          "validation_f1_pct": 97.3,
+          "validation_strict_record_exact_count": 603
         },
         {
           "step": 1400,
           "validation_loss": 0.009075501933693886,
           "test_f1_pct": 96.76,
-          "validation_f1_pct": 97.24
+          "validation_f1_pct": 97.24,
+          "validation_strict_record_exact_count": 599
         },
         {
           "step": 1600,
           "validation_loss": 0.008674340322613716,
           "test_f1_pct": 96.6,
-          "validation_f1_pct": 97.23
+          "validation_f1_pct": 97.23,
+          "validation_strict_record_exact_count": 605
         },
         {
           "step": 1800,
           "validation_loss": 0.009504412300884724,
           "test_f1_pct": 96.52,
-          "validation_f1_pct": 96.99
+          "validation_f1_pct": 96.99,
+          "validation_strict_record_exact_count": 600
         },
         {
           "step": 2000,
           "validation_loss": 0.009581984020769596,
           "test_f1_pct": 96.71,
-          "validation_f1_pct": 97.2
+          "validation_f1_pct": 97.2,
+          "validation_strict_record_exact_count": 600
         },
         {
           "step": 2200,
           "validation_loss": 0.009677622467279434,
           "test_f1_pct": 96.79,
-          "validation_f1_pct": 97.26
+          "validation_f1_pct": 97.26,
+          "validation_strict_record_exact_count": 602
         },
         {
           "step": 2298,
           "validation_loss": 0.009760289452970028,
           "test_f1_pct": 96.76,
-          "validation_f1_pct": 97.32
+          "validation_f1_pct": 97.32,
+          "validation_strict_record_exact_count": 603
         }
       ],
       "serving_evaluation_f1_pct": 96.85
@@ -189,73 +213,85 @@
           "step": 200,
           "validation_loss": 0.018436795100569725,
           "test_f1_pct": 87.55,
-          "validation_f1_pct": 89.16
+          "validation_f1_pct": 89.16,
+          "validation_strict_record_exact_count": 467
         },
         {
           "step": 400,
           "validation_loss": 0.01149984635412693,
           "test_f1_pct": 90.09,
-          "validation_f1_pct": 93.66
+          "validation_f1_pct": 93.66,
+          "validation_strict_record_exact_count": 554
         },
         {
           "step": 600,
           "validation_loss": 0.009959759190678596,
           "test_f1_pct": 95.58,
-          "validation_f1_pct": 96.13
+          "validation_f1_pct": 96.13,
+          "validation_strict_record_exact_count": 555
         },
         {
           "step": 800,
           "validation_loss": 0.008736776188015938,
           "test_f1_pct": 93.99,
-          "validation_f1_pct": 95.4
+          "validation_f1_pct": 95.4,
+          "validation_strict_record_exact_count": 577
         },
         {
           "step": 1000,
           "validation_loss": 0.00897718034684658,
           "test_f1_pct": 95.01,
-          "validation_f1_pct": 96.51
+          "validation_f1_pct": 96.51,
+          "validation_strict_record_exact_count": 583
         },
         {
           "step": 1200,
           "validation_loss": 0.00891847349703312,
           "test_f1_pct": 95.42,
-          "validation_f1_pct": 96.23
+          "validation_f1_pct": 96.23,
+          "validation_strict_record_exact_count": 586
         },
         {
           "step": 1400,
           "validation_loss": 0.008761527948081493,
           "test_f1_pct": 95.99,
-          "validation_f1_pct": 96.28
+          "validation_f1_pct": 96.28,
+          "validation_strict_record_exact_count": 589
         },
         {
           "step": 1600,
           "validation_loss": 0.009352254681289196,
           "test_f1_pct": 95.05,
-          "validation_f1_pct": 96.35
+          "validation_f1_pct": 96.35,
+          "validation_strict_record_exact_count": 595
         },
         {
           "step": 1800,
           "validation_loss": 0.009576968848705292,
           "test_f1_pct": 95.53,
-          "validation_f1_pct": 96.43
+          "validation_f1_pct": 96.43,
+          "validation_strict_record_exact_count": 595
         },
         {
           "step": 2000,
           "validation_loss": 0.010091020725667477,
           "test_f1_pct": 95.84,
-          "validation_f1_pct": 96.68
+          "validation_f1_pct": 96.68,
+          "validation_strict_record_exact_count": 593
         },
         {
           "step": 2200,
           "validation_loss": 0.010275457054376602,
           "test_f1_pct": 95.94,
-          "validation_f1_pct": 96.6
+          "validation_f1_pct": 96.6,
+          "validation_strict_record_exact_count": 594
         },
         {
           "step": 2298,
           "validation_loss": 0.010225983336567879,
           "test_f1_pct": 95.87,
-          "validation_f1_pct": 96.68
+          "validation_f1_pct": 96.68,
+          "validation_strict_record_exact_count": 595
         }
       ],
       "serving_evaluation_f1_pct": 95.91
@@ -275,73 +311,85 @@
           "step": 200,
           "validation_loss": 0.01645001769065857,
           "test_f1_pct": 88.83,
-          "validation_f1_pct": 90.28
+          "validation_f1_pct": 90.28,
+          "validation_strict_record_exact_count": 491
         },
         {
           "step": 400,
           "validation_loss": 0.009705848060548306,
           "test_f1_pct": 92.27,
-          "validation_f1_pct": 95.11
+          "validation_f1_pct": 95.11,
+          "validation_strict_record_exact_count": 573
         },
         {
           "step": 600,
           "validation_loss": 0.009678468108177185,
           "test_f1_pct": 95.55,
-          "validation_f1_pct": 96.46
+          "validation_f1_pct": 96.46,
+          "validation_strict_record_exact_count": 561
         },
         {
           "step": 800,
           "validation_loss": 0.00897655077278614,
           "test_f1_pct": 94.28,
-          "validation_f1_pct": 95.71
+          "validation_f1_pct": 95.71,
+          "validation_strict_record_exact_count": 578
         },
         {
           "step": 1000,
           "validation_loss": 0.008780316449701786,
           "test_f1_pct": 95.21,
-          "validation_f1_pct": 96.59
+          "validation_f1_pct": 96.59,
+          "validation_strict_record_exact_count": 592
         },
         {
           "step": 1200,
           "validation_loss": 0.0098509406670928,
           "test_f1_pct": 95.66,
-          "validation_f1_pct": 96.35
+          "validation_f1_pct": 96.35,
+          "validation_strict_record_exact_count": 589
         },
         {
           "step": 1400,
           "validation_loss": 0.009318630211055279,
           "test_f1_pct": 95.9,
-          "validation_f1_pct": 96.83
+          "validation_f1_pct": 96.83,
+          "validation_strict_record_exact_count": 593
         },
         {
           "step": 1600,
           "validation_loss": 0.009917153976857662,
           "test_f1_pct": 95.79,
-          "validation_f1_pct": 96.45
+          "validation_f1_pct": 96.45,
+          "validation_strict_record_exact_count": 593
         },
         {
           "step": 1800,
           "validation_loss": 0.010631858371198177,
           "test_f1_pct": 96.15,
-          "validation_f1_pct": 96.79
+          "validation_f1_pct": 96.79,
+          "validation_strict_record_exact_count": 593
         },
         {
           "step": 2000,
           "validation_loss": 0.011303866282105446,
           "test_f1_pct": 96,
-          "validation_f1_pct": 96.83
+          "validation_f1_pct": 96.83,
+          "validation_strict_record_exact_count": 591
         },
         {
           "step": 2200,
           "validation_loss": 0.011605153791606426,
           "test_f1_pct": 95.73,
-          "validation_f1_pct": 96.73
+          "validation_f1_pct": 96.73,
+          "validation_strict_record_exact_count": 590
         },
         {
           "step": 2298,
           "validation_loss": 0.01168189849704504,
           "test_f1_pct": 95.77,
-          "validation_f1_pct": 96.75
+          "validation_f1_pct": 96.75,
+          "validation_strict_record_exact_count": 592
         }
       ],
       "serving_evaluation_f1_pct": 95.82

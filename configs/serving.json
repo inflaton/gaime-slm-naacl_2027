@@ -20,14 +20,31 @@
   "precisions": {
     "bf16": "merged adapter",
     "fp8": "online quantization of merged bf16 weights",
-    "W4A16": "GPTQ; language Linear layers, excluding output head and multimodal towers"
+    "W4A16": "GPTQ; language Linear layers, excluding output head and multimodal towers; E4B also retains per_layer_model_projection in bf16"
   },
   "quantization": {
     "group_size": 128,
     "calibration_training_rows": 64,
     "block_size": 128,
     "dampening_frac": 0.01,
-    "actorder": "static"
+    "actorder": "static",
+    "calibration_pipelines": {
+      "Gemma 4 E4B": {
+        "pipeline": "basic",
+        "reason": "Full-model calibration forwards support shared K/V state.",
+        "activation_source": "Full-precision activations; quantization error is not propagated layer to layer.",
+        "bf16_exceptions": [
+          "per_layer_model_projection"
+        ]
+      },
+      "Gemma 4 12B": {
+        "pipeline": "sequential"
+      },
+      "Llama 3.1 8B proxies": {
+        "pipeline": "sequential"
+      }
+    },
+    "comparison_scope": "Cross-model quantization losses reflect both the model and its supported calibration pipeline."
   },
   "benchmark": {
     "concurrency": [
@@ -61,7 +78,7 @@
         "fp8",
         "W4A16"
       ],
-      "block": "Separate benchmark block using the same serving and quantization settings",
+      "block": "Separate benchmark block using the same serving settings and common GPTQ parameters; Llama uses sequential calibration.",
       "checkpoint_selection": "Retained test-selected local adapters; not the production weights",
       "bf16_consistency": {
         "comparisons": 4,
@@ -70,7 +87,9 @@
         "max_absolute_throughput_c64_change_pct": 2,
         "scope": "Observed agreement across benchmark blocks, not a statistical equivalence guarantee"
       }
-    }
+    },
+    "reported_latency_concurrency": 1,
+    "reported_throughput_concurrency": 64
   },
   "reporting_scope": {
     "candidate_rows": 30,
@@ -85,6 +104,7 @@
       "Qwen 3.5 4B FT Think"
     ],
     "supplementary": "Qwen Nothink candidates and additional block-specific bf16 proxy measurements",
-    "bolding": "Best displayed non-proxy candidate values, including ties at displayed precision; lower memory and latency, higher F1, speed-up and throughput"
+    "bolding": "Best displayed non-proxy candidate values, including ties at displayed precision; lower memory and latency, higher F1, speed-up and throughput",
+    "throughput": "Main-table throughput, throughput ratios and prose rankings refer to concurrency 64; they do not establish the same ordering at other concurrency levels."
   }
 }

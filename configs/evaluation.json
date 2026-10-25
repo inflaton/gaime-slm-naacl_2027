@@ -36,11 +36,21 @@
     "scope": "Primary Gemma 4 comparisons against retained production outputs. Astra supplementary lower bounds use the same per-comparison cutoff outside the primary families."
   },
   "selection": {
-    "primary": "maximum generated validation F1",
-    "sensitivity": "minimum validation loss",
+    "primary": "maximum generated validation canonical micro-F1 rounded to four decimal places on the 0–1 scale; ties: higher validation strict record exact-match count, then earlier step",
+    "sensitivity": "minimum validation loss; ties: earlier step",
     "oracle": "maximum observed test F1; descriptive only",
     "retrospective": true,
-    "prior_adapters_and_proxies": "retained maximum-test-F1 checkpoints; descriptive references only"
+    "prior_adapters_and_proxies": "retained maximum-test-F1 checkpoints; descriptive references only",
+    "f1_rounding": {
+      "scale": "fraction from 0 to 1",
+      "decimal_places": 4,
+      "method": "Python round on the scorer value (nearest, ties to even)",
+      "percentage_point_resolution": 0.01
+    },
+    "tie_breakers": [
+      "higher validation strict record exact-match count",
+      "earlier step"
+    ]
   },
   "sample_counts": {
     "train": 6125,
@@ -51,7 +61,7 @@
   "same_precision_proxy_comparisons": {
     "candidate_cells": 12,
     "reference": "Same-prompt local Llama 3.1 8B proxy at the matching serving precision",
-    "candidate_selection": "maximum generated validation F1",
+    "candidate_selection": "maximum generated validation canonical micro-F1 rounded to four decimal places on the 0–1 scale; ties: higher validation strict record exact-match count, then earlier step",
     "reference_selection": "retained test-selected checkpoint",
     "unit": "record",
     "records": 1213,

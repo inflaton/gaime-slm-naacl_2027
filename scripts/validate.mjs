@@ -21,7 +21,25 @@ assert.equal(q.cells.filter(r=>r.selection==='proxy').length,6);
 for(const model of ['gemma3-4b-jo','gemma3-4b-ft','llama31-8b-proxy-jo','llama31-8b-proxy-ft'])assert.deepEqual(q.cells.filter(r=>r.model===model).map(r=>r.precision),['bf16','fp8','W4A16']);
 assert.equal(h.settings.length,4);for(const r of h.settings){assert.equal(r.test_records,1213);bounds(r.f1_pct,0,100);assert(r.adjusted_lower_bound_pp<-1);assert(r.adjusted_lower_bound_pp<r.ci95_f1_pp[0]);}
 assert.equal(c.schema_version,2);
-assert.equal(c.runs.length,4);for(const r of c.runs){assert.equal(r.curve.length,12);assert.equal(new Set(r.curve.map(p=>p.step)).size,12);const loss=Math.min(...r.curve.map(p=>p.validation_loss)),vf=Math.max(...r.curve.map(p=>p.validation_f1_pct)),tf=Math.max(...r.curve.map(p=>p.test_f1_pct));assert.equal(r.curve.find(p=>p.step===r.selected_by_validation_loss).validation_loss,loss);assert.equal(r.curve.find(p=>p.step===r.selected_by_validation_f1).validation_f1_pct,vf);assert.equal(r.curve.find(p=>p.step===r.test_oracle_step).test_f1_pct,tf);assert(r.validation_f1_test_gain_pp>0);finite(r.training_runtime_seconds);const p=q.cells.find(x=>x.model===r.model&&x.selection==='validation_f1'&&x.precision==='bf16');assert.equal(p.f1_pct,r.serving_evaluation_f1_pct);}
+assert.equal(c.runs.length,4);
+for(const r of c.runs){
+ assert.equal(r.curve.length,12);assert.equal(new Set(r.curve.map(p=>p.step)).size,12);
+ for(const p of r.curve){
+  bounds(p.validation_f1_pct,0,100);
+  assert(Math.abs(p.validation_f1_pct*100-Math.round(p.validation_f1_pct*100))<1e-8,'Validation F1 must retain the original four-decimal fractional precision');
+  assert(Number.isInteger(p.validation_strict_record_exact_count),'Missing strict-match tie-break count');
+  bounds(p.validation_strict_record_exact_count,0,config.sample_counts.validation);
+ }
+ // These percentages already encode the original scorer's rounding. Keep full
+ // precision in the general-purpose scorer; rank the retained selection values.
+ const valPick=[...r.curve].sort((a,b)=>b.validation_f1_pct-a.validation_f1_pct||b.validation_strict_record_exact_count-a.validation_strict_record_exact_count||a.step-b.step)[0];
+ const lossPick=[...r.curve].sort((a,b)=>a.validation_loss-b.validation_loss||a.step-b.step)[0];
+ assert.equal(r.selected_by_validation_f1,valPick.step,'Inconsistent rounded-F1/tie-break selection');
+ assert.equal(r.selected_by_validation_loss,lossPick.step);
+ const tf=Math.max(...r.curve.map(p=>p.test_f1_pct));assert.equal(r.curve.find(p=>p.step===r.test_oracle_step).test_f1_pct,tf);
+ assert(r.validation_f1_test_gain_pp>0);finite(r.training_runtime_seconds);
+ const p=q.cells.find(x=>x.model===r.model&&x.selection==='validation_f1'&&x.precision==='bf16');assert.equal(p.f1_pct,r.serving_evaluation_f1_pct);
+}
 assert.equal(s.blocks.length,42);assert.equal(s.blocks.filter(r=>r.role==='candidate').length,30);assert.equal(s.blocks.filter(r=>r.role==='proxy').length,12);
 assert.equal(new Set(s.blocks.map(r=>[r.block,r.model,r.precision].join('|'))).size,s.blocks.length);
 for(const r of s.blocks){assert(r.complete);assert.equal(r.repetitions,3);assert.deepEqual(r.points.map(p=>p.concurrency),[1,8,16,32,64]);assert.deepEqual(r.points.map(p=>p.requests),[16,24,48,96,192]);assert.equal(s.blocks.filter(p=>p.role==='proxy'&&p.block===r.block&&p.prompt===r.prompt&&p.precision==='bf16').length,1);assert(q.cells.some(p=>p.model===r.model&&p.selection===r.selection&&p.precision===r.precision));for(const stat of [r.loaded_weights_gib,...r.points.flatMap(p=>[p.latency_p50_seconds,p.latency_p95_seconds,p.rows_per_hour])]){assert.equal(stat.n,3);finite(stat.min);finite(stat.max);finite(stat.median);assert(stat.min<=stat.median&&stat.median<=stat.max);}for(const p of r.points){assert(p.complete);assert.equal(p.valid_repetitions,3);assert.equal(p.errors,0);}}
