@@ -74,7 +74,18 @@
         "minimum-validation-loss checkpoint",
         "final checkpoint at step 2298"
       ],
-      "scope": "Sensitivity to the retained validation sample, not independent validation or new inference/training. The analysis reuses the same rows and four single-seed sweeps."
+      "scope": "Sensitivity to the retained validation sample, not independent validation or new inference/training. The analysis reuses the same rows and four primary seed-42 sweeps only; the separate seed-43 replicate is not included.",
+      "primary_training_seed": 42,
+      "includes_second_seed_replicate": false
+    },
+    "second_seed_replicate": {
+      "model": "Gemma 4 E4B",
+      "prompt": "JO",
+      "training_seed": 43,
+      "data_seed": 43,
+      "comparison": "Same validation-loss, final-checkpoint, validation-F1 and observed-test-oracle rules as the four primary sweeps.",
+      "scope": "One replicate of one run on the same split. Not an independent holdout, not a primary precision comparison and not part of the primary validation resampling. Its exploratory paired-record CI does not measure training-seed variation.",
+      "manuscript_table": 5
     }
   },
   "sample_counts": {
@@ -127,5 +138,25 @@
     "similarity": "difflib ratio >= 0.8",
     "shared_losses": "Records both precisions lose; identical output means the same canonical string.",
     "scope": "Counts of first-match string relations, not independent causes, hallucination diagnoses or evidence that gold labels are wrong. Excludes errors shared with production from the loss taxonomy. Released results contain aggregates only."
+  },
+  "hosted_evaluation": {
+    "evaluation_date": "2026-10-19",
+    "model": "gpt-6-astra",
+    "api": "Batch Responses API",
+    "reasoning_effort": "low",
+    "output_token_budget_including_reasoning": 16384,
+    "temperature": "omitted",
+    "generation_seed": "omitted",
+    "api_schema_enforcement": false,
+    "prompts": [
+      "JO",
+      "FT"
+    ],
+    "demonstration_counts": [
+      0,
+      10
+    ],
+    "ten_shot_selection": "The same ten training examples for both ten-shot settings, chosen deterministically and excluding descriptors present in validation or test.",
+    "scope": "A dated hosted evaluation at one reasoning setting; the model alias does not identify an immutable provider revision. Supplementary comparisons remain outside the primary prompt families."
   }
 }

@@ -41,7 +41,7 @@
   "final_step": 2298,
   "report_to": "none",
   "notes": "Descriptive sanitized Gemma 4 settings, not a launch-ready training job. Add your own licensed models, labeled data and output directories; follow upstream installation requirements. The prior Gemma 3 context is descriptive and does not change the supplied Gemma 4 YAML.",
-  "scope": "New Gemma 4 E4B/12B JO/FT runs; the accompanying YAML is a Gemma 4 starting point.",
+  "scope": "Four primary Gemma 4 E4B/12B JO/FT runs with training/data seed 42; the accompanying YAML is a primary-run Gemma 4 starting point.",
   "prior_gemma3_context": {
     "template": "gemma3",
     "lora_target_setting": "all",
@@ -63,5 +63,20 @@
     ],
     "effective_batch_size": 16,
     "implementation_comparison": "The same seven projection types are selected automatically for Gemma 3 and explicitly for Gemma 4. Chat-template handling and training software differ; this is not an identical-implementation comparison."
+  },
+  "primary_run_count": 4,
+  "second_seed_replicate": {
+    "model": "google/gemma-4-E4B-it",
+    "prompt": "JO",
+    "seed": 43,
+    "data_seed": 43,
+    "replicates": 1,
+    "same_split": true,
+    "same_recipe": true,
+    "same_schedule": true,
+    "num_train_epochs": 6,
+    "retained_checkpoints": 12,
+    "final_step": 2298,
+    "scope": "Separate checkpoint-selection replication of the primary E4B JO run. Does not add primary quality/precision cells or serving measurements, and does not use an independent data split."
   }
 }

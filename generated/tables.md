@@ -34,7 +34,7 @@ This is the manuscript table subset. Values are medians from three runs with ser
 | &emsp;fp8 | 96.31 | 8.5 | 0.57× | 2.73 | 1.82× | 48,969 | 1.56× |
 | &emsp;W4A16 | 96.09 | **5.4** | **0.36×** | 1.57 | 3.17× | 58,300 | 1.85× |
 
-## Prior 4B adapters (Appendix Table 5)
+## Prior 4B adapters (Appendix Table 6)
 
 This separate table ranks only its twelve displayed prior-adapter configurations.
 
@@ -135,9 +135,11 @@ These resource ratios compare medians from the Gemma 4 benchmark block with the 
 | Gemma 4 E4B FT | Final checkpoint | 2298 | 96.75 | 95.77 | -1.18 | 0.38 |
 | Gemma 4 E4B FT | Test oracle (descriptive) | 1800 | 96.79 | 96.15 | -0.80 | 0.00 |
 
-Validation-F1 selection maximizes the fractional score rounded to four decimal places (0.01 F1 percentage point), then validation strict record exact-match count, then prefers the earlier step. All 48 tie-break counts are retained in checkpoints.csv. Validation-loss ties prefer the earlier step. The final checkpoint is a no-selection baseline; the test oracle is descriptive. Retained selection contrasts need not equal subtraction of rounded F1 scores; final-checkpoint contrasts follow the manuscript’s rounded-score calculation. Validation-F1 selection was adopted after inspection of test sweeps. Sweep and serving-evaluation scores are distinct observations; headline results consistently use the complete serving evaluation.
+Validation-F1 selection maximizes the fractional score rounded to four decimal places (0.01 F1 percentage point), then validation strict record exact-match count, then prefers the earlier step. All 48 primary tie-break counts and 12 replicate counts are retained in checkpoints.csv. Validation-loss ties prefer the earlier step. The final checkpoint is a no-selection baseline; the test oracle is descriptive. Retained selection contrasts need not equal subtraction of rounded F1 scores; final-checkpoint contrasts follow the manuscript’s rounded-score calculation. Validation-F1 selection was adopted after inspection of test sweeps. Sweep and serving-evaluation scores are distinct observations; headline results consistently use the complete serving evaluation.
 
 ## Hosted reference
+
+Evaluation date: 2026-10-19.
 
 | Setting | F1 (%) | Raw exact (%) | Delta F1 (pp) | 95% CI (pp) | Supplementary lower bound (pp) |
 |:--|--:|--:|--:|:--|--:|
@@ -147,6 +149,25 @@ Validation-F1 selection maximizes the fractional score rounded to four decimal p
 | FT, 10-shot | 96.65 | 87.63 | -0.29 | [-1.09, 0.51] | -1.319 |
 
 Hosted bounds use the same alpha/9 cutoff outside the primary families. No setting clears −1 pp; this does not prove a deficit greater than one point.
+
+## Second training seed (Table 5)
+
+The E4B JO replicate uses training/data seed 43 with the same prepared split, recipe and six-epoch schedule. It is reported separately from the four primary seed-42 trajectories. The validation-resampling summaries below cover only those primary runs; no resampling or serving benchmark is reported for this replicate.
+
+| Model | Rule | Step | Validation F1 (%) | Sweep test F1 (%) | Delta vs production (pp) | Gap to test oracle (pp) |
+|:--|:--|--:|--:|--:|--:|--:|
+| Gemma 4 E4B JO (seed 42) | Validation F1 | 2298 | 96.68 | 95.87 | -1.08 | 0.12 |
+| Gemma 4 E4B JO (seed 42) | Validation loss | 800 | 95.40 | 93.99 | -2.96 | 2.00 |
+| Gemma 4 E4B JO (seed 42) | Final checkpoint | 2298 | 96.68 | 95.87 | -1.08 | 0.12 |
+| Gemma 4 E4B JO (seed 42) | Test oracle (descriptive) | 1400 | 96.28 | 95.99 | -0.95 | 0.00 |
+| Gemma 4 E4B JO (seed 43) | Validation F1 | 1200 | 96.87 | 95.97 | -0.98 | 0.00 |
+| Gemma 4 E4B JO (seed 43) | Validation loss | 800 | 96.39 | 94.96 | -1.99 | 1.01 |
+| Gemma 4 E4B JO (seed 43) | Final checkpoint | 2298 | 96.78 | 95.01 | -1.94 | 0.96 |
+| Gemma 4 E4B JO (seed 43) | Test oracle (descriptive) | 1200 | 96.87 | 95.97 | -0.98 | 0.00 |
+
+The seed-43 run took 16.4 hours. Validation-F1 selection and the observed test oracle both choose step 1200, with 95.97% test F1: -0.98 points against production, exploratory unadjusted paired-record 95% CI [-1.68, -0.29]. The interval uses 50,000 paired-record resamples; it measures record uncertainty, not variation across training seeds, and makes no confirmatory non-inferiority claim.
+
+For seed 43, final minus loss-selected test F1 is 0.05 points, and validation-selected minus final is 0.96 points. The ordering repeats across these two seeds, but one replicate of one run does not establish the ranking or size of the gaps.
 
 ## Primary quality comparisons (Table 2)
 
@@ -167,7 +188,7 @@ Production canonical micro-F1 is 96.95% and raw record exact match is 92.58%. Ea
 | E4B FT fp8 | 95.70 | 89.45 | -1.25 | [-2.02, -0.49] | -2.259 | No |
 | E4B FT W4A16 | 94.80 | 87.96 | -2.15 | [-2.99, -1.34] | -3.235 | No |
 
-## Field-level quality (Table 6)
+## Field-level quality (Table 7)
 
 Canonical field F1 (%) on 1,213 records. Support counts nonempty human-labelled values. Gemma columns use validation-selected JO checkpoints. These field comparisons are descriptive, especially for COUNTRY with eight nonempty values.
 
@@ -239,4 +260,4 @@ A loss means production is correct and the candidate is wrong on a nonempty gold
 
 ## Production training context
 
-The production team reports full fine-tuning of Llama 3.1 8B using FT through Databricks managed Mosaic AI Model Training. The team recalls approximately 30–40 minutes of training wall-clock time; accessible billing records suggest approximately US$65 at list price. These retrospective operator-reported estimates are not independently verified runtime, GPU-hours or total cost. GPU type/count and detailed training settings remain unavailable. They provide historical context, not a matched comparison with local LoRA or evidence of savings. See configs/production-context.json for qualifications.
+Operator-reported training time was under one hour for full fine-tuning of Llama 3.1 8B through Databricks' managed Mosaic service. The service did not expose GPU type or count to the team; exact runtime and detailed training settings remain unavailable.

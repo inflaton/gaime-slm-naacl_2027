@@ -63,10 +63,15 @@ for(const model of ['gemma3-4b-jo','gemma3-4b-ft','llama31-8b-proxy-jo','llama31
 assert.equal(h.settings.length,4);for(const r of h.settings){assert.equal(r.test_records,1213);bounds(r.f1_pct,0,100);assert(r.adjusted_lower_bound_pp<-1);assert(r.adjusted_lower_bound_pp<r.ci95_f1_pp[0]);}
 assert.equal(c.schema_version,2);
 assert.equal(c.runs.length,4);
-for(const r of c.runs){
+const primaryModels=['gemma4-12b-jo','gemma4-12b-ft','gemma4-e4b-jo','gemma4-e4b-ft'];
+assert.deepEqual(c.runs.map(r=>r.model),primaryModels,'The four primary training trajectories must remain distinct from replicates');
+assert.equal(trainingConfig.primary_run_count,c.runs.length);
+assert(primary.every(r=>primaryModels.includes(r.model)&&(r.seed??trainingConfig.seed)===trainingConfig.seed&&!Object.hasOwn(r,'replicate_of')),'Primary quality families must not include a second-seed replicate');
+function validateCurve(r){
  assert.equal(r.curve.length,12);assert.equal(new Set(r.curve.map(p=>p.step)).size,12);
  for(const p of r.curve){
-  bounds(p.validation_f1_pct,0,100);
+  count(p.step,trainingConfig.final_step);assert(p.step>0);
+  bounds(p.validation_f1_pct,0,100);bounds(p.test_f1_pct,0,100);finite(p.validation_loss);assert(p.validation_loss>=0);
   assert(Math.abs(p.validation_f1_pct*100-Math.round(p.validation_f1_pct*100))<1e-8,'Validation F1 must retain the original four-decimal fractional precision');
   assert(Number.isInteger(p.validation_strict_record_exact_count),'Missing strict-match tie-break count');
   bounds(p.validation_strict_record_exact_count,0,config.sample_counts.validation);
@@ -78,8 +83,9 @@ for(const r of c.runs){
  assert.equal(r.selected_by_validation_f1,valPick.step,'Inconsistent rounded-F1/tie-break selection');
  assert.equal(r.selected_by_validation_loss,lossPick.step);
  const tf=Math.max(...r.curve.map(p=>p.test_f1_pct));assert.equal(r.curve.find(p=>p.step===r.test_oracle_step).test_f1_pct,tf);
- assert(r.validation_f1_test_gain_pp>0);finite(r.training_runtime_seconds);
- const p=q.cells.find(x=>x.model===r.model&&x.selection==='validation_f1'&&x.precision==='bf16');assert.equal(p.f1_pct,r.serving_evaluation_f1_pct);
+ return {valPick,lossPick,tf};
+}
+function validateSelections(r,{valPick,lossPick,tf}){
  const last=r.curve.reduce((a,b)=>a.step>b.step?a:b),final=r.final_checkpoint;
  assert.equal(last.step,trainingConfig.final_step);assert.equal(final.step,last.step);
  for(const [key,value]of Object.entries(last))assert.equal(final[key],value,`Final checkpoint differs from the retained sweep: ${r.model}.${key}`);
@@ -96,6 +102,50 @@ for(const r of c.runs){
   // may differ by 0.01 pp, unlike the final-checkpoint arithmetic above.
   close(retained.delta_vs_production_pp,checkpoint.test_f1_pct-q.production.f1_pct,.011);
   close(retained.oracle_gap_pp,tf-checkpoint.test_f1_pct,.011);
+ }
+}
+for(const r of c.runs){
+ const selected=validateCurve(r);
+ assert(r.validation_f1_test_gain_pp>0);finite(r.training_runtime_seconds);
+ const p=q.cells.find(x=>x.model===r.model&&x.selection==='validation_f1'&&x.precision==='bf16');assert.equal(p.f1_pct,r.serving_evaluation_f1_pct);
+ validateSelections(r,selected);
+}
+// The additional training seed has its own sweep and descriptive record-level
+// comparisons. It does not add a primary precision cell or resampled trajectory.
+assert.equal(c.replicates.length,1);
+assert.equal(c.replicates.length,trainingConfig.second_seed_replicate.replicates);
+assert.equal(config.selection.validation_resampling.includes_second_seed_replicate,false);
+assert.equal(config.selection.validation_resampling.primary_training_seed,trainingConfig.seed);
+for(const r of c.replicates){
+ assert.equal(r.model,'gemma4-e4b-jo-s43');assert.equal(r.replicate_of,'gemma4-e4b-jo');
+ assert.equal(r.seed,43);assert.equal(r.data_seed,43);
+ assert.equal(r.seed,trainingConfig.second_seed_replicate.seed);assert.equal(r.data_seed,trainingConfig.second_seed_replicate.data_seed);
+ assert.equal(r.seed,config.selection.second_seed_replicate.training_seed);assert.equal(r.data_seed,config.selection.second_seed_replicate.data_seed);
+ assert.notEqual(r.seed,trainingConfig.seed);assert.equal(r.validation_records,config.sample_counts.validation);
+ assert.equal(trainingConfig.second_seed_replicate.same_split,true);assert.equal(trainingConfig.second_seed_replicate.same_recipe,true);assert.equal(trainingConfig.second_seed_replicate.same_schedule,true);
+ assert.equal(trainingConfig.second_seed_replicate.final_step,trainingConfig.final_step);assert.equal(trainingConfig.second_seed_replicate.num_train_epochs,trainingConfig.num_train_epochs);
+ assert.equal(trainingConfig.second_seed_replicate.retained_checkpoints,trainingConfig.retained_checkpoints);
+ const original=c.runs.find(p=>p.model===r.replicate_of);assert(original);
+ assert.deepEqual(r.curve.map(p=>p.step),original.curve.map(p=>p.step),'Replicate must retain the same twelve-checkpoint schedule');
+ const selected=validateCurve(r);validateSelections(r,selected);
+ assert.equal(r.selected_by_validation_loss,800);assert.equal(r.selected_by_validation_f1,1200);assert.equal(r.test_oracle_step,1200);
+ assert.equal(r.sweep_selected_f1_pct,selected.valPick.test_f1_pct);close(r.validation_f1_test_gain_pp,selected.valPick.test_f1_pct-selected.lossPick.test_f1_pct);
+ close(r.training_runtime_seconds,58995.9);assert.equal(r.final_checkpoint.step,2298);
+ assert.equal(typeof r.scope,'string');assert(r.scope.length>0);
+ for(const key of ['serving_evaluation_f1_pct','changed_output_records','bootstrap','random_half'])assert(!Object.hasOwn(r,key),`Unmeasured replicate result: ${key}`);
+ assert(!q.cells.some(p=>p.model===r.model),'Replicate must not enter primary quality families');
+ assert(!s.blocks.some(p=>p.model===r.model),'Replicate has no serving measurements');
+ assert(!stability.runs.some(p=>p.model===r.model),'Replicate is outside the four primary validation-resampling trajectories');
+ assert.deepEqual(Object.keys(r.production_comparisons),['validation_f1','test_oracle']);
+ for(const [rule,comparison]of Object.entries(r.production_comparisons)){
+  const retained=r.selection_summary[rule];assert.equal(comparison.step,retained.step);
+  assert.equal(comparison.test_records,config.sample_counts.test);assert.equal(comparison.f1_pct,retained.test_f1_pct);assert.equal(comparison.production_f1_pct,q.production.f1_pct);
+  close(comparison.delta_f1_pp,retained.delta_vs_production_pp);assert.deepEqual(comparison.ci95_f1_pp,[-1.68,-.29]);
+  assert.equal(comparison.bootstrap.resamples,config.bootstrap.resamples);assert.equal(comparison.bootstrap.seed,config.bootstrap.seed);
+  assert.equal(comparison.bootstrap.unit,'record');assert.equal(comparison.bootstrap.percentile_method,'linear');
+  assert.equal(comparison.confirmatory_noninferiority,false,'Replicate comparisons must remain exploratory');
+  assert.match(comparison.interval_scope,/exploratory unadjusted/i);assert.match(comparison.interval_scope,/not training seeds/i);
+  for(const key of ['adjusted_lower_bound_pp','meets_adjusted_margin','family_divisor'])assert(!Object.hasOwn(comparison,key),`Replicate must not carry a primary-family decision: ${key}`);
  }
 }
 assert.equal(stability.schema_version,1);assert.equal(stability.runs.length,c.runs.length);
@@ -223,7 +273,7 @@ assert.equal(score(gold,[]).missing_or_null,6);assert.equal(score(gold,[]).overa
 const same=compare(gold,a,a,{resamples:2000,familySize:9});assert.equal(same.delta_f1_pp,0);assert.deepEqual(same.ci95_f1_pp,[0,0]);assert.equal(same.noninferiority.lower_bound_pp,0);assert(same.noninferiority.passed);const example=compare(gold,a,b,{resamples:50000,familySize:9});assert.equal(example.metrics_a.f1_pct,1800/19);assert.equal(example.metrics_b.f1_pct,1600/18);assert.equal(example.bootstrap.seed,42);
 const random=seed42Generator(10);assert.deepEqual(Array.from({length:10},random),[0,7,6,4,4,8,0,6,2,0]);
 const publicFiles=auditPublicFiles(root);
-console.log(`PASS: 48 quality cells; 4 checkpoint sweeps and final checkpoints; 8 selection-stability summaries; 18 field-error contrasts; 4 hosted settings; 42 serving workloads / 210 concurrency points; 12 paired contrasts; paired-scoring synthetic checks; privacy checks for ${publicFiles.length} public JSON files.`);
+console.log(`PASS: 48 quality cells; 4 primary checkpoint sweeps and 1 second-seed replicate; 8 primary selection-stability summaries; 18 field-error contrasts; 4 hosted settings; 42 serving workloads / 210 concurrency points; 12 paired contrasts; paired-scoring synthetic checks; privacy checks for ${publicFiles.length} public JSON files.`);
 }
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))validateArtifact();

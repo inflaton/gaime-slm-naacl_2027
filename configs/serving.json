@@ -118,7 +118,7 @@
     "bolding": "Column bests within each displayed table independently, including Llama proxy rows in Table 3 and ties at displayed precision. Lower weight memory and latency; higher F1, speed-up and throughput.",
     "throughput": "Main-table throughput, throughput ratios and prose rankings refer to concurrency 64; they do not establish the same ordering at other concurrency levels.",
     "main_table": "Manuscript Table 3: validation-selected Gemma 4 E4B/12B JO/FT at three precisions, plus six separately trained Llama proxy variants.",
-    "prior_adapter_table": "Appendix B, Table 5: twelve retained test-selected Gemma 3 and Qwen Think adapter/precision rows; Qwen is served with thinking disabled.",
+    "prior_adapter_table": "Appendix B, Table 6: twelve retained test-selected Gemma 3 and Qwen Think adapter/precision rows; Qwen is served with thinking disabled.",
     "prior_adapter_table_rows": 12,
     "prior_adapter_table_models": [
       "Gemma 3 4B JO",

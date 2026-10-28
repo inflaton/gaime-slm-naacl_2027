@@ -9,6 +9,7 @@ const h=read('aggregates/hosted.json'),c=read('aggregates/checkpoints.json');
 const paired=read('aggregates/paired-comparisons.json');
 const stability=read('aggregates/selection-stability.json'),errors=read('aggregates/error-analysis.json');
 const production=read('configs/production-context.json');
+const checkpointRuns=[...c.runs,...c.replicates];
 const out=path.join(root,'generated');
 const write=(name,text)=>fs.writeFileSync(path.join(out,name),text);
 const csv=rows=>rows.map(r=>r.map(v=>v==null?'':`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n')+'\n';
@@ -95,17 +96,17 @@ const display=(r,i,best=null)=>{
 for(const r of c.runs)if(!Number.isFinite(r.serving_evaluation_f1_pct))throw new Error(`Missing serving-evaluation F1 for ${r.model}`);
 fs.mkdirSync(out,{recursive:true});
 write('quality.csv',csv([['model','selection','prompt','precision','F1_percent','raw_exact_percent','delta_F1_pp','CI95_low_pp','CI95_high_pp','adjusted_lower_bound_pp','meets_adjusted_margin'],...q.cells.map(r=>[r.label,r.selection,r.prompt,r.precision,r.f1_pct,r.raw_exact_pct,r.delta_f1_pp,...r.ci95_f1_pp,r.adjusted_lower_bound_pp,r.meets_adjusted_margin])]));
-write('hosted.csv',csv([['model','prompt','demonstrations','F1_percent','raw_exact_percent','canonical_exact_percent','delta_F1_pp','CI95_low_pp','CI95_high_pp','supplementary_lower_bound_pp'],...h.settings.map(r=>[h.model,r.prompt,r.demonstrations,r.f1_pct,r.raw_exact_pct,r.canonical_exact_pct,r.delta_f1_pp,...r.ci95_f1_pp,r.adjusted_lower_bound_pp])]));
+write('hosted.csv',csv([['model','evaluation_date','prompt','demonstrations','F1_percent','raw_exact_percent','canonical_exact_percent','delta_F1_pp','CI95_low_pp','CI95_high_pp','supplementary_lower_bound_pp'],...h.settings.map(r=>[h.model,h.evaluation_date,r.prompt,r.demonstrations,r.f1_pct,r.raw_exact_pct,r.canonical_exact_pct,r.delta_f1_pp,...r.ci95_f1_pp,r.adjusted_lower_bound_pp])]));
 write('serving.csv',csv([['block','model','precision','selection','F1_percent','weights_GiB','weights_model_over_proxy','latency_p50_c1_seconds','latency_speedup_proxy_over_model','throughput_c64_rows_per_hour','throughput_model_over_proxy'],...serving.map(r=>[r.block,r.label,r.precision,r.selection,r.f1_pct,r.memory,r.memory_ratio,r.latency,r.speedup,r.throughput,r.throughput_ratio])]));
 write('concurrency.csv',csv([['block','model','precision','concurrency','requests','repetitions','p50_latency_median_s','p50_latency_min_s','p50_latency_max_s','p95_latency_median_s','throughput_median_rows_h','throughput_min_rows_h','throughput_max_rows_h'],...s.blocks.flatMap(r=>r.points.map(p=>[r.block,r.label,r.precision,p.concurrency,p.requests,p.valid_repetitions,p.latency_p50_seconds.median,p.latency_p50_seconds.min,p.latency_p50_seconds.max,p.latency_p95_seconds.median,p.rows_per_hour.median,p.rows_per_hour.min,p.rows_per_hour.max]))]));
-write('checkpoints.csv',csv([['model','step','validation_loss','validation_F1_percent','validation_strict_record_exact_count','test_F1_percent','selected_by_val_F1','selected_by_val_loss','final_checkpoint','test_oracle'],...c.runs.flatMap(r=>r.curve.map(p=>[r.label,p.step,p.validation_loss,p.validation_f1_pct,p.validation_strict_record_exact_count,p.test_f1_pct,p.step===r.selected_by_validation_f1,p.step===r.selected_by_validation_loss,p.step===r.final_checkpoint.step,p.step===r.test_oracle_step]))]));
+write('checkpoints.csv',csv([['model','seed','replicate_of','step','validation_loss','validation_F1_percent','validation_strict_record_exact_count','test_F1_percent','selected_by_val_F1','selected_by_val_loss','final_checkpoint','test_oracle'],...checkpointRuns.flatMap(r=>r.curve.map(p=>[r.label,r.seed??42,r.replicate_of??'',p.step,p.validation_loss,p.validation_f1_pct,p.validation_strict_record_exact_count,p.test_f1_pct,p.step===r.selected_by_validation_f1,p.step===r.selected_by_validation_loss,p.step===r.final_checkpoint.step,p.step===r.test_oracle_step]))]));
 write('per-field.csv',csv([['model','selection','precision','field','F1_percent','delta_vs_production_pp'],...q.cells.flatMap(r=>Object.entries(r.per_field_f1_pct).map(([field,value])=>[r.label,r.selection,r.precision,field,value,r.per_field_delta_pp[field]]))]));
 write('paired-comparisons.csv',csv([['model','reference_model','selection','prompt','precision','paired_test_records','delta_F1_pp','unadjusted_CI95_low_pp','unadjusted_CI95_high_pp','model_benchmark_block','reference_benchmark_block','weights_model_over_reference','latency_speedup_reference_over_model','throughput_model_over_reference'],...paired.comparisons.map(r=>[r.label,r.reference_label,r.selection,r.prompt,r.precision,r.test_records,r.delta_f1_pp,...r.ci95_f1_pp,r.model_benchmark_block,r.reference_benchmark_block,r.weights_model_over_reference,r.latency_speedup_reference_over_model,r.throughput_model_over_reference])]));
 
 const header='| Model / precision | F1 (%) ↑ | Weights (GiB) ↓ | Model/proxy ↓ | p50 c=1 (s) ↓ | Speed-up ↑ | c=64 rows/h ↑ | Model/proxy ↑ |\n|:--|--:|--:|--:|--:|--:|--:|--:|';
 let md='# Aggregate results\n\nAll numbers below are retained study aggregates. Synthetic demonstration outputs are separate. Quality comparisons use 1,213 paired records. F1 and exact-match rates are percentages; differences are percentage points.\n\n## Main serving comparison\n\nThis is the manuscript table subset. Values are medians from three runs with server restarts, warm-up and matched requests; model order was rotated. Ratios use the same-prompt **bf16** proxy measured in the same block. Displayed bf16 Llama rows come from the 12B blocks; fp8/W4A16 Llama ratios use bf16 baselines from the separate `llama-quant` block. Bold marks column bests within each manuscript table, including proxies and ties at the displayed precision. Prior 4B adapters and Llama proxies are test-selected; the displayed Qwen adapters use the Think training template. Loaded weights exclude server and KV-cache memory. Throughput values, ratios and rankings in this table use concurrency 64; latency and speed-up use concurrency 1. E4B GPTQ uses basic full-model calibration with its per_layer_model_projection retained in bf16, whereas 12B and Llama use sequential calibration; quantization-loss comparisons reflect both model and pipeline.\n';
 for(const group of [...mainGroups,priorGroup]){
- if(group===priorGroup)md+='\n## Prior 4B adapters (Appendix Table 5)\n\nThis separate table ranks only its twelve displayed prior-adapter configurations.\n';
+ if(group===priorGroup)md+='\n## Prior 4B adapters (Appendix Table 6)\n\nThis separate table ranks only its twelve displayed prior-adapter configurations.\n';
  md+='\n### '+group.title+'\n\n'+header+'\n';
  for(const r of group.rows){
   const label=r.precision==='bf16'?`${labels[r.model]} bf16`:`&emsp;${r.precision}`;
@@ -121,22 +122,34 @@ md+='\n## Comparisons at matched precision\n\n### Paired quality comparisons\n\n
 for(const r of paired.comparisons)md+=`| ${r.label} | ${r.reference_label} | ${r.precision} | ${f(r.delta_f1_pp)} | [${r.ci95_f1_pp.map(n=>f(n)).join(', ')}] |\n`;
 md+='\n### Resource ratios across benchmark blocks\n\nThese resource ratios compare medians from the Gemma 4 benchmark block with the same-prompt, same-precision Llama setting in the separate `llama-quant` block. They are descriptive comparisons across blocks, not paired within-block serving measurements. Repeated bf16 proxies provide a consistency check; the paired quality intervals above do not quantify uncertainty in these resource ratios. Latency speed-up uses concurrency 1; throughput ratios use concurrency 64.\n\n| Model | Reference | Precision | Weights model/reference ↓ | Latency speed-up c=1 reference/model ↑ | Throughput c=64 model/reference ↑ |\n|:--|:--|:--|--:|--:|--:|\n';
 for(const r of paired.comparisons)md+=`| ${r.label} | ${r.reference_label} | ${r.precision} | ${f(r.weights_model_over_reference)}× | ${f(r.latency_speedup_reference_over_model)}× | ${f(r.throughput_model_over_reference)}× |\n`;
-md+='\n## Checkpoint selection (Table 1)\n\n| Model | Rule | Step | Validation F1 (%) | Sweep test F1 (%) | Delta vs production (pp) | Gap to test oracle (pp) |\n|:--|:--|--:|--:|--:|--:|--:|\n';
-for(const r of c.runs){
+const checkpointHeader='| Model | Rule | Step | Validation F1 (%) | Sweep test F1 (%) | Delta vs production (pp) | Gap to test oracle (pp) |\n|:--|:--|--:|--:|--:|--:|--:|\n';
+function checkpointTableRows(r,label=r.label){
+ let rows='';
  for(const [rule,step,key] of [['Validation F1',r.selected_by_validation_f1,'validation_f1'],['Validation loss',r.selected_by_validation_loss,'validation_loss'],['Final checkpoint',r.final_checkpoint.step,null],['Test oracle (descriptive)',r.test_oracle_step,'test_oracle']]){
   const p=r.curve.find(p=>p.step===step);
   const delta=key?r.selection_summary[key].delta_vs_production_pp:r.final_checkpoint.delta_vs_production_pp;
   const gap=key?r.selection_summary[key].oracle_gap_pp:r.final_checkpoint.oracle_minus_final_f1_pp;
-  md+='| '+[r.label,rule,step,f(p.validation_f1_pct),f(p.test_f1_pct),f(delta),f(gap)].join(' | ')+' |\n';
+  rows+='| '+[label,rule,step,f(p.validation_f1_pct),f(p.test_f1_pct),f(delta),f(gap)].join(' | ')+' |\n';
  }
+ return rows;
 }
-md+='\nValidation-F1 selection maximizes the fractional score rounded to four decimal places (0.01 F1 percentage point), then validation strict record exact-match count, then prefers the earlier step. All 48 tie-break counts are retained in checkpoints.csv. Validation-loss ties prefer the earlier step. The final checkpoint is a no-selection baseline; the test oracle is descriptive. Retained selection contrasts need not equal subtraction of rounded F1 scores; final-checkpoint contrasts follow the manuscript’s rounded-score calculation. Validation-F1 selection was adopted after inspection of test sweeps. Sweep and serving-evaluation scores are distinct observations; headline results consistently use the complete serving evaluation.\n\n## Hosted reference\n\n| Setting | F1 (%) | Raw exact (%) | Delta F1 (pp) | 95% CI (pp) | Supplementary lower bound (pp) |\n|:--|--:|--:|--:|:--|--:|\n'+h.settings.map(r=>`| ${r.prompt}, ${r.demonstrations}-shot | ${f(r.f1_pct)} | ${f(r.raw_exact_pct)} | ${f(r.delta_f1_pp)} | [${r.ci95_f1_pp.map(x=>f(x)).join(', ')}] | ${f(r.adjusted_lower_bound_pp,3)} |`).join('\n')+'\n\nHosted bounds use the same alpha/9 cutoff outside the primary families. No setting clears −1 pp; this does not prove a deficit greater than one point.\n';
+md+='\n## Checkpoint selection (Table 1)\n\n'+checkpointHeader+c.runs.map(r=>checkpointTableRows(r)).join('');
+md+='\nValidation-F1 selection maximizes the fractional score rounded to four decimal places (0.01 F1 percentage point), then validation strict record exact-match count, then prefers the earlier step. All 48 primary tie-break counts and 12 replicate counts are retained in checkpoints.csv. Validation-loss ties prefer the earlier step. The final checkpoint is a no-selection baseline; the test oracle is descriptive. Retained selection contrasts need not equal subtraction of rounded F1 scores; final-checkpoint contrasts follow the manuscript’s rounded-score calculation. Validation-F1 selection was adopted after inspection of test sweeps. Sweep and serving-evaluation scores are distinct observations; headline results consistently use the complete serving evaluation.\n\n## Hosted reference\n\nEvaluation date: '+h.evaluation_date+'.\n\n| Setting | F1 (%) | Raw exact (%) | Delta F1 (pp) | 95% CI (pp) | Supplementary lower bound (pp) |\n|:--|--:|--:|--:|:--|--:|\n'+h.settings.map(r=>`| ${r.prompt}, ${r.demonstrations}-shot | ${f(r.f1_pct)} | ${f(r.raw_exact_pct)} | ${f(r.delta_f1_pp)} | [${r.ci95_f1_pp.map(x=>f(x)).join(', ')}] | ${f(r.adjusted_lower_bound_pp,3)} |`).join('\n')+'\n\nHosted bounds use the same alpha/9 cutoff outside the primary families. No setting clears −1 pp; this does not prove a deficit greater than one point.\n';
+md+='\n## Second training seed (Table 5)\n\nThe E4B JO replicate uses training/data seed 43 with the same prepared split, recipe and six-epoch schedule. It is reported separately from the four primary seed-42 trajectories. The validation-resampling summaries below cover only those primary runs; no resampling or serving benchmark is reported for this replicate.\n\n'+checkpointHeader;
+for(const r of c.replicates){
+ const base=unique(c.runs.filter(p=>p.model===r.replicate_of),'primary trajectory for '+r.model);
+ md+=checkpointTableRows(base,base.label+' (seed 42)')+checkpointTableRows(r);
+ const comparison=r.production_comparisons.validation_f1;
+ md+='\nThe seed-'+r.seed+' run took '+f(r.training_runtime_seconds/3600,1)+' hours. Validation-F1 selection and the observed test oracle both choose step '+r.selected_by_validation_f1+', with '+f(comparison.f1_pct)+'% test F1: '+f(comparison.delta_f1_pp)+' points against production, exploratory unadjusted paired-record 95% CI ['+comparison.ci95_f1_pp.map(x=>f(x)).join(', ')+']. The interval uses '+comparison.bootstrap.resamples.toLocaleString('en-US')+' paired-record resamples; it measures record uncertainty, not variation across training seeds, and makes no confirmatory non-inferiority claim.\n';
+ md+='\nFor seed 43, final minus loss-selected test F1 is '+f(r.final_checkpoint.final_minus_loss_selected_f1_pp)+' points, and validation-selected minus final is '+f(r.final_checkpoint.validation_selected_minus_final_f1_pp)+' points. The ordering repeats across these two seeds, but one replicate of one run does not establish the ranking or size of the gaps.\n';
+}
+
 md+='\n## Primary quality comparisons (Table 2)\n\nProduction canonical micro-F1 is '+f(q.production.f1_pct)+'% and raw record exact match is '+f(q.production.raw_exact_pct)+'%. Each JO/FT family retains the divisor of nine planned cells. A one-sided lower bound strictly above −1 percentage point clears the planning criterion; this does not establish superiority or operational equivalence. Two-sided 95% intervals are exploratory. Hosted references above are supplementary; local Llama proxies remain descriptive.\n\n| Configuration | F1 (%) | Raw exact (%) | Delta F1 (pp) | 95% CI (pp) | Adjusted lower bound (pp) | Clears −1 pp |\n|:--|--:|--:|--:|:--|--:|:--|\n';
 for(const model of gemmaModels)for(const precision of precs){
  const r=quality(model,'validation_f1',precision);
  md+='| '+[labels[model]+' '+precision,f(r.f1_pct),f(r.raw_exact_pct),f(r.delta_f1_pp),'['+r.ci95_f1_pp.map(n=>f(n)).join(', ')+']',f(r.adjusted_lower_bound_pp,3),r.meets_adjusted_margin?'Yes':'No'].join(' | ')+' |\n';
 }
-md+='\n## Field-level quality (Table 6)\n\nCanonical field F1 (%) on 1,213 records. Support counts nonempty human-labelled values. Gemma columns use validation-selected JO checkpoints. These field comparisons are descriptive, especially for COUNTRY with eight nonempty values.\n\n| Field | Support | Production | 12B bf16 | 12B W4A16 | E4B bf16 | E4B W4A16 |\n|:--|--:|--:|--:|--:|--:|--:|\n';
+md+='\n## Field-level quality (Table 7)\n\nCanonical field F1 (%) on 1,213 records. Support counts nonempty human-labelled values. Gemma columns use validation-selected JO checkpoints. These field comparisons are descriptive, especially for COUNTRY with eight nonempty values.\n\n| Field | Support | Production | 12B bf16 | 12B W4A16 | E4B bf16 | E4B W4A16 |\n|:--|--:|--:|--:|--:|--:|--:|\n';
 for(const [field,support] of Object.entries(q.production.gold_nonempty_counts)){
  const values=['gemma4-12b-jo','gemma4-e4b-jo'].flatMap(model=>['bf16','W4A16'].map(p=>f(quality(model,'validation_f1',p).per_field_f1_pct[field])));
  md+='| '+[field,support,f(q.production.per_field_f1_pct[field]),...values].join(' | ')+' |\n';
@@ -177,7 +190,7 @@ md+='\n## Validation-selection stability\n\nEach scheme re-applies checkpoint se
 for(const r of selectionRows)md+='| '+[r.label,r.scheme,f(100*r.same_as_full_pick_fraction,1),f(100*r.beats_validation_loss_fraction,1),f(100*r.matches_or_beats_final_fraction,1),f(r.test_f1_pct.mean,3),f(r.expected_delta_vs_final_pp,3)].join(' | ')+' |\n';
 md+='\n## Paired field errors\n\nA loss means production is correct and the candidate is wrong on a nonempty gold field; a win reverses those roles. The first matching string relation supplies the loss type. Counts are descriptive, exclude shared errors from the loss taxonomy, and do not diagnose causes or establish label correctness. For W4A16, shared/new/resolved losses compare with the same model at bf16. All nine loss-type counts and production-loss counts are retained in error-analysis.csv.\n\n| Field | Model / precision | Losses | Wins | Shared with bf16 | Identical loss outputs | New W4A16 losses | Resolved bf16 losses |\n|:--|:--|--:|--:|--:|--:|--:|--:|\n';
 for(const r of errorRows)md+='| '+[r.field,r.label+' '+r.precision,r.paired.production_only,r.paired.model_only,r.precision_overlap?.shared_loss_records??'—',r.precision_overlap?.identical_loss_outputs??'—',r.precision_overlap?.new_loss_records??'—',r.precision_overlap?.resolved_bf16_loss_records??'—'].join(' | ')+' |\n';
-md+='\n## Production training context\n\nThe production team reports '+production.weight_update_method.method+' of '+production.model+' using '+production.prompt+' through '+production.platform+'. The team recalls approximately '+production.runtime_estimate.wall_clock_minutes.join('–')+' minutes of training wall-clock time; accessible billing records suggest approximately US$'+production.cost_estimate.amount+' at list price. These retrospective operator-reported estimates are not independently verified runtime, GPU-hours or total cost. GPU type/count and detailed training settings remain unavailable. They provide historical context, not a matched comparison with local LoRA or evidence of savings. See configs/production-context.json for qualifications.\n';
+md+='\n## Production training context\n\n'+production.manuscript_statement+'\n';
 write('tables.md',md);
 
 // Figure 1 preserves the manuscript's order, symbols and inferential distinctions.
@@ -274,17 +287,18 @@ write('concurrency.svg',svg(1180,785,mb,'Manuscript Figure 2: JO and FT latency 
 function star(x,y,radius=6){
  return Array.from({length:10},(_,i)=>{const a=-Math.PI/2+i*Math.PI/5,r=i%2?radius*0.43:radius;return `${x+r*Math.cos(a)},${y+r*Math.sin(a)}`;}).join(' ');
 }
-let cb=txt(30,32,'Checkpoint sweeps','class="title"')
+let cb=txt(30,32,'Checkpoint sweeps: four primary runs and one seed-43 replicate','class="title"')
  +txt(30,55,'Upper panels: solid = test F1; dashed = validation F1; horizontal black = production. Lower panels: validation loss.')
  +txt(30,75,'Vertical lines: dashed black = validation-F1 pick; gray = validation-loss pick. Stars: test oracle (descriptive).');
-c.runs.forEach((r,i)=>{
- const ox=60+(i%2)*570,oy=120+Math.floor(i/2)*420;
+checkpointRuns.forEach((r,i)=>{
+ const lastUnpaired=i===checkpointRuns.length-1&&checkpointRuns.length%2===1;
+ const ox=60+(lastUnpaired?285:(i%2)*570),oy=120+Math.floor(i/2)*420;
  const xx=step=>ox+40+(step-150)/(2350-150)*425;
- const yf=v=>oy+205-(v-87)/11*190,yl=v=>oy+325-(v*100-0.65)/1.3*75;
+ const yf=v=>oy+205-(v-86)/12*190,yl=v=>oy+325-(v*100-0.65)/1.3*75;
  const col=modelColor(r.model);
- if(r.curve.some(p=>p.test_f1_pct<87||p.test_f1_pct>98||p.validation_f1_pct<87||p.validation_f1_pct>98||p.validation_loss*100<0.65||p.validation_loss*100>1.95))throw new Error(`Checkpoint plot range exceeded: ${r.model}`);
+ if(r.curve.some(p=>p.test_f1_pct<86||p.test_f1_pct>98||p.validation_f1_pct<86||p.validation_f1_pct>98||p.validation_loss*100<0.65||p.validation_loss*100>1.95))throw new Error(`Checkpoint plot range exceeded: ${r.model}`);
  cb+=txt(ox+40,oy-9,r.label,'font-weight="bold"')+txt(ox+40,oy+8,'F1 (%)','class="label"')+txt(ox+40,oy+237,'Validation loss (×10⁻²)','class="label"');
- for(let v=88;v<=98;v+=2)cb+=line(ox+40,yf(v),ox+465,yf(v),'stroke="#ddd"')+txt(ox+30,yf(v)+4,v,'text-anchor="end"');
+ for(let v=86;v<=98;v+=2)cb+=line(ox+40,yf(v),ox+465,yf(v),'stroke="#ddd"')+txt(ox+30,yf(v)+4,v,'text-anchor="end"');
  for(const v of [0.8,1.2,1.6])cb+=line(ox+40,yl(v/100),ox+465,yl(v/100),'stroke="#ddd"')+txt(ox+30,yl(v/100)+4,f(v,1),'text-anchor="end"');
  for(const [step,style]of [[r.selected_by_validation_loss,'stroke="#999"'],[r.selected_by_validation_f1,'stroke="#222" stroke-dasharray="5 4"']]){
   cb+=line(xx(step),oy+15,xx(step),oy+205,style)+line(xx(step),oy+250,xx(step),oy+325,style);
@@ -301,5 +315,5 @@ c.runs.forEach((r,i)=>{
  for(const step of [400,1200,2000])cb+=txt(xx(step),oy+349,step,'text-anchor="middle"');
  cb+=txt(ox+248,oy+374,'Training step','text-anchor="middle"');
 });
-write('checkpoint-sweeps.svg',svg(1180,940,cb,'Validation and test F1, validation loss, selection rules and test oracles across checkpoint sweeps'));
+write('checkpoint-sweeps.svg',svg(1180,100+Math.ceil(checkpointRuns.length/2)*420,cb,'Four primary seed-42 checkpoint sweeps and the E4B JO seed-43 replicate'));
 console.log('Regenerated 11 CSV files, manuscript-aligned tables with supplementary rows, and 4 SVG figures from published aggregate data.');

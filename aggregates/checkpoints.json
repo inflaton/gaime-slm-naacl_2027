@@ -531,5 +531,183 @@
       }
     }
   ],
-  "selection_reporting_note": "Selection-summary differences retain the original reported contrasts and may differ from subtraction of rounded displayed F1 values. Final-checkpoint differences use the released rounded sweep scores, as in the manuscript."
+  "selection_reporting_note": "Selection-summary differences retain the original reported contrasts and may differ from subtraction of rounded displayed F1 values. Final-checkpoint differences use the released rounded sweep scores, as in the manuscript.",
+  "replicates": [
+    {
+      "model": "gemma4-e4b-jo-s43",
+      "label": "Gemma 4 E4B JO (seed 43)",
+      "seed": 43,
+      "data_seed": 43,
+      "replicate_of": "gemma4-e4b-jo",
+      "scope": "One additional training and data-order seed on the same data split, model, recipe and checkpoint schedule as the primary E4B JO run; not an independent data-split replicate.",
+      "selected_by_validation_loss": 800,
+      "selected_by_validation_f1": 1200,
+      "test_oracle_step": 1200,
+      "validation_f1_test_gain_pp": 1.01,
+      "sweep_selected_f1_pct": 95.97,
+      "training_runtime_seconds": 58995.9,
+      "validation_records": 668,
+      "curve": [
+        {
+          "step": 200,
+          "validation_loss": 0.014697382226586342,
+          "test_f1_pct": 86.83,
+          "validation_f1_pct": 89.58,
+          "validation_strict_record_exact_count": 485
+        },
+        {
+          "step": 400,
+          "validation_loss": 0.011004100553691387,
+          "test_f1_pct": 92.39,
+          "validation_f1_pct": 93.22,
+          "validation_strict_record_exact_count": 552
+        },
+        {
+          "step": 600,
+          "validation_loss": 0.010396122001111507,
+          "test_f1_pct": 89.73,
+          "validation_f1_pct": 94.25,
+          "validation_strict_record_exact_count": 556
+        },
+        {
+          "step": 800,
+          "validation_loss": 0.007841307669878006,
+          "test_f1_pct": 94.96,
+          "validation_f1_pct": 96.39,
+          "validation_strict_record_exact_count": 596
+        },
+        {
+          "step": 1000,
+          "validation_loss": 0.008283425122499466,
+          "test_f1_pct": 95.5,
+          "validation_f1_pct": 96.53,
+          "validation_strict_record_exact_count": 594
+        },
+        {
+          "step": 1200,
+          "validation_loss": 0.00790744461119175,
+          "test_f1_pct": 95.97,
+          "validation_f1_pct": 96.87,
+          "validation_strict_record_exact_count": 599
+        },
+        {
+          "step": 1400,
+          "validation_loss": 0.010043852962553501,
+          "test_f1_pct": 95.02,
+          "validation_f1_pct": 96.28,
+          "validation_strict_record_exact_count": 589
+        },
+        {
+          "step": 1600,
+          "validation_loss": 0.009603694081306458,
+          "test_f1_pct": 95.31,
+          "validation_f1_pct": 96.86,
+          "validation_strict_record_exact_count": 597
+        },
+        {
+          "step": 1800,
+          "validation_loss": 0.010099506936967373,
+          "test_f1_pct": 95.05,
+          "validation_f1_pct": 96.79,
+          "validation_strict_record_exact_count": 592
+        },
+        {
+          "step": 2000,
+          "validation_loss": 0.010434702038764954,
+          "test_f1_pct": 95.05,
+          "validation_f1_pct": 96.74,
+          "validation_strict_record_exact_count": 595
+        },
+        {
+          "step": 2200,
+          "validation_loss": 0.010653577744960785,
+          "test_f1_pct": 95.04,
+          "validation_f1_pct": 96.8,
+          "validation_strict_record_exact_count": 595
+        },
+        {
+          "step": 2298,
+          "validation_loss": 0.01065745297819376,
+          "test_f1_pct": 95.01,
+          "validation_f1_pct": 96.78,
+          "validation_strict_record_exact_count": 594
+        }
+      ],
+      "final_checkpoint": {
+        "step": 2298,
+        "validation_loss": 0.01065745297819376,
+        "test_f1_pct": 95.01,
+        "validation_f1_pct": 96.78,
+        "validation_strict_record_exact_count": 594,
+        "delta_vs_production_pp": -1.94,
+        "final_minus_loss_selected_f1_pp": 0.05,
+        "validation_selected_minus_final_f1_pp": 0.96,
+        "oracle_minus_final_f1_pp": 0.96
+      },
+      "selection_summary": {
+        "validation_f1": {
+          "step": 1200,
+          "validation_f1_pct": 96.87,
+          "test_f1_pct": 95.97,
+          "delta_vs_production_pp": -0.98,
+          "oracle_gap_pp": 0
+        },
+        "validation_loss": {
+          "step": 800,
+          "validation_f1_pct": 96.39,
+          "test_f1_pct": 94.96,
+          "delta_vs_production_pp": -1.99,
+          "oracle_gap_pp": 1.01
+        },
+        "test_oracle": {
+          "step": 1200,
+          "validation_f1_pct": 96.87,
+          "test_f1_pct": 95.97,
+          "delta_vs_production_pp": -0.98,
+          "oracle_gap_pp": 0
+        }
+      },
+      "production_comparisons": {
+        "validation_f1": {
+          "step": 1200,
+          "test_records": 1213,
+          "f1_pct": 95.97,
+          "production_f1_pct": 96.95,
+          "delta_f1_pp": -0.98,
+          "ci95_f1_pp": [
+            -1.68,
+            -0.29
+          ],
+          "bootstrap": {
+            "resamples": 50000,
+            "seed": 42,
+            "unit": "record",
+            "percentile_method": "linear"
+          },
+          "interval_scope": "Exploratory unadjusted paired-record two-sided 95% interval; uncertainty across records, not training seeds.",
+          "confirmatory_noninferiority": false
+        },
+        "test_oracle": {
+          "step": 1200,
+          "test_records": 1213,
+          "f1_pct": 95.97,
+          "production_f1_pct": 96.95,
+          "delta_f1_pp": -0.98,
+          "ci95_f1_pp": [
+            -1.68,
+            -0.29
+          ],
+          "bootstrap": {
+            "resamples": 50000,
+            "seed": 42,
+            "unit": "record",
+            "percentile_method": "linear"
+          },
+          "interval_scope": "Exploratory unadjusted paired-record two-sided 95% interval; uncertainty across records, not training seeds.",
+          "confirmatory_noninferiority": false
+        }
+      },
+      "reporting_note": "Production comparison deltas and intervals retain the available two-decimal source precision. The validation-loss and final-checkpoint deltas are point differences of displayed sweep F1 and production F1; no paired interval is available for those picks. Validation-F1 selection and the test oracle select the same checkpoint. No serving, repeated-generation or validation-resampling measurement is reported for this replicate."
+    }
+  ]
 }

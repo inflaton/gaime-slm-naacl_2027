@@ -9,27 +9,14 @@
     "evidence": "Confirmed by the production team; not independently reconstructed from run artifacts."
   },
   "runtime_estimate": {
-    "wall_clock_minutes": [
-      30,
-      40
-    ],
-    "basis": "Retrospective production-team recollection",
-    "qualification": "Approximate; exact runtime and GPU-hours could not be verified."
-  },
-  "cost_estimate": {
-    "amount": 65,
-    "currency": "USD",
-    "price_basis": "list price",
-    "basis": "Billing records accessible to the production team",
-    "qualification": "Approximate operator-reported training charge, not an independently verified bill or complete project cost."
+    "reported_training_time": "under one hour",
+    "basis": "Operator report",
+    "qualification": "Exact runtime remains unavailable."
   },
   "unavailable": [
-    "exact service/API and run date",
-    "detailed training settings",
     "GPU type and count",
     "exact runtime",
-    "GPU-hours",
-    "verified total training cost",
+    "detailed training settings",
     "production weights and endpoint"
   ],
   "local_proxies": "Separately trained, test-selected rank-8 LoRA adapters for JO and FT provide local serving comparisons; they are not the production weights.",
@@ -37,5 +24,6 @@
   "production_error_observation": {
     "observation": "Digits can be ambiguous between a store identifier within a merchant name and a ZIP code.",
     "scope": "Reported operational experience motivating case review; not a demonstrated cause of the measured digit-only losses or evidence that labels are incorrect."
-  }
+  },
+  "manuscript_statement": "Operator-reported training time was under one hour for full fine-tuning of Llama 3.1 8B through Databricks' managed Mosaic service. The service did not expose GPU type or count to the team; exact runtime and detailed training settings remain unavailable."
 }
