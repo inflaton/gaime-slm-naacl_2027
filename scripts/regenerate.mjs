@@ -283,37 +283,48 @@ seriesStyles.forEach((style,i)=>{
 });
 write('concurrency.svg',svg(1180,785,mb,'Manuscript Figure 2: JO and FT latency and throughput with observed min–max ranges'));
 
-// Each checkpoint panel includes F1 and loss, both selection rules and the test oracle.
+// Selection symbols sit on the measured test curve, so choosing a checkpoint
+// cannot be mistaken for plotting that checkpoint's validation F1 as its result.
 function star(x,y,radius=6){
  return Array.from({length:10},(_,i)=>{const a=-Math.PI/2+i*Math.PI/5,r=i%2?radius*0.43:radius;return `${x+r*Math.cos(a)},${y+r*Math.sin(a)}`;}).join(' ');
 }
+const diamond=(x,y,attributes='')=>`<polygon points="${x},${y-9} ${x+9},${y} ${x},${y+9} ${x-9},${y}" fill="white" stroke="#222" stroke-width="1.7" ${attributes}/>`;
+const square=(x,y,attributes='')=>`<rect x="${x-5}" y="${y-5}" width="10" height="10" fill="white" stroke="#222" stroke-width="1.7" ${attributes}/>`;
+const oracleStar=(x,y,nested=false,attributes='')=>`<polygon points="${star(x,y,nested?4.7:6)}" fill="#222" stroke="white" stroke-width="0.5" ${attributes}/>`;
 let cb=txt(30,32,'Checkpoint sweeps: four primary runs and one seed-43 replicate','class="title"')
- +txt(30,55,'Upper panels: solid = test F1; dashed = validation F1; horizontal black = production. Lower panels: validation loss.')
- +txt(30,75,'Vertical lines: dashed black = validation-F1 pick; gray = validation-loss pick. Stars: test oracle (descriptive).');
+ +txt(30,55,'Solid + dots: test F1. Dashed: validation F1. Dotted gray: production (96.95%). Lower plots: validation loss.')
+ +diamond(39,82)+txt(55,86,'Validation-F1 pick')
+ +square(235,82)+txt(250,86,'Validation-loss pick')
+ +oracleStar(440,82)+txt(455,86,'Test oracle (descriptive)')
+ +diamond(665,82)+oracleStar(665,82,true)+txt(682,86,'Overlapping symbols = same checkpoint')
+ +txt(30,109,'Selection symbols mark test F1; a square also marks the chosen validation loss. The final checkpoint is step 2298.');
 checkpointRuns.forEach((r,i)=>{
  const lastUnpaired=i===checkpointRuns.length-1&&checkpointRuns.length%2===1;
- const ox=60+(lastUnpaired?285:(i%2)*570),oy=120+Math.floor(i/2)*420;
+ const ox=60+(lastUnpaired?285:(i%2)*570),oy=150+Math.floor(i/2)*420;
  const xx=step=>ox+40+(step-150)/(2350-150)*425;
  const yf=v=>oy+205-(v-86)/12*190,yl=v=>oy+325-(v*100-0.65)/1.3*75;
  const col=modelColor(r.model);
  if(r.curve.some(p=>p.test_f1_pct<86||p.test_f1_pct>98||p.validation_f1_pct<86||p.validation_f1_pct>98||p.validation_loss*100<0.65||p.validation_loss*100>1.95))throw new Error(`Checkpoint plot range exceeded: ${r.model}`);
+ cb+=`<g class="checkpoint-panel" data-model="${esc(r.model)}">`;
  cb+=txt(ox+40,oy-9,r.label,'font-weight="bold"')+txt(ox+40,oy+8,'F1 (%)','class="label"')+txt(ox+40,oy+237,'Validation loss (×10⁻²)','class="label"');
  for(let v=86;v<=98;v+=2)cb+=line(ox+40,yf(v),ox+465,yf(v),'stroke="#ddd"')+txt(ox+30,yf(v)+4,v,'text-anchor="end"');
  for(const v of [0.8,1.2,1.6])cb+=line(ox+40,yl(v/100),ox+465,yl(v/100),'stroke="#ddd"')+txt(ox+30,yl(v/100)+4,f(v,1),'text-anchor="end"');
- for(const [step,style]of [[r.selected_by_validation_loss,'stroke="#999"'],[r.selected_by_validation_f1,'stroke="#222" stroke-dasharray="5 4"']]){
-  cb+=line(xx(step),oy+15,xx(step),oy+205,style)+line(xx(step),oy+250,xx(step),oy+325,style);
- }
- cb+=line(ox+40,yf(q.production.f1_pct),ox+465,yf(q.production.f1_pct),'stroke="#222" stroke-width="1"');
- for(const [key,dashed]of [['test_f1_pct',false],['validation_f1_pct',true]])cb+=`<path d="${r.curve.map((p,k)=>(k?'L':'M')+xx(p.step)+','+yf(p[key])).join(' ')}" stroke="${col}" stroke-width="2" ${dashed?'stroke-dasharray="6 4"':''}/>`;
- r.curve.forEach(p=>cb+=`<circle cx="${xx(p.step)}" cy="${yf(p.test_f1_pct)}" r="2.3" fill="${col}"/>`);
- const oracle=unique(r.curve.filter(p=>p.step===r.test_oracle_step),`test oracle for ${r.model}`);
- cb+=`<polygon points="${star(xx(oracle.step),yf(oracle.test_f1_pct))}" fill="white" stroke="${col}" stroke-width="1.5"/>`;
- cb+=`<path d="${r.curve.map((p,k)=>(k?'L':'M')+xx(p.step)+','+yl(p.validation_loss)).join(' ')}" stroke="${col}" stroke-width="2"/>`;
- r.curve.forEach(p=>cb+=`<circle cx="${xx(p.step)}" cy="${yl(p.validation_loss)}" r="2.3" fill="${col}"/>`);
+ cb+=line(ox+40,yf(q.production.f1_pct),ox+465,yf(q.production.f1_pct),'class="production-reference" stroke="#888" stroke-width="0.9" stroke-dasharray="1 3" stroke-linecap="round"');
+ cb+=txt(ox+472,yf(q.production.f1_pct)+3.5,f(q.production.f1_pct)+'%','class="production-label" style="font-size:10px;fill:#666"');
+ for(const [key,dashed]of [['test_f1_pct',false],['validation_f1_pct',true]])cb+=`<path class="${dashed?'validation':'test'}-f1-curve" d="${r.curve.map((p,k)=>(k?'L':'M')+xx(p.step)+','+yf(p[key])).join(' ')}" stroke="${col}" stroke-width="2" ${dashed?'stroke-dasharray="6 4"':''}/>`;
+ r.curve.forEach(p=>cb+=`<circle class="test-point" data-step="${p.step}" cx="${xx(p.step)}" cy="${yf(p.test_f1_pct)}" r="2.3" fill="${col}"/>`);
+ const valPick=unique(r.curve.filter(p=>p.step===r.selected_by_validation_f1),`validation-F1 pick for ${r.model}`);
  const lossPick=unique(r.curve.filter(p=>p.step===r.selected_by_validation_loss),`validation-loss pick for ${r.model}`);
- cb+=`<circle cx="${xx(lossPick.step)}" cy="${yl(lossPick.validation_loss)}" r="3.5" fill="#222"/>`;
+ const oracle=unique(r.curve.filter(p=>p.step===r.test_oracle_step),`test oracle for ${r.model}`);
+ cb+=square(xx(lossPick.step),yf(lossPick.test_f1_pct),'class="loss-selection-test"');
+ cb+=diamond(xx(valPick.step),yf(valPick.test_f1_pct),'class="validation-selection-test"');
+ cb+=oracleStar(xx(oracle.step),yf(oracle.test_f1_pct),oracle.step===valPick.step,'class="test-oracle"');
+ cb+=`<path d="${r.curve.map((p,k)=>(k?'L':'M')+xx(p.step)+','+yl(p.validation_loss)).join(' ')}" stroke="${col}" stroke-width="2"/>`;
+ r.curve.forEach(p=>cb+=`<circle class="loss-point" data-step="${p.step}" cx="${xx(p.step)}" cy="${yl(p.validation_loss)}" r="2.3" fill="${col}"/>`);
+ cb+=square(xx(lossPick.step),yl(lossPick.validation_loss),'class="loss-selection-loss"');
  for(const step of [400,1200,2000])cb+=txt(xx(step),oy+349,step,'text-anchor="middle"');
  cb+=txt(ox+248,oy+374,'Training step','text-anchor="middle"');
+ cb+='</g>';
 });
-write('checkpoint-sweeps.svg',svg(1180,100+Math.ceil(checkpointRuns.length/2)*420,cb,'Four primary seed-42 checkpoint sweeps and the E4B JO seed-43 replicate'));
+write('checkpoint-sweeps.svg',svg(1180,130+Math.ceil(checkpointRuns.length/2)*420,cb,'Four primary seed-42 checkpoint sweeps and the E4B JO seed-43 replicate'));
 console.log('Regenerated 11 CSV files, manuscript-aligned tables with supplementary rows, and 4 SVG figures from published aggregate data.');

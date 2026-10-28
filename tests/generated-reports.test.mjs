@@ -128,6 +128,52 @@ test('regenerated reports preserve manuscript scope, retained values and determi
   assert.equal(csvRecords(output['selection-stability.csv']).length,8);
  });
 
+ await t.test('checkpoint selection symbols mark test values and preserve coincident oracle selections',()=>{
+  const svg=output['checkpoint-sweeps.svg'];
+  const panels=[...svg.matchAll(/<g class="checkpoint-panel" data-model="([^"]+)">([\s\S]*?)<\/g>/g)];
+  assert.equal(panels.length,5);assert(svg.includes('Overlapping symbols = same checkpoint'));
+  const attr=(element,name)=>new RegExp(`\\b${name}="([^"]*)"`).exec(element)?.[1];
+  const element=(body,tag,className)=>{
+   const matches=[...body.matchAll(new RegExp(`<${tag}\\b[^>]*class="${className}"[^>]*>`,'g'))];
+   assert.equal(matches.length,1,`Expected one ${className}`);return matches[0][0];
+  };
+  const polygonPoints=tag=>attr(tag,'points').split(' ').map(pair=>pair.split(',').map(Number));
+  const center=(tag,kind)=>{
+   if(kind==='circle')return [Number(attr(tag,'cx')),Number(attr(tag,'cy'))];
+   if(kind==='rect')return [Number(attr(tag,'x'))+Number(attr(tag,'width'))/2,Number(attr(tag,'y'))+Number(attr(tag,'height'))/2];
+   const points=polygonPoints(tag);return [0,1].map(i=>points.reduce((sum,p)=>sum+p[i],0)/points.length);
+  };
+  const samePoint=(a,b)=>a.forEach((value,i)=>assert(Math.abs(value-b[i])<1e-8));
+  const coincident=[];
+  for(const [,model,body]of panels){
+   const run=[...checkpoints.runs,...checkpoints.replicates].find(r=>r.model===model);assert(run);
+   const points=className=>[...body.matchAll(new RegExp(`<circle\\b[^>]*class="${className}"[^>]*>`,'g'))].map(match=>match[0]);
+   const testPoints=points('test-point'),lossPoints=points('loss-point');assert.equal(testPoints.length,12);assert.equal(lossPoints.length,12);
+   const testAt=step=>center(testPoints.find(point=>Number(attr(point,'data-step'))===step),'circle');
+   const lossAt=step=>center(lossPoints.find(point=>Number(attr(point,'data-step'))===step),'circle');
+   const diamond=element(body,'polygon','validation-selection-test'),square=element(body,'rect','loss-selection-test'),lossSquare=element(body,'rect','loss-selection-loss'),oracle=element(body,'polygon','test-oracle');
+   samePoint(center(diamond,'polygon'),testAt(run.selected_by_validation_f1));
+   samePoint(center(square,'rect'),testAt(run.selected_by_validation_loss));
+   samePoint(center(lossSquare,'rect'),lossAt(run.selected_by_validation_loss));
+   samePoint(center(oracle,'polygon'),testAt(run.test_oracle_step));
+   for(const marker of [diamond,square,lossSquare])assert.equal(attr(marker,'fill'),'white');
+   assert.equal(attr(element(body,'path','test-f1-curve'),'stroke-dasharray'),undefined);
+   assert(attr(element(body,'path','validation-f1-curve'),'stroke-dasharray'));
+   const reference=element(body,'line','production-reference');assert(attr(reference,'stroke-dasharray'));assert(Number(attr(reference,'stroke-width'))<=1);
+   assert(body.includes('class="production-label"'));assert(body.includes('>96.95%</text>'));
+   for(const [tag]of body.matchAll(/<line\b[^>]*>/g)){
+    const x1=Number(attr(tag,'x1')),x2=Number(attr(tag,'x2')),height=Math.abs(Number(attr(tag,'y1'))-Number(attr(tag,'y2')));
+    const atSelection=[run.selected_by_validation_f1,run.selected_by_validation_loss].some(step=>Math.abs(x1-testAt(step)[0])<1e-8);
+    assert(!(x1===x2&&height>=75&&atSelection),'Selection must not draw a full-height guide');
+   }
+   if(run.test_oracle_step===run.selected_by_validation_f1){
+    coincident.push(model);const [cx,cy]=center(diamond,'polygon'),radius=Math.max(...polygonPoints(diamond).map(([x,y])=>Math.abs(x-cx)+Math.abs(y-cy)));
+    assert(polygonPoints(oracle).every(([x,y])=>Math.abs(x-cx)+Math.abs(y-cy)<radius),'The oracle star must fit inside the coincident diamond');
+   }
+  }
+  assert.deepEqual(coincident,['gemma4-12b-jo','gemma4-e4b-jo-s43']);
+ });
+
  await t.test('decision guide keeps its six-row scope and full-workload resource estimates',()=>{
   const rows=table(markdown,'## Decision guide (Table 4)');assert.equal(rows.length,6);
   verifyBests(rows,2,[4,5,7,8]);
