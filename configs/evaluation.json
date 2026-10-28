@@ -33,7 +33,9 @@
     "family_wise_alpha": 0.05,
     "family_divisor": 9,
     "margin_f1_pp": 1,
-    "scope": "Primary Gemma 4 comparisons against retained production outputs. Astra supplementary lower bounds use the same per-comparison cutoff outside the primary families."
+    "scope": "Primary Gemma 4 comparisons against retained production outputs. Astra supplementary lower bounds use the same per-comparison cutoff outside the primary families.",
+    "margin_interpretation": "One F1 percentage point is a planning convention, not an established operational tolerance. The unrounded adjusted lower bound must be strictly greater than -1 pp; failing to clear it is inconclusive.",
+    "uncertainty_scope": "Paired-record uncertainty conditional on the evaluated predictions. Does not cover training variance, retrospective prompt/selection choices, distribution change or annotation uncertainty."
   },
   "selection": {
     "primary": "maximum generated validation canonical micro-F1 rounded to four decimal places on the 0–1 scale; ties: higher validation strict record exact-match count, then earlier step",
@@ -50,7 +52,30 @@
     "tie_breakers": [
       "higher validation strict record exact-match count",
       "earlier step"
-    ]
+    ],
+    "final_checkpoint_baseline": "Final saved checkpoint at step 2298 after six epochs; a no-selection baseline, not an early-stopping run.",
+    "validation_resampling": {
+      "validation_records": 668,
+      "training_trajectories": 4,
+      "checkpoints_per_trajectory": 12,
+      "seed": 42,
+      "bootstrap": {
+        "resamples": 2000,
+        "records_per_resample": 668,
+        "with_replacement": true
+      },
+      "random_halves": {
+        "resamples": 2000,
+        "records_per_resample": 334,
+        "with_replacement": false
+      },
+      "procedure": "Reapply the same rounded validation-F1 and tie-break rule to retained per-record validation counts, then map the selected step to its retained sweep test F1.",
+      "comparisons": [
+        "minimum-validation-loss checkpoint",
+        "final checkpoint at step 2298"
+      ],
+      "scope": "Sensitivity to the retained validation sample, not independent validation or new inference/training. The analysis reuses the same rows and four single-seed sweeps."
+    }
   },
   "sample_counts": {
     "train": 6125,
@@ -77,5 +102,30 @@
     "adjusted_lower_bounds": false,
     "noninferiority_decisions": false,
     "scope": "Exploratory paired comparisons outside the primary families. Intervals do not correct for test-based proxy checkpoint selection. Retain paired contrasts rather than subtracting rounded quality rates."
+  },
+  "error_analysis": {
+    "fields": [
+      "MERCHANT_NAME",
+      "STREET",
+      "WEBSITE"
+    ],
+    "comparison": "Canonical field outcomes on the common test set, comparing each candidate with production.",
+    "loss_definition": "Nonempty gold value, correct production output and incorrect candidate output; spurious predictions with empty gold are counted separately.",
+    "taxonomy_first_match_order": [
+      "empty prediction",
+      "punctuation only",
+      "digits only",
+      "another field gold value",
+      "proper substring (shorter)",
+      "superstring containing another field value",
+      "superstring (longer)",
+      "similar",
+      "different"
+    ],
+    "relation_normalization": "Uppercase forms with non-alphanumeric characters removed.",
+    "other_field_minimum_characters": 3,
+    "similarity": "difflib ratio >= 0.8",
+    "shared_losses": "Records both precisions lose; identical output means the same canonical string.",
+    "scope": "Counts of first-match string relations, not independent causes, hallucination diagnoses or evidence that gold labels are wrong. Excludes errors shared with production from the loss taxonomy. Released results contain aggregates only."
   }
 }

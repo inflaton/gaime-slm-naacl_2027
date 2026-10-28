@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "scope": "Retrospective validation-selection stability on four fixed training trajectories. Validation rows are resampled; the fixed test scores of the selected checkpoints are then summarized. This reuses existing data and does not independently validate the selection rule.",
+  "validation_records": 668,
+  "resamples": 2000,
+  "seed": 42,
+  "rule": "Maximize generated validation canonical micro-F1 rounded to four decimal places on the fractional scale; ties use higher validation strict record exact match, then earlier step.",
+  "units": "F1 and test-score summaries are percentages; differences and oracle regret are percentage points; fields ending in _fraction are fractions.",
+  "schemes": {
+    "bootstrap": "Resample the validation records with replacement, keeping the original validation-set size.",
+    "random_half": "Sample half of the validation records without replacement."
+  },
+  "runs": [
+    {
+      "model": "gemma4-12b-jo",
+      "label": "Gemma 4 12B JO",
+      "available_steps": [
+        200,
+        400,
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000,
+        2200,
+        2298
+      ],
+      "validation_loss_step": 1200,
+      "final_step": 2298,
+      "full_validation_pick_step": 1400,
+      "reported_validation_pick_step": 1400,
+      "test_f1_pct_by_step": {
+        "200": 91.4,
+        "400": 94.89,
+        "600": 96.41,
+        "800": 95.79,
+        "1000": 96.37,
+        "1200": 96.22,
+        "1400": 97.04,
+        "1600": 96.74,
+        "1800": 96.76,
+        "2000": 96.59,
+        "2200": 96.63,
+        "2298": 96.61
+      },
+      "bootstrap": {
+        "selected_step_counts": {
+          "600": 33,
+          "800": 1,
+          "1200": 360,
+          "1400": 836,
+          "1600": 103,
+          "1800": 614,
+          "2000": 7,
+          "2200": 46
+        },
+        "same_as_full_pick_fraction": 0.418,
+        "test_f1_pct": {
+          "mean": 96.769,
+          "p05": 96.22,
+          "p50": 96.76,
+          "p95": 97.04
+        },
+        "beats_validation_loss_fraction": 0.8195,
+        "matches_or_beats_final_fraction": 0.7995,
+        "beats_final_fraction": 0.7995,
+        "mean_oracle_regret_pp": 0.271
+      },
+      "random_half": {
+        "selected_step_counts": {
+          "600": 32,
+          "1200": 365,
+          "1400": 857,
+          "1600": 122,
+          "1800": 581,
+          "2000": 11,
+          "2200": 32
+        },
+        "same_as_full_pick_fraction": 0.4285,
+        "test_f1_pct": {
+          "mean": 96.772,
+          "p05": 96.22,
+          "p50": 96.76,
+          "p95": 97.04
+        },
+        "beats_validation_loss_fraction": 0.8175,
+        "matches_or_beats_final_fraction": 0.796,
+        "beats_final_fraction": 0.796,
+        "mean_oracle_regret_pp": 0.268
+      }
+    },
+    {
+      "model": "gemma4-12b-ft",
+      "label": "Gemma 4 12B FT",
+      "available_steps": [
+        200,
+        400,
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000,
+        2200,
+        2298
+      ],
+      "validation_loss_step": 1200,
+      "final_step": 2298,
+      "full_validation_pick_step": 2298,
+      "reported_validation_pick_step": 2298,
+      "test_f1_pct_by_step": {
+        "200": 91.78,
+        "400": 95.67,
+        "600": 95.8,
+        "800": 95.86,
+        "1000": 96.49,
+        "1200": 96.34,
+        "1400": 96.76,
+        "1600": 96.6,
+        "1800": 96.52,
+        "2000": 96.71,
+        "2200": 96.79,
+        "2298": 96.76
+      },
+      "bootstrap": {
+        "selected_step_counts": {
+          "1000": 3,
+          "1200": 679,
+          "1400": 391,
+          "1600": 305,
+          "1800": 5,
+          "2000": 7,
+          "2200": 174,
+          "2298": 436
+        },
+        "same_as_full_pick_fraction": 0.218,
+        "test_f1_pct": {
+          "mean": 96.594,
+          "p05": 96.34,
+          "p50": 96.76,
+          "p95": 96.79
+        },
+        "beats_validation_loss_fraction": 0.6605,
+        "matches_or_beats_final_fraction": 0.5005,
+        "beats_final_fraction": 0.087,
+        "mean_oracle_regret_pp": 0.196
+      },
+      "random_half": {
+        "selected_step_counts": {
+          "1000": 10,
+          "1200": 718,
+          "1400": 348,
+          "1600": 307,
+          "1800": 20,
+          "2000": 25,
+          "2200": 199,
+          "2298": 373
+        },
+        "same_as_full_pick_fraction": 0.1865,
+        "test_f1_pct": {
+          "mean": 96.583,
+          "p05": 96.34,
+          "p50": 96.6,
+          "p95": 96.79
+        },
+        "beats_validation_loss_fraction": 0.641,
+        "matches_or_beats_final_fraction": 0.46,
+        "beats_final_fraction": 0.0995,
+        "mean_oracle_regret_pp": 0.207
+      }
+    },
+    {
+      "model": "gemma4-e4b-jo",
+      "label": "Gemma 4 E4B JO",
+      "available_steps": [
+        200,
+        400,
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000,
+        2200,
+        2298
+      ],
+      "validation_loss_step": 800,
+      "final_step": 2298,
+      "full_validation_pick_step": 2298,
+      "reported_validation_pick_step": 2298,
+      "test_f1_pct_by_step": {
+        "200": 87.55,
+        "400": 90.09,
+        "600": 95.58,
+        "800": 93.99,
+        "1000": 95.01,
+        "1200": 95.42,
+        "1400": 95.99,
+        "1600": 95.05,
+        "1800": 95.53,
+        "2000": 95.84,
+        "2200": 95.94,
+        "2298": 95.87
+      },
+      "bootstrap": {
+        "selected_step_counts": {
+          "600": 43,
+          "1000": 507,
+          "1200": 53,
+          "1400": 27,
+          "1600": 80,
+          "1800": 118,
+          "2000": 408,
+          "2200": 214,
+          "2298": 550
+        },
+        "same_as_full_pick_fraction": 0.275,
+        "test_f1_pct": {
+          "mean": 95.584,
+          "p05": 95.01,
+          "p50": 95.84,
+          "p95": 95.94
+        },
+        "beats_validation_loss_fraction": 1,
+        "matches_or_beats_final_fraction": 0.3955,
+        "beats_final_fraction": 0.1205,
+        "mean_oracle_regret_pp": 0.406
+      },
+      "random_half": {
+        "selected_step_counts": {
+          "600": 42,
+          "1000": 518,
+          "1200": 52,
+          "1400": 35,
+          "1600": 98,
+          "1800": 107,
+          "2000": 337,
+          "2200": 308,
+          "2298": 503
+        },
+        "same_as_full_pick_fraction": 0.2515,
+        "test_f1_pct": {
+          "mean": 95.579,
+          "p05": 95.01,
+          "p50": 95.84,
+          "p95": 95.94
+        },
+        "beats_validation_loss_fraction": 1,
+        "matches_or_beats_final_fraction": 0.423,
+        "beats_final_fraction": 0.1715,
+        "mean_oracle_regret_pp": 0.411
+      }
+    },
+    {
+      "model": "gemma4-e4b-ft",
+      "label": "Gemma 4 E4B FT",
+      "available_steps": [
+        200,
+        400,
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000,
+        2200,
+        2298
+      ],
+      "validation_loss_step": 1000,
+      "final_step": 2298,
+      "full_validation_pick_step": 1400,
+      "reported_validation_pick_step": 1400,
+      "test_f1_pct_by_step": {
+        "200": 88.83,
+        "400": 92.27,
+        "600": 95.55,
+        "800": 94.28,
+        "1000": 95.21,
+        "1200": 95.66,
+        "1400": 95.9,
+        "1600": 95.79,
+        "1800": 96.15,
+        "2000": 96,
+        "2200": 95.73,
+        "2298": 95.77
+      },
+      "bootstrap": {
+        "selected_step_counts": {
+          "600": 97,
+          "800": 1,
+          "1000": 281,
+          "1200": 35,
+          "1400": 566,
+          "1600": 1,
+          "1800": 405,
+          "2000": 390,
+          "2200": 51,
+          "2298": 173
+        },
+        "same_as_full_pick_fraction": 0.283,
+        "test_f1_pct": {
+          "mean": 95.836,
+          "p05": 95.21,
+          "p50": 95.9,
+          "p95": 96.15
+        },
+        "beats_validation_loss_fraction": 0.859,
+        "matches_or_beats_final_fraction": 0.7675,
+        "beats_final_fraction": 0.681,
+        "mean_oracle_regret_pp": 0.314
+      },
+      "random_half": {
+        "selected_step_counts": {
+          "600": 108,
+          "1000": 337,
+          "1200": 55,
+          "1400": 507,
+          "1600": 3,
+          "1800": 395,
+          "2000": 392,
+          "2200": 59,
+          "2298": 144
+        },
+        "same_as_full_pick_fraction": 0.2535,
+        "test_f1_pct": {
+          "mean": 95.813,
+          "p05": 95.21,
+          "p50": 95.9,
+          "p95": 96.15
+        },
+        "beats_validation_loss_fraction": 0.8315,
+        "matches_or_beats_final_fraction": 0.7205,
+        "beats_final_fraction": 0.6485,
+        "mean_oracle_regret_pp": 0.337
+      }
+    }
+  ]
+}

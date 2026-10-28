@@ -1,0 +1,1144 @@
+{
+  "schema_version": 1,
+  "scope": "Paired field-level error counts on the common historical test set. A loss means production is correct and the candidate is wrong on a nonempty gold field; a win is the reverse. Shared errors and spurious predictions with empty gold are separate. Counts describe string relations, not annotation correctness or error causes.",
+  "reference_model": "production",
+  "reference_label": "Retained production Llama 3.1 8B outputs",
+  "taxonomy": {
+    "order": [
+      "missed",
+      "punct_only",
+      "digits_only",
+      "other_field",
+      "shorter",
+      "longer_with_other_field",
+      "longer",
+      "similar",
+      "different"
+    ],
+    "definitions": {
+      "missed": "Empty predicted field.",
+      "punct_only": "A punctuation-only difference from the gold value.",
+      "digits_only": "A digits-only difference from the gold value.",
+      "other_field": "The prediction matches another field's gold value of at least three normalized characters.",
+      "shorter": "The prediction is a proper substring of the gold value.",
+      "longer_with_other_field": "The prediction is a superstring of gold that includes another field's gold value.",
+      "longer": "The prediction is a proper superstring of the gold value.",
+      "similar": "Other similar strings with a difflib ratio of at least 0.8.",
+      "different": "No preceding string relation applies."
+    },
+    "rule": "Each loss is assigned to the first matching category. Relations use uppercase strings with non-alphanumeric characters removed; correctness and field presence follow the canonical evaluation contract."
+  },
+  "descriptor_presence_note": "Containment is checked after alphanumeric normalization. A lost gold value occurring in the input does not rule out an invented prediction.",
+  "fields": [
+    {
+      "field": "MERCHANT_NAME",
+      "test_records": 1213,
+      "gold_nonempty": 1213,
+      "gold_in_descriptor": 1210,
+      "production_outcomes": {
+        "correct": 1157,
+        "wrong": 56,
+        "missed": 0,
+        "spurious": 0,
+        "both_empty": 0,
+        "f1_pct": 95.38
+      },
+      "comparisons": [
+        {
+          "model": "gemma4-12b-jo",
+          "label": "Gemma 4 12B JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 1150,
+            "wrong": 63,
+            "missed": 0,
+            "spurious": 0,
+            "both_empty": 0,
+            "f1_pct": 94.81
+          },
+          "paired": {
+            "gold_nonempty": 1213,
+            "both_correct": 1124,
+            "production_only": 33,
+            "model_only": 26,
+            "both_incorrect": 30,
+            "net_true_positives": -7,
+            "sign_test_p": 0.4349928051221534,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 0,
+            "punct_only": 2,
+            "digits_only": 12,
+            "other_field": 0,
+            "shorter": 5,
+            "longer_with_other_field": 8,
+            "longer": 4,
+            "similar": 2,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 7,
+            "other_field": 1,
+            "shorter": 9,
+            "longer_with_other_field": 4,
+            "longer": 4,
+            "similar": 0,
+            "different": 1
+          },
+          "descriptor_presence_counts": {
+            "losses": 33,
+            "losses_gold_in_descriptor": 33,
+            "losses_prediction_in_descriptor": 31,
+            "wins": 26,
+            "wins_gold_in_descriptor": 26
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "gemma4-12b-jo",
+          "label": "Gemma 4 12B JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 1151,
+            "wrong": 62,
+            "missed": 0,
+            "spurious": 0,
+            "both_empty": 0,
+            "f1_pct": 94.89
+          },
+          "paired": {
+            "gold_nonempty": 1213,
+            "both_correct": 1127,
+            "production_only": 30,
+            "model_only": 24,
+            "both_incorrect": 32,
+            "net_true_positives": -6,
+            "sign_test_p": 0.4966174353179338,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 0,
+            "punct_only": 2,
+            "digits_only": 12,
+            "other_field": 0,
+            "shorter": 4,
+            "longer_with_other_field": 8,
+            "longer": 3,
+            "similar": 0,
+            "different": 1
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 7,
+            "other_field": 1,
+            "shorter": 8,
+            "longer_with_other_field": 4,
+            "longer": 3,
+            "similar": 0,
+            "different": 1
+          },
+          "descriptor_presence_counts": {
+            "losses": 30,
+            "losses_gold_in_descriptor": 30,
+            "losses_prediction_in_descriptor": 30,
+            "wins": 24,
+            "wins_gold_in_descriptor": 24
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 26,
+            "identical_loss_outputs": 26,
+            "new_loss_records": 4,
+            "resolved_bf16_loss_records": 7
+          }
+        },
+        {
+          "model": "gemma4-e4b-jo",
+          "label": "Gemma 4 E4B JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 1144,
+            "wrong": 69,
+            "missed": 0,
+            "spurious": 0,
+            "both_empty": 0,
+            "f1_pct": 94.31
+          },
+          "paired": {
+            "gold_nonempty": 1213,
+            "both_correct": 1124,
+            "production_only": 33,
+            "model_only": 20,
+            "both_incorrect": 36,
+            "net_true_positives": -13,
+            "sign_test_p": 0.09837064844049181,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 0,
+            "punct_only": 1,
+            "digits_only": 13,
+            "other_field": 0,
+            "shorter": 9,
+            "longer_with_other_field": 3,
+            "longer": 6,
+            "similar": 0,
+            "different": 1
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 1,
+            "digits_only": 3,
+            "other_field": 1,
+            "shorter": 8,
+            "longer_with_other_field": 2,
+            "longer": 5,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 33,
+            "losses_gold_in_descriptor": 33,
+            "losses_prediction_in_descriptor": 33,
+            "wins": 20,
+            "wins_gold_in_descriptor": 20
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "gemma4-e4b-jo",
+          "label": "Gemma 4 E4B JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 1130,
+            "wrong": 83,
+            "missed": 0,
+            "spurious": 0,
+            "both_empty": 0,
+            "f1_pct": 93.16
+          },
+          "paired": {
+            "gold_nonempty": 1213,
+            "both_correct": 1113,
+            "production_only": 44,
+            "model_only": 17,
+            "both_incorrect": 39,
+            "net_true_positives": -27,
+            "sign_test_p": 0.0007299045109347684,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 15,
+            "other_field": 0,
+            "shorter": 21,
+            "longer_with_other_field": 2,
+            "longer": 6,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 1,
+            "digits_only": 3,
+            "other_field": 1,
+            "shorter": 6,
+            "longer_with_other_field": 4,
+            "longer": 2,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 44,
+            "losses_gold_in_descriptor": 44,
+            "losses_prediction_in_descriptor": 44,
+            "wins": 17,
+            "wins_gold_in_descriptor": 17
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 26,
+            "identical_loss_outputs": 26,
+            "new_loss_records": 18,
+            "resolved_bf16_loss_records": 7
+          }
+        },
+        {
+          "model": "llama31-8b-proxy-jo",
+          "label": "Llama 3.1 8B proxy JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "proxy",
+          "outcomes": {
+            "correct": 1147,
+            "wrong": 66,
+            "missed": 0,
+            "spurious": 0,
+            "both_empty": 0,
+            "f1_pct": 94.56
+          },
+          "paired": {
+            "gold_nonempty": 1213,
+            "both_correct": 1132,
+            "production_only": 25,
+            "model_only": 15,
+            "both_incorrect": 41,
+            "net_true_positives": -10,
+            "sign_test_p": 0.1538599441628321,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 5,
+            "other_field": 1,
+            "shorter": 7,
+            "longer_with_other_field": 5,
+            "longer": 5,
+            "similar": 1,
+            "different": 1
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 4,
+            "other_field": 0,
+            "shorter": 5,
+            "longer_with_other_field": 4,
+            "longer": 2,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 25,
+            "losses_gold_in_descriptor": 25,
+            "losses_prediction_in_descriptor": 22,
+            "wins": 15,
+            "wins_gold_in_descriptor": 15
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "llama31-8b-proxy-jo",
+          "label": "Llama 3.1 8B proxy JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "proxy",
+          "outcomes": {
+            "correct": 1133,
+            "wrong": 80,
+            "missed": 0,
+            "spurious": 0,
+            "both_empty": 0,
+            "f1_pct": 93.4
+          },
+          "paired": {
+            "gold_nonempty": 1213,
+            "both_correct": 1122,
+            "production_only": 35,
+            "model_only": 11,
+            "both_incorrect": 45,
+            "net_true_positives": -24,
+            "sign_test_p": 0.0005355850721002753,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 8,
+            "other_field": 4,
+            "shorter": 8,
+            "longer_with_other_field": 8,
+            "longer": 5,
+            "similar": 1,
+            "different": 1
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 3,
+            "other_field": 0,
+            "shorter": 5,
+            "longer_with_other_field": 1,
+            "longer": 2,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 35,
+            "losses_gold_in_descriptor": 35,
+            "losses_prediction_in_descriptor": 33,
+            "wins": 11,
+            "wins_gold_in_descriptor": 11
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 21,
+            "identical_loss_outputs": 21,
+            "new_loss_records": 14,
+            "resolved_bf16_loss_records": 4
+          }
+        }
+      ]
+    },
+    {
+      "field": "STREET",
+      "test_records": 1213,
+      "gold_nonempty": 372,
+      "gold_in_descriptor": 372,
+      "production_outcomes": {
+        "correct": 350,
+        "wrong": 16,
+        "missed": 6,
+        "spurious": 5,
+        "both_empty": 836,
+        "f1_pct": 94.21
+      },
+      "comparisons": [
+        {
+          "model": "gemma4-12b-jo",
+          "label": "Gemma 4 12B JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 350,
+            "wrong": 18,
+            "missed": 4,
+            "spurious": 7,
+            "both_empty": 834,
+            "f1_pct": 93.71
+          },
+          "paired": {
+            "gold_nonempty": 372,
+            "both_correct": 344,
+            "production_only": 6,
+            "model_only": 6,
+            "both_incorrect": 16,
+            "net_true_positives": 0,
+            "sign_test_p": 1,
+            "spurious_model": 7,
+            "spurious_production": 5
+          },
+          "loss_type_counts": {
+            "missed": 1,
+            "punct_only": 1,
+            "digits_only": 1,
+            "other_field": 0,
+            "shorter": 3,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 2,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 2,
+            "longer_with_other_field": 1,
+            "longer": 0,
+            "similar": 0,
+            "different": 1
+          },
+          "descriptor_presence_counts": {
+            "losses": 6,
+            "losses_gold_in_descriptor": 6,
+            "losses_prediction_in_descriptor": 5,
+            "wins": 6,
+            "wins_gold_in_descriptor": 6
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "gemma4-12b-jo",
+          "label": "Gemma 4 12B JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 348,
+            "wrong": 17,
+            "missed": 7,
+            "spurious": 7,
+            "both_empty": 834,
+            "f1_pct": 93.55
+          },
+          "paired": {
+            "gold_nonempty": 372,
+            "both_correct": 342,
+            "production_only": 8,
+            "model_only": 6,
+            "both_incorrect": 16,
+            "net_true_positives": -2,
+            "sign_test_p": 0.79052734375,
+            "spurious_model": 7,
+            "spurious_production": 5
+          },
+          "loss_type_counts": {
+            "missed": 3,
+            "punct_only": 0,
+            "digits_only": 1,
+            "other_field": 0,
+            "shorter": 4,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 2,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 2,
+            "longer_with_other_field": 1,
+            "longer": 0,
+            "similar": 0,
+            "different": 1
+          },
+          "descriptor_presence_counts": {
+            "losses": 8,
+            "losses_gold_in_descriptor": 8,
+            "losses_prediction_in_descriptor": 5,
+            "wins": 6,
+            "wins_gold_in_descriptor": 6
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 5,
+            "identical_loss_outputs": 4,
+            "new_loss_records": 3,
+            "resolved_bf16_loss_records": 1
+          }
+        },
+        {
+          "model": "gemma4-e4b-jo",
+          "label": "Gemma 4 E4B JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 340,
+            "wrong": 29,
+            "missed": 3,
+            "spurious": 6,
+            "both_empty": 835,
+            "f1_pct": 91.03
+          },
+          "paired": {
+            "gold_nonempty": 372,
+            "both_correct": 334,
+            "production_only": 16,
+            "model_only": 6,
+            "both_incorrect": 16,
+            "net_true_positives": -10,
+            "sign_test_p": 0.052478790283203125,
+            "spurious_model": 6,
+            "spurious_production": 5
+          },
+          "loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 2,
+            "other_field": 0,
+            "shorter": 8,
+            "longer_with_other_field": 2,
+            "longer": 1,
+            "similar": 2,
+            "different": 1
+          },
+          "production_loss_type_counts": {
+            "missed": 1,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 4,
+            "longer_with_other_field": 1,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 16,
+            "losses_gold_in_descriptor": 16,
+            "losses_prediction_in_descriptor": 14,
+            "wins": 6,
+            "wins_gold_in_descriptor": 6
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "gemma4-e4b-jo",
+          "label": "Gemma 4 E4B JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 339,
+            "wrong": 29,
+            "missed": 4,
+            "spurious": 10,
+            "both_empty": 831,
+            "f1_pct": 90.4
+          },
+          "paired": {
+            "gold_nonempty": 372,
+            "both_correct": 334,
+            "production_only": 16,
+            "model_only": 5,
+            "both_incorrect": 17,
+            "net_true_positives": -11,
+            "sign_test_p": 0.02660369873046875,
+            "spurious_model": 10,
+            "spurious_production": 5
+          },
+          "loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 2,
+            "other_field": 0,
+            "shorter": 8,
+            "longer_with_other_field": 2,
+            "longer": 2,
+            "similar": 1,
+            "different": 1
+          },
+          "production_loss_type_counts": {
+            "missed": 1,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 3,
+            "longer_with_other_field": 1,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 16,
+            "losses_gold_in_descriptor": 16,
+            "losses_prediction_in_descriptor": 15,
+            "wins": 5,
+            "wins_gold_in_descriptor": 5
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 14,
+            "identical_loss_outputs": 14,
+            "new_loss_records": 2,
+            "resolved_bf16_loss_records": 2
+          }
+        },
+        {
+          "model": "llama31-8b-proxy-jo",
+          "label": "Llama 3.1 8B proxy JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "proxy",
+          "outcomes": {
+            "correct": 346,
+            "wrong": 17,
+            "missed": 9,
+            "spurious": 1,
+            "both_empty": 840,
+            "f1_pct": 94.02
+          },
+          "paired": {
+            "gold_nonempty": 372,
+            "both_correct": 343,
+            "production_only": 7,
+            "model_only": 3,
+            "both_incorrect": 19,
+            "net_true_positives": -4,
+            "sign_test_p": 0.34375,
+            "spurious_model": 1,
+            "spurious_production": 5
+          },
+          "loss_type_counts": {
+            "missed": 4,
+            "punct_only": 1,
+            "digits_only": 1,
+            "other_field": 0,
+            "shorter": 1,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 1,
+            "other_field": 0,
+            "shorter": 1,
+            "longer_with_other_field": 1,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 7,
+            "losses_gold_in_descriptor": 7,
+            "losses_prediction_in_descriptor": 3,
+            "wins": 3,
+            "wins_gold_in_descriptor": 3
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "llama31-8b-proxy-jo",
+          "label": "Llama 3.1 8B proxy JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "proxy",
+          "outcomes": {
+            "correct": 338,
+            "wrong": 24,
+            "missed": 10,
+            "spurious": 0,
+            "both_empty": 841,
+            "f1_pct": 92.1
+          },
+          "paired": {
+            "gold_nonempty": 372,
+            "both_correct": 336,
+            "production_only": 14,
+            "model_only": 2,
+            "both_incorrect": 20,
+            "net_true_positives": -12,
+            "sign_test_p": 0.004180908203125,
+            "spurious_model": 0,
+            "spurious_production": 5
+          },
+          "loss_type_counts": {
+            "missed": 5,
+            "punct_only": 1,
+            "digits_only": 5,
+            "other_field": 0,
+            "shorter": 3,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 1,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 1,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 14,
+            "losses_gold_in_descriptor": 14,
+            "losses_prediction_in_descriptor": 9,
+            "wins": 2,
+            "wins_gold_in_descriptor": 2
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 7,
+            "identical_loss_outputs": 7,
+            "new_loss_records": 7,
+            "resolved_bf16_loss_records": 0
+          }
+        }
+      ]
+    },
+    {
+      "field": "WEBSITE",
+      "test_records": 1213,
+      "gold_nonempty": 92,
+      "gold_in_descriptor": 92,
+      "production_outcomes": {
+        "correct": 90,
+        "wrong": 0,
+        "missed": 2,
+        "spurious": 0,
+        "both_empty": 1121,
+        "f1_pct": 98.9
+      },
+      "comparisons": [
+        {
+          "model": "gemma4-12b-jo",
+          "label": "Gemma 4 12B JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 91,
+            "wrong": 0,
+            "missed": 1,
+            "spurious": 0,
+            "both_empty": 1121,
+            "f1_pct": 99.45
+          },
+          "paired": {
+            "gold_nonempty": 92,
+            "both_correct": 89,
+            "production_only": 1,
+            "model_only": 2,
+            "both_incorrect": 0,
+            "net_true_positives": 1,
+            "sign_test_p": 1,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 1,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 2,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 1,
+            "losses_gold_in_descriptor": 1,
+            "losses_prediction_in_descriptor": 0,
+            "wins": 2,
+            "wins_gold_in_descriptor": 2
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "gemma4-12b-jo",
+          "label": "Gemma 4 12B JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 90,
+            "wrong": 1,
+            "missed": 1,
+            "spurious": 0,
+            "both_empty": 1121,
+            "f1_pct": 98.36
+          },
+          "paired": {
+            "gold_nonempty": 92,
+            "both_correct": 88,
+            "production_only": 2,
+            "model_only": 2,
+            "both_incorrect": 0,
+            "net_true_positives": 0,
+            "sign_test_p": 1,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 1,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 1,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 2,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 2,
+            "losses_gold_in_descriptor": 2,
+            "losses_prediction_in_descriptor": 1,
+            "wins": 2,
+            "wins_gold_in_descriptor": 2
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 1,
+            "identical_loss_outputs": 1,
+            "new_loss_records": 1,
+            "resolved_bf16_loss_records": 0
+          }
+        },
+        {
+          "model": "gemma4-e4b-jo",
+          "label": "Gemma 4 E4B JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 83,
+            "wrong": 3,
+            "missed": 6,
+            "spurious": 1,
+            "both_empty": 1120,
+            "f1_pct": 92.74
+          },
+          "paired": {
+            "gold_nonempty": 92,
+            "both_correct": 83,
+            "production_only": 7,
+            "model_only": 0,
+            "both_incorrect": 2,
+            "net_true_positives": -7,
+            "sign_test_p": 0.015625,
+            "spurious_model": 1,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 4,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 1,
+            "longer_with_other_field": 0,
+            "longer": 2,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 7,
+            "losses_gold_in_descriptor": 7,
+            "losses_prediction_in_descriptor": 3,
+            "wins": 0,
+            "wins_gold_in_descriptor": 0
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "gemma4-e4b-jo",
+          "label": "Gemma 4 E4B JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "validation_f1",
+          "outcomes": {
+            "correct": 85,
+            "wrong": 6,
+            "missed": 1,
+            "spurious": 0,
+            "both_empty": 1121,
+            "f1_pct": 92.9
+          },
+          "paired": {
+            "gold_nonempty": 92,
+            "both_correct": 83,
+            "production_only": 7,
+            "model_only": 2,
+            "both_incorrect": 0,
+            "net_true_positives": -5,
+            "sign_test_p": 0.1796875,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 1,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 1,
+            "longer_with_other_field": 0,
+            "longer": 4,
+            "similar": 1,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 2,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 7,
+            "losses_gold_in_descriptor": 7,
+            "losses_prediction_in_descriptor": 4,
+            "wins": 2,
+            "wins_gold_in_descriptor": 2
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 4,
+            "identical_loss_outputs": 4,
+            "new_loss_records": 3,
+            "resolved_bf16_loss_records": 3
+          }
+        },
+        {
+          "model": "llama31-8b-proxy-jo",
+          "label": "Llama 3.1 8B proxy JO",
+          "prompt": "JO",
+          "precision": "bf16",
+          "selection": "proxy",
+          "outcomes": {
+            "correct": 89,
+            "wrong": 2,
+            "missed": 1,
+            "spurious": 0,
+            "both_empty": 1121,
+            "f1_pct": 97.27
+          },
+          "paired": {
+            "gold_nonempty": 92,
+            "both_correct": 87,
+            "production_only": 3,
+            "model_only": 2,
+            "both_incorrect": 0,
+            "net_true_positives": -1,
+            "sign_test_p": 1,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 1,
+            "punct_only": 1,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 1,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 2,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 3,
+            "losses_gold_in_descriptor": 3,
+            "losses_prediction_in_descriptor": 1,
+            "wins": 2,
+            "wins_gold_in_descriptor": 2
+          },
+          "precision_overlap": null
+        },
+        {
+          "model": "llama31-8b-proxy-jo",
+          "label": "Llama 3.1 8B proxy JO",
+          "prompt": "JO",
+          "precision": "W4A16",
+          "selection": "proxy",
+          "outcomes": {
+            "correct": 86,
+            "wrong": 2,
+            "missed": 4,
+            "spurious": 0,
+            "both_empty": 1121,
+            "f1_pct": 95.56
+          },
+          "paired": {
+            "gold_nonempty": 92,
+            "both_correct": 86,
+            "production_only": 4,
+            "model_only": 0,
+            "both_incorrect": 2,
+            "net_true_positives": -4,
+            "sign_test_p": 0.125,
+            "spurious_model": 0,
+            "spurious_production": 0
+          },
+          "loss_type_counts": {
+            "missed": 2,
+            "punct_only": 2,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "production_loss_type_counts": {
+            "missed": 0,
+            "punct_only": 0,
+            "digits_only": 0,
+            "other_field": 0,
+            "shorter": 0,
+            "longer_with_other_field": 0,
+            "longer": 0,
+            "similar": 0,
+            "different": 0
+          },
+          "descriptor_presence_counts": {
+            "losses": 4,
+            "losses_gold_in_descriptor": 4,
+            "losses_prediction_in_descriptor": 2,
+            "wins": 0,
+            "wins_gold_in_descriptor": 0
+          },
+          "precision_overlap": {
+            "reference_precision": "bf16",
+            "shared_loss_records": 2,
+            "identical_loss_outputs": 2,
+            "new_loss_records": 2,
+            "resolved_bf16_loss_records": 1
+          }
+        }
+      ]
+    }
+  ]
+}

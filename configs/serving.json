@@ -89,22 +89,49 @@
       }
     },
     "reported_latency_concurrency": 1,
-    "reported_throughput_concurrency": 64
+    "reported_throughput_concurrency": 64,
+    "restart_scope": "For each model/precision and each of three repetitions, restart and warm the server before running the full concurrency sweep. Do not restart between concurrency levels.",
+    "request_matching": "Nested, matched test-set prefixes of 16, 24, 48, 96 and 192 requests. Prefix caching stays enabled across levels within a repetition, so later levels can reuse earlier input prefixes.",
+    "measurement_scope": "Repeated warmed-server inference benchmarks using fixed trained checkpoints, not training repetitions or independent cold-input workloads. Ranges are observed minimum and maximum, not confidence intervals.",
+    "resource_estimation": {
+      "concurrency": 64,
+      "requests": 192,
+      "window": "Full wall time for all 192 requests, including ramp-down.",
+      "device_hours_per_million": "1000000 * wall_seconds / (3600 * 192)",
+      "gpu_kwh_per_million": "device_hours_per_million * mean_gpu_power_watts / 1000",
+      "aggregation": "Compute each quantity per repetition, then report its median across the three repetitions.",
+      "power_sampling": {
+        "source": "nvidia-smi power.draw",
+        "interval_seconds": 2,
+        "scope": "GPU power only on DGX Spark; excludes CPU and other system components and is not wall-plug energy."
+      },
+      "scope": "Short-workload extrapolations, not measured production capacity or cost. Device-hours are elapsed device time, not GPU compute-hours, and are not the reciprocal of the separately windowed headline throughput."
+    }
   },
   "reporting_scope": {
     "candidate_rows": 30,
     "proxy_measurement_rows": 12,
     "concurrency_points": 210,
-    "main_table_candidate_rows": 24,
+    "main_table_candidate_rows": 12,
     "main_table_proxy_rows": 6,
-    "main_prior_adapters": [
+    "supplementary": "Qwen Nothink candidates and additional block-specific bf16 proxy measurements",
+    "bolding": "Column bests within each displayed table independently, including Llama proxy rows in Table 3 and ties at displayed precision. Lower weight memory and latency; higher F1, speed-up and throughput.",
+    "throughput": "Main-table throughput, throughput ratios and prose rankings refer to concurrency 64; they do not establish the same ordering at other concurrency levels.",
+    "main_table": "Manuscript Table 3: validation-selected Gemma 4 E4B/12B JO/FT at three precisions, plus six separately trained Llama proxy variants.",
+    "prior_adapter_table": "Appendix B, Table 5: twelve retained test-selected Gemma 3 and Qwen Think adapter/precision rows; Qwen is served with thinking disabled.",
+    "prior_adapter_table_rows": 12,
+    "prior_adapter_table_models": [
       "Gemma 3 4B JO",
       "Gemma 3 4B FT",
       "Qwen 3.5 4B JO Think",
       "Qwen 3.5 4B FT Think"
     ],
-    "supplementary": "Qwen Nothink candidates and additional block-specific bf16 proxy measurements",
-    "bolding": "Best displayed non-proxy candidate values, including ties at displayed precision; lower memory and latency, higher F1, speed-up and throughput",
-    "throughput": "Main-table throughput, throughput ratios and prose rankings refer to concurrency 64; they do not establish the same ordering at other concurrency levels."
-  }
+    "decision_guide": "Table 4: six JSON-Only configurations spanning Gemma 4 and separately trained Llama proxies. Labels such as fastest and lowest memory are scoped to this guide, not all measured models."
+  },
+  "memory_scope": {
+    "loaded_weights": "Loaded weight memory only, excluding KV cache and other server memory.",
+    "server_budget": "The fixed 85% GPU-memory-utilization budget is not a measurement of loaded weights or total deployment memory.",
+    "kv_cache_capacity": "Reported token capacity is a serving configuration capacity, not a measurement of total deployment memory or production capacity."
+  },
+  "batching_crossover_scope": "Weight reuse, dequantization and matrix computation are hypotheses for the observed ranking change. Concurrency 64 does not establish a constant decode batch of 64; no kernel profiling establishes the cause."
 }

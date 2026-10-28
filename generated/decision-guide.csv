@@ -1,0 +1,7 @@
+"interpretation","model","precision","block","F1_percent","delta_F1_pp","loaded_weights_GiB","latency_p50_c1_seconds","throughput_c64_rows_per_hour","device_hours_per_million","GPU_kWh_per_million"
+"Llama architecture (proxy)","Llama 3.1 8B proxy JO","bf16","gemma4-12b-jo","96.63","-0.32","15","4.99","32706.4","28.211805555555557","1.7096354166666667"
+"Highest F1 in this guide","Gemma 4 12B JO","bf16","gemma4-12b-jo","97","0.05","22.83","9.331","17355.3","54.25347222222222","3.108723958333333"
+"Within criterion, half proxy weight memory","Gemma 4 12B JO","W4A16","gemma4-12b-jo","96.88","-0.07","7.81","2.783","27901.9","31.105324074074076","2.015625"
+"Same proxy architecture, fp8","Llama 3.1 8B proxy JO","fp8","llama-quant","96.59","-0.36","8.54","2.718","51131.8","17.650462962962962","1.0978587962962962"
+"Lowest memory in this guide","Llama 3.1 8B proxy JO","W4A16","llama-quant","95.84","-1.11","5.36","1.572","61546.7","14.033564814814813","1.0777777777777775"
+"Fastest in this guide","Gemma 4 E4B JO","W4A16","gemma4-e4b-jo","95.15","-1.8","9.65","1.349","74143.2","12.008101851851853","0.6952690972222223"

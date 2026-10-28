@@ -1,0 +1,41 @@
+{
+  "scope": "Anonymized operator-reported context for the historical production reference; not a reproducible training configuration.",
+  "model": "Llama 3.1 8B",
+  "prompt": "FT",
+  "platform": "Databricks managed Mosaic AI Model Training",
+  "training_data": "Same underlying merchant dataset as the local study; not a claim of byte-identical split files.",
+  "weight_update_method": {
+    "method": "full fine-tuning",
+    "evidence": "Confirmed by the production team; not independently reconstructed from run artifacts."
+  },
+  "runtime_estimate": {
+    "wall_clock_minutes": [
+      30,
+      40
+    ],
+    "basis": "Retrospective production-team recollection",
+    "qualification": "Approximate; exact runtime and GPU-hours could not be verified."
+  },
+  "cost_estimate": {
+    "amount": 65,
+    "currency": "USD",
+    "price_basis": "list price",
+    "basis": "Billing records accessible to the production team",
+    "qualification": "Approximate operator-reported training charge, not an independently verified bill or complete project cost."
+  },
+  "unavailable": [
+    "exact service/API and run date",
+    "detailed training settings",
+    "GPU type and count",
+    "exact runtime",
+    "GPU-hours",
+    "verified total training cost",
+    "production weights and endpoint"
+  ],
+  "local_proxies": "Separately trained, test-selected rank-8 LoRA adapters for JO and FT provide local serving comparisons; they are not the production weights.",
+  "interpretation": "Models, prompts, training recipes and deployment differ. The comparison does not isolate full fine-tuning versus LoRA or establish compute or monetary savings. The platform name alone does not identify an exact historical API.",
+  "production_error_observation": {
+    "observation": "Digits can be ambiguous between a store identifier within a merchant name and a ZIP code.",
+    "scope": "Reported operational experience motivating case review; not a demonstrated cause of the measured digit-only losses or evidence that labels are incorrect."
+  }
+}
